@@ -22,12 +22,11 @@ app.use(bp.urlencoded({
 }));
 
 app.use(reqHeaderFilter.setHeaders);
-app.use(express.static('../client/'));
+app.use(express.static('./app/client/'));
 app.set('view engine', 'ejs');
 
-app.all('/*', [authFilter.authenticate]);
-
-app.get('/', function (req, res) {
+app.all('/api/*', [authFilter.authenticate]);
+app.get('/api', function (req, res) {
 	res.status(200).send({
 		msg: 'Server is up!'
 	});
