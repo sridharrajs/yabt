@@ -17,7 +17,7 @@ let add = function (user, cb) {
 		password: user.password,
 		profile_url: gravatar.imageUrl(user.emailId)
 	});
-	item.save(function (err, newDoc) {
+	item.save((err, newDoc) => {
 		if (!err) {
 			let user = {
 				_id: newDoc._id,

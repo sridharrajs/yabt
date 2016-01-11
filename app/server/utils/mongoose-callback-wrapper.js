@@ -8,11 +8,11 @@
 let _ = require('lodash');
 
 let wrap = function (callback, attributes) {
-	return function (err, rawItems) {
+	return (err, rawItems) => {
 		if (err) {
 			return callback(err, null);
 		}
-		let items = _.map(rawItems, function (row) {
+		let items = _.map(rawItems, (row) => {
 			return _.pick(row, attributes);
 		});
 		return callback(null, items);
