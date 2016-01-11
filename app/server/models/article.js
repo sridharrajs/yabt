@@ -8,7 +8,11 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let schema = new Schema({
-	link: {
+	url: {
+		type: 'String',
+		required: true
+	},
+	userId: {
 		type: 'String',
 		required: true
 	},
@@ -16,3 +20,17 @@ let schema = new Schema({
 });
 
 mongoose.model('article', schema);
+
+const ATTRIBUTES = [
+	'url',
+	'tags',
+	'userId'
+];
+
+function getAttributes() {
+	return ATTRIBUTES;
+}
+
+module.exports = {
+	getAttributes
+};
