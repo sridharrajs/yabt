@@ -8,21 +8,21 @@
 
 
     function configuration($stateProvider, $urlRouterProvider, $mdThemingProvider, $mdIconProvider) {
-      var SRC_FDLR = 'src/';
-      var AUTH_FDLR = 'auth/';
-      var VIEW_FLDR ='views/';
+        var SRC_FDLR = 'src/';
+        var AUTH_FDLR = 'auth/';
+        var VIEW_FLDR = 'view/';
 
         $stateProvider
-        .state('register', {
+            .state('register', {
                 url: '/register',
                 controller: 'AuthCtrl as authCtrl',
-                templateUrl: SRC_FDLR+AUTH_FDLR+VIEW_FLDR+'/register.html'
+                templateUrl: SRC_FDLR + AUTH_FDLR + VIEW_FLDR + '/register.html'
             })
 
         .state('login', {
             url: '/',
             controller: 'AuthCtrl as authCtrl',
-            templateUrl: SRC_FDLR+'auth/login.html'
+            templateUrl: SRC_FDLR + AUTH_FDLR + VIEW_FLDR + '/login.html'
         });
 
 
