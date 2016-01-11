@@ -1,28 +1,45 @@
 (function() {
     'use strict';
 
+
+     var enviornment = {
+        'local': {
+            serverURL: 'http://localhost:9999/api'
+
+        },
+        'sivaram-pc': {
+            serverURL: 'http://192.168.1.46:9999/'
+        }
+    };
+
+    var selectedEnv = enviornment[env];
+    var selectedServerURL = selectedEnv.serverURL;
+   
+
+
     angular
-        .module('readLater', ['ngMaterial', 'ui.router', 'users'])
+        .module('readLater', ['ngMaterial', 'ui.router', 'users','ngMessages'])
 
-    .config(configuration);
-
+    .config(configuration)
+    .constant('SERVERURL', selectedServerURL);
 
     function configuration($stateProvider, $urlRouterProvider, $mdThemingProvider, $mdIconProvider) {
         var SRC_FDLR = 'src/';
         var AUTH_FDLR = 'auth/';
+		var HOME_FDLR = 'home/';
         var VIEW_FLDR = 'view/';
 
-        $stateProvider
-            .state('register', {
-                url: '/register',
-                controller: 'AuthCtrl as authCtrl',
-                templateUrl: SRC_FDLR + AUTH_FDLR + VIEW_FLDR + '/register.html'
-            })
 
+        $stateProvider
         .state('login', {
             url: '/',
             controller: 'AuthCtrl as authCtrl',
             templateUrl: SRC_FDLR + AUTH_FDLR + VIEW_FLDR + '/login.html'
+        })
+        .state('home', {
+            url: '/home',
+            controller: 'HomeCtrl as HomeCtrl',
+            templateUrl: SRC_FDLR + HOME_FDLR + VIEW_FLDR + '/home.html'
         });
 
 
