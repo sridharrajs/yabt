@@ -33,9 +33,13 @@ app.get('/api', function (req, res) {
 });
 
 let userRoutes = require('./routes/user-routes');
-
 app.post('/api/users', userRoutes.signup);
 app.post('/api/login', userRoutes.loginUser);
+
+let articleRoutes = require('./routes/article-routes');
+app
+	.get('/api/article', articleRoutes.addArticle)
+	.post('/api/article', articleRoutes.addArticle);
 
 
 process.on('uncaughtException', function (err) {
