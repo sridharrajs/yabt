@@ -32,6 +32,12 @@ app.get('/api', function (req, res) {
 	});
 });
 
+let userRoutes = require('./routes/user-routes');
+
+app.post('/api/users', userRoutes.signup);
+app.post('/api/login', userRoutes.loginUser);
+
+
 process.on('uncaughtException', function (err) {
 	console.error(err.stack);
 });

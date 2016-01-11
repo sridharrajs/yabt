@@ -1,0 +1,45 @@
+/**
+ * Created by sridharrajs.
+ */
+
+'use strict';
+
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
+
+let schema = new Schema({
+	username: {
+		type: String
+	},
+	emailId: {
+		type: 'String',
+		required: true
+	},
+	password: {
+		type: String,
+		required: true
+	},
+	doj: {
+		type: Number
+	},
+	profile_url: {
+		type: String
+	}
+});
+
+const ATTRIBUTES = [
+	'password',
+	'username',
+	'profile_url',
+	'doj',
+	'emailId'
+];
+
+mongoose.model('user', schema);
+
+function getAttributes() {
+	return ATTRIBUTES;
+}
+module.exports = {
+	getAttributes
+};
