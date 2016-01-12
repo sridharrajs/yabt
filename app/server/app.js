@@ -9,8 +9,6 @@ let cors = require('cors');
 let express = require('express');
 let compression = require('compression');
 
-let authFilter = require('./middlewares/auth-filter');
-let reqHeaderFilter = require('./middlewares/request-header');
 
 let app = express();
 
@@ -21,10 +19,13 @@ app.use(bp.urlencoded({
 	extended: false
 }));
 
+let reqHeaderFilter = require('./middlewares/request-header');
 app.use(reqHeaderFilter.setHeaders);
+
 app.use(express.static('./app/client/'));
 app.set('view engine', 'ejs');
 
+let authFilter = require('./middlewares/auth-filter');
 app.all('/api/*', [authFilter.authenticate]);
 app.get('/api', function (req, res) {
 	res.status(200).send({
@@ -42,9 +43,10 @@ app
 	.post('/api/article', articleRoutes.getArticle);
 
 
-process.on('uncaughtException', function (err) {
-	console.error(err.stack);
-});
+process
+	.on('uncaughtException', (err) => {
+		console.error(err.stack);
+	});
 
 function getApp() {
 	return app;
