@@ -112,5 +112,5 @@ let getUserByToken = function (token, validateCb) {
 module.exports = {
 	signup,
 	getUserByToken,
-	loginUser,
+	loginUser
 };

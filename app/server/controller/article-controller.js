@@ -4,6 +4,8 @@
 
 'use strict';
 
+let mongoose = require('mongoose');
+
 let articleModelSchema = require('../models/article');
 let wrapper = require('../utils/mongoose-callback-wrapper');
 let articleModel = mongoose.model('article');
@@ -22,7 +24,7 @@ let add = function (article, cb) {
 	});
 };
 
-let get = function (userId, cb) {
+let getArticles = function (userId, cb) {
 	let wrappedCallback = wrapper.wrap(cb, articleModelSchema.getAttributes());
 	articleModel.find({
 		userId: userId
@@ -31,5 +33,5 @@ let get = function (userId, cb) {
 
 module.exports = {
 	add,
-	get
+	getArticles
 };

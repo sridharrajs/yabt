@@ -9,7 +9,6 @@ let cors = require('cors');
 let express = require('express');
 let compression = require('compression');
 
-
 let app = express();
 
 app.use(cors());

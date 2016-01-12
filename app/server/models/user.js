@@ -40,6 +40,7 @@ mongoose.model('user', schema);
 function getAttributes() {
 	return ATTRIBUTES;
 }
+
 module.exports = {
 	getAttributes
 };

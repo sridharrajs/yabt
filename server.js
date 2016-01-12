@@ -7,6 +7,7 @@
 let chalk = require('chalk');
 
 let config = require('./config');
+let models = require('./app/server/models');
 
 const HOST_ENVIRONMENT = process.env.NODE_ENV;
 const MY_SECRET = process.env.MY_SECRET;
@@ -23,6 +24,10 @@ config
 	})
 	.then((info)=> {
 		console.log('Initializing settings ', chalk.blue(info));
+		return models.init();
+	})
+	.then((info)=> {
+		console.log('DB Models initialized', chalk.blue(info));
 		let appServer = require('./app/server/boot/build-server');
 		return appServer.start(config);
 	})
