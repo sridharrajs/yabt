@@ -2,7 +2,7 @@
     'use strict';
 
 
-     var enviornment = {
+    var enviornment = {
         'local': {
             serverURL: 'http://localhost:9999/api'
 
@@ -14,33 +14,39 @@
 
     var selectedEnv = enviornment[env];
     var selectedServerURL = selectedEnv.serverURL;
-   
+
 
 
     angular
-        .module('readLater', ['ngMaterial', 'ui.router', 'users','ngMessages'])
+        .module('readLater', ['ngMaterial', 'ui.router', 'users', 'ngMessages', 'ngCookies'])
 
     .config(configuration)
-    .constant('SERVERURL', selectedServerURL);
+        .constant('SERVERURL', selectedServerURL);
 
     function configuration($stateProvider, $urlRouterProvider, $mdThemingProvider, $mdIconProvider) {
         var SRC_FDLR = 'src/';
         var AUTH_FDLR = 'auth/';
-		var HOME_FDLR = 'home/';
+        var HOME_FDLR = 'home/';
         var VIEW_FLDR = 'view/';
 
 
         $stateProvider
-        .state('login', {
-            url: '/',
-            controller: 'AuthCtrl as authCtrl',
-            templateUrl: SRC_FDLR + AUTH_FDLR + VIEW_FLDR + '/login.html'
-        })
-        .state('home', {
-            url: '/home',
-            controller: 'HomeCtrl as HomeCtrl',
-            templateUrl: SRC_FDLR + HOME_FDLR + VIEW_FLDR + '/home.html'
-        });
+            .state('login', {
+                url: '/',
+                controller: 'AuthCtrl as authCtrl',
+                templateUrl: SRC_FDLR + AUTH_FDLR + VIEW_FLDR + '/login.html',
+                resolve: {
+                    requireNoAuth: requireNoAuth
+                }
+            })
+            .state('home', {
+                url: '/home',
+                controller: 'HomeCtrl as HomeCtrl',
+                templateUrl: SRC_FDLR + HOME_FDLR + VIEW_FLDR + '/home.html'
+                // resolve: {
+                //     requireAuth: requireAuth
+                // }
+            });
 
 
         $urlRouterProvider.otherwise('/');
@@ -59,4 +65,23 @@
             .accentPalette('red');
 
     }
+
+
+
+    function requireNoAuth($state, Auth) {
+        var auth = Auth.getAuth();
+        if (!auth) {
+            return true;
+        }
+        $state.go('home');
+    }
+
+    // function requireAuth($location, Auth) {
+    //     var auth = Auth.getAuth();
+    //     if (auth) {
+    //         return true;
+    //     }
+    //     return $location.path('/');
+    // }
+
 }());
