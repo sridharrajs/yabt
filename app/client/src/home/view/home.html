@@ -1,13 +1,17 @@
 <section layout="row" flex="" layout-fill>
     <md-sidenav flex class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
         <md-toolbar class="md-theme-indigo">
-            <h1 class="md-toolbar-tools">Side bar</h1>
+            <h1 class="md-toolbar-tools">MY READER</h1>
         </md-toolbar>
-        <md-content layout-padding="">
+        <md-content>
             <md-button ng-click="close()" class="md-primary" hide-gt-md="">
                 Close Left side bard
             </md-button>
-            listing will come here
+            <md-menu-content>
+                <md-menu-item>
+                    <md-button ng-click="doSomething()">MY LISTS</md-button>
+                </md-menu-item>
+            </md-menu-content>
         </md-content>
     </md-sidenav>
     <md-content flex layout-padding="">
