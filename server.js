@@ -26,8 +26,13 @@ config
 		console.log('Initializing settings ', chalk.blue(info));
 		return models.init();
 	})
-	.then((info)=> {
+	.then((info)=>{
 		console.log('DB Models initialized', chalk.blue(info));
+		let connectionFactory = require('./app/server/boot/connection-factory');
+		return connectionFactory.connect(config);
+	})
+	.then((info)=> {
+		console.log('Establishing DB connection ', chalk.blue(info));
 		let appServer = require('./app/server/boot/build-server');
 		return appServer.start(config);
 	})
