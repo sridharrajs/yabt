@@ -16,6 +16,18 @@ let schema = new Schema({
 		type: 'String',
 		required: true
 	},
+	title: {
+		type: 'String',
+		required: true
+	},
+	is_fav: {
+		type: Boolean,
+		default: false
+	},
+	time_added: {
+		type: Number,
+		default: Date.now()
+	},
 	tags: [String]
 });
 
@@ -24,7 +36,10 @@ mongoose.model('article', schema);
 const ATTRIBUTES = [
 	'url',
 	'tags',
-	'userId'
+	'userId',
+	'is_fav',
+	'title',
+	'time_added'
 ];
 
 function getAttributes() {
