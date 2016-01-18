@@ -14,8 +14,33 @@
             </md-menu-content>
         </md-content>
     </md-sidenav>
-    <md-content flex layout-padding="">
-        <div layout="column" layout-fill="">
+    <md-content flex layout-padding="" style="padding:0">
+        <div layout="column" layout-fill style="padding:0">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <span flex>
+                   		
+                    </span>
+                    <md-button ng-click="homeCtrl.logout()">
+                        Logout
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-content>
+            <div layout="column" layout-fill style="padding:0">
+                <form name="urlForm" ng-submit="homeCtrl.addUrl(urlForm.$valid)">
+                    <md-input-container style="width:70%">
+                        <label>Add An Article</label>
+                        <input name="url" type="text" ng-model="homeCtrl.newUrl" required>
+                        <div ng-messages="urlForm.url.$error">
+                            <div ng-message="required">This is required!</div>
+                        </div>
+                    </md-input-container>
+                </form>
+             </div>
+            </md-content>
+        </div>
+        <!-- <div layout="column" layout-fill="">
             <div>
                 <md-button ng-click="toggleLeft()" class="md-primary" hide-gt-md="">
                     Toggle left
@@ -30,6 +55,6 @@
                     </md-list-item>
                 </md-list>
             </div>
-        </div>
+        </div> -->
     </md-content>
 </section>

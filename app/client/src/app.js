@@ -4,15 +4,12 @@
 
     var enviornment = {
         'local': {
-            serverURL: 'http://localhost:9999/api'
+            serverURL: 'http://localhost:9999/api/'
 
-        },
-        'sivaram-pc': {
-            serverURL: 'http://192.168.1.46:9999/'
         }
     };
 
-    var selectedEnv = enviornment[env];
+    var selectedEnv = enviornment['local'];
     var selectedServerURL = selectedEnv.serverURL;
 
 
@@ -21,9 +18,10 @@
         .module('readLater', ['ngMaterial', 'ui.router', 'users', 'ngMessages', 'ngCookies'])
 
     .config(configuration)
-        .constant('SERVERURL', selectedServerURL);
+        .constant('SERVERURL', selectedServerURL)
+        .run(initApp);
 
-    function configuration($stateProvider, $urlRouterProvider, $mdThemingProvider, $mdIconProvider) {
+    function configuration($stateProvider, $urlRouterProvider, $mdThemingProvider, $mdIconProvider,$httpProvider) {
         var SRC_FDLR = 'src/';
         var AUTH_FDLR = 'auth/';
         var HOME_FDLR = 'home/';
@@ -34,18 +32,12 @@
             .state('login', {
                 url: '/',
                 controller: 'AuthCtrl as authCtrl',
-                templateUrl: SRC_FDLR + AUTH_FDLR + VIEW_FLDR + '/login.html',
-                resolve: {
-                    requireNoAuth: requireNoAuth
-                }
+                templateUrl: SRC_FDLR + AUTH_FDLR + VIEW_FLDR + '/login.html'
             })
             .state('home', {
                 url: '/home',
-                controller: 'HomeCtrl as HomeCtrl',
+                controller: 'HomeCtrl as homeCtrl',
                 templateUrl: SRC_FDLR + HOME_FDLR + VIEW_FLDR + '/home.html'
-                // resolve: {
-                //     requireAuth: requireAuth
-                // }
             });
 
 
@@ -63,25 +55,41 @@
         $mdThemingProvider.theme('default')
             .primaryPalette('brown')
             .accentPalette('red');
-
+         $httpProvider.interceptors.push('APIInterceptor');
     }
 
 
 
-    function requireNoAuth($state, Auth) {
-        var auth = Auth.getAuth();
-        if (!auth) {
+
+    
+    function isAuthenticated(Auth) {
+        var authToken = Auth.getToken();
+        if (authToken) {
             return true;
         }
-        $state.go('home');
+        return false;
     }
 
-    // function requireAuth($location, Auth) {
-    //     var auth = Auth.getAuth();
-    //     if (auth) {
-    //         return true;
-    //     }
-    //     return $location.path('/');
-    // }
+
+    function initApp($rootScope, Auth, $state) {
+        $rootScope.$on('$stateChangeStart', function(event, toState) {
+            if (toState.name !== 'login') {
+                if (!isAuthenticated(Auth)) {
+                    event.preventDefault();
+                    $state.go('login');
+                }
+            }
+            if (toState.name === 'login') {
+                if (isAuthenticated(Auth)) {
+                    event.preventDefault();
+                    $state.go('home');
+                }
+            }
+            if (toState.redirectTo) {
+                event.preventDefault();
+                $state.go(toState.redirectTo);
+            }
+        });
+    }
 
 }());

@@ -1,12 +1,41 @@
 angular
     .module('users')
-    .controller('HomeCtrl', [
-        'userService', '$mdSidenav', '$mdBottomSheet', '$log', '$q',
-        HomeCtrl
-    ]);
+    .controller('HomeCtrl',HomeCtrl); 
+        
 
-function HomeCtrl(userService, $mdSidenav, $mdBottomSheet, $log, $q) {
+function HomeCtrl($log,Auth,$state,Article) {
     var self = this;
+    self.logout = logout;
+    self.addUrl = addUrl;
+
+    init();
+
+    function init(){
+    	Article.getArticles().then(function(data){
+    		$log.debug(data);
+    	});
+    }
+
+    function logout(){
+    	Auth.removeToken();
+    	$state.go('login');
+    }
+
+    function addUrl(isValid){
+    	if(!isValid){
+    		return;
+    	}
+    	var data = {
+    		url:self.newUrl
+    	}
+
+    	Article.addArticle(data).then(function(data){
+    		$log.info("Article added sucessfully");
+    		self.newUrl = '';
+    	}).catch(function(err){
+    		$log.error(err);
+    	});
+    }
 
 
 }

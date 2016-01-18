@@ -6,7 +6,7 @@
                     <form name="loginForm" ng-submit="authCtrl.login(loginForm.$valid)">
                         <md-input-container>
                             <label>Email</label>
-                            <input type="email" ng-model="authCtrl.user.email" name="email" autofocus required />
+                            <input type="email" ng-model="authCtrl.user.emailId" name="email" autofocus required />
                             <div ng-messages="loginForm.email.$error" role="alert">
                                 <div ng-message="required">This is required.</div>
                                 <div ng-message="email">Invalid email.</div>

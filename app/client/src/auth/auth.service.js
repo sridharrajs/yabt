@@ -1,9 +1,9 @@
 angular.module('readLater')
     .factory('Auth', Auth);
 
-Auth.$inject = ['SERVERURL', '$http', '$cookies'];
+Auth.$inject = ['SERVERURL', '$http', '$window'];
 
-function Auth(SERVERURL, $http, $cookies) {
+function Auth(SERVERURL, $http, $window) {
     var AUTH_TOKEN_KEY = 'token';
 
     var auth = {
@@ -13,17 +13,30 @@ function Auth(SERVERURL, $http, $cookies) {
         signup: function(data) {
             return $http.post(SERVERURL + 'users', data);
         },
-        setAuth: function(authToken) {
-            var now = new Date();
-            var expiryDate = new Date();
-            expiryDate.setDate(now.getDate() + 14); //14days
-            return $cookies.put(AUTH_TOKEN_KEY, authToken, {
-                expires: expiryDate
-            });
-        },
-        getAuth: function() {
-        	return $cookies.get(AUTH_TOKEN_KEY);
-        }
+		saveToken: function(token) {
+			return $window.localStorage['authToken'] = token;
+
+		},
+		removeToken:function(){
+			 return $window.localStorage.clear();
+		},
+		getToken: function() {
+			return $window.localStorage['authToken'];
+		},
+		parseJwt: function(token) {
+			var base64Url = token.split('.')[1];
+			var base64 = base64Url.replace('-', '+').replace('_', '/');
+			return JSON.parse($window.atob(base64));
+		},
+		isAuthed: function() {
+			var token = this.getToken();
+			if (token) {
+				var params = this.parseJwt(token);
+				return Math.round(new Date().getTime() / 1000) <= params.exp;
+			} else {
+				return false;
+			}
+		}
     };
     return auth;
 }

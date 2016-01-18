@@ -1,16 +1,16 @@
 angular.module('readLater')
     .controller('AuthCtrl', AuthCtrl);
 
-AuthCtrl.$inject = ["Auth", "$log"];
+AuthCtrl.$inject = ["Auth", "$log","$state"];
 
-function AuthCtrl(Auth, $log) {
+function AuthCtrl(Auth, $log,$state) {
     var self = this;
 
     self.login = login;
     self.register = register;
 
     self.user = {
-        email: '',
+        emailId: '',
         password: ''
     };
 
@@ -20,6 +20,7 @@ function AuthCtrl(Auth, $log) {
         }
         Auth.login(self.user).then(function(data) {
             $log.info("Auth Successful");
+            $state.go('home');
         }).catch(function(error) {
             $log.error(error);
         });
@@ -31,6 +32,7 @@ function AuthCtrl(Auth, $log) {
         }
         Auth.signup(self.user).then(function(data) {
             $log.info("registeration Successful");
+            $state.go('home');
         }).catch(function(error) {
             $log.error(error);
         });
