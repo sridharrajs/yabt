@@ -15,7 +15,7 @@
 
 
     angular
-        .module('readLater', ['ngMaterial', 'ui.router', 'users', 'ngMessages', 'ngCookies'])
+        .module('readLater', ['ngMaterial', 'ui.router', 'users', 'ngMessages', 'ngCookies','ngFileUpload'])
 
     .config(configuration)
         .constant('SERVERURL', selectedServerURL)

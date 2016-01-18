@@ -9,7 +9,7 @@
             </md-button>
             <md-menu-content>
                 <md-menu-item>
-                    <md-button ng-click="doSomething()">MY LISTS</md-button>
+                    <md-button ui-sref-active="active" ui-sref="home">MY LISTS</md-button>
                 </md-menu-item>
             </md-menu-content>
         </md-content>
@@ -27,26 +27,39 @@
                 </div>
             </md-toolbar>
             <md-content>
-            <div layout="column" layout-fill style="padding:0">
-                <form name="urlForm" ng-submit="homeCtrl.addUrl(urlForm.$valid)">
-                    <md-input-container style="width:70%">
-                        <label>Add An Article</label>
-                        <input name="url" type="text" ng-model="homeCtrl.newUrl" required>
-                        <div ng-messages="urlForm.url.$error">
-                            <div ng-message="required">This is required!</div>
+                <div layout="column" layout-fill style="padding:0">
+                    <form name="urlForm" ng-submit="homeCtrl.addUrl(urlForm.$valid)">
+                        <md-input-container style="width:70%">
+                            <label>Add An Article</label>
+                            <input name="url" type="text" ng-model="homeCtrl.newUrl" required>
+                            <div ng-messages="urlForm.url.$error">
+                                <div ng-message="required">This is required!</div>
+                            </div>
+                        </md-input-container>
+                    </form>
+                    <div>
+                        <button type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+                            Select File</button>
+                        <br>
+                        <br> File:
+                        <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+                            <span class="progress" ng-show="f.progress >= 0">
+          <div style="width:{{f.progress}}%"  
+               ng-bind="f.progress + '%'"></div>
+      </span>
                         </div>
-                    </md-input-container>
-                </form>
-             </div>
+                        {{errorMsg}}
+                    </div>
+                </div>
             </md-content>
         </div>
-        <!-- <div layout="column" layout-fill="">
+        <div layout="column" layout-fill="">
             <div>
                 <md-button ng-click="toggleLeft()" class="md-primary" hide-gt-md="">
                     Toggle left
                 </md-button>
                 <md-list>
-                    <md-list-item class="md-2-line" ng-repeat="item in todos">
+                    <md-list-item class="md-2-line" ng-repeat="item in homeCtrl.articles">
                         <md-checkbox ng-model="item.done"></md-checkbox>
                         <div class="md-list-item-text">
                             <h3>{{item.title}}</h3>
@@ -55,6 +68,6 @@
                     </md-list-item>
                 </md-list>
             </div>
-        </div> -->
+        </div>
     </md-content>
 </section>
