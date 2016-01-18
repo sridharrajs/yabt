@@ -3,7 +3,7 @@ angular
     .controller('HomeCtrl', HomeCtrl);
 
 
-function HomeCtrl($log, Auth, $state, Article,Upload) {
+function HomeCtrl($log, Auth, $state, Article,Upload,$timeout) {
     var self = this;
     self.logout = logout;
     self.addUrl = addUrl;
