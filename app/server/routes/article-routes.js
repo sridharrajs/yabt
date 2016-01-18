@@ -9,10 +9,11 @@ let qs = require('qs');
 let articleController = require('../controller/article-controller');
 
 let addArticle = function (req, res) {
+	let userId = req.uid;
 	let body = qs.parse(req.body);
 	let article = {
 		url: body.url,
-		userId: body.userId
+		userId: userId
 	};
 	articleController.add(article, (err, item) => {
 		if (err) {
@@ -28,8 +29,7 @@ let addArticle = function (req, res) {
 };
 
 let getArticle = function (req, res) {
-	let body = qs.parse(req.body);
-	let userId = body.userId;
+	let userId = req.uid;
 	articleController.get(userId, (err, items) => {
 		if (err) {
 			return res.status(500).send({

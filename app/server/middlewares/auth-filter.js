@@ -10,9 +10,9 @@ let jwt = require('jwt-simple');
 let config = require('../../../config');
 
 const NON_AUTH_URLS = [
-	'/users',
-	'/login',
-	'/join'
+	'/api/users',
+	'/api/login',
+	'/api/join'
 ];
 
 function isNonAuthEndPointAccessURL(url) {
