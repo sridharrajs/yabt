@@ -21,8 +21,12 @@ let schema = new Schema({
 		required: true
 	},
 	is_fav: {
-		type: boolean,
+		type: Boolean,
 		default: false
+	},
+	time_added: {
+		type: Number,
+		default: Date.now()
 	},
 	tags: [String]
 });
@@ -34,7 +38,8 @@ const ATTRIBUTES = [
 	'tags',
 	'userId',
 	'is_fav',
-	'title'
+	'title',
+	'time_added'
 ];
 
 function getAttributes() {

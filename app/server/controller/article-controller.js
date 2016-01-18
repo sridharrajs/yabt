@@ -15,12 +15,26 @@ let add = function (article, cb) {
 		url: article.url,
 		userId: article.userId
 	});
-	item.save(function (err, newDoc) {
+	item.save((err, newDoc) => {
 		if (!err) {
 			cb(null, newDoc);
 		} else {
 			cb('error');
 		}
+	});
+};
+
+let addArticles = function (item, cb) {
+	_.each(item.articles, (article)=> {
+		let item = new articleModel({
+			url: article.url,
+			userId: item.userId
+		});
+		item.save((err) => {
+			if (err) {
+				return cb(err);
+			}
+		});
 	});
 };
 
@@ -33,5 +47,6 @@ let getArticles = function (userId, cb) {
 
 module.exports = {
 	add,
+	addArticles,
 	getArticles
 };

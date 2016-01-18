@@ -7,6 +7,7 @@
 let qs = require('qs');
 
 let articleController = require('../controller/article-controller');
+let pocketImporter = require('../utils/pocket-importer');
 
 let addArticle = function (req, res) {
 	let userId = req.uid;
@@ -39,10 +40,30 @@ let getArticle = function (req, res) {
 		res.status(200).send({
 			id: items
 		});
-	})
+	});
+};
+
+let importFromPocket = function (req, res) {
+	let userId = req.uid;
+	let articles = pocketImporter.parse(userId);
+
+	articleController.getArticles({
+		articles: articles,
+		userId: userId
+	}, (err, items) => {
+		if (err) {
+			return res.status(500).send({
+				msg: err
+			});
+		}
+		res.status(200).send({
+			id: items
+		});
+	});
 };
 
 module.exports = {
 	addArticle,
-	getArticle
+	getArticle,
+	importFromPocket
 };
