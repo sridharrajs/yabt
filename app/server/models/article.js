@@ -9,15 +9,15 @@ let Schema = mongoose.Schema;
 
 let schema = new Schema({
 	url: {
-		type: 'String',
+		type: String,
 		required: true
 	},
 	userId: {
-		type: 'String',
+		type: String,
 		required: true
 	},
 	title: {
-		type: 'String',
+		type: String,
 		required: true
 	},
 	is_fav: {

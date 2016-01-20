@@ -48,8 +48,8 @@ let importFromPocket = function (req, res) {
 	let articles = pocketImporter.parse(userId);
 
 	articleController.getArticles({
-		articles: articles,
-		userId: userId
+		articles,
+		userId
 	}, (err, items) => {
 		if (err) {
 			return res.status(500).send({

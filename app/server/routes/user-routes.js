@@ -37,7 +37,7 @@ let loginUser = function (req, res) {
 			}
 			let userObj = items[0];
 			let saltedPwd = userObj.password;
-			bcrypt.compare(password, saltedPwd, function (err, isEqual) {
+			bcrypt.compare(password, saltedPwd, (err, isEqual) => {
 				if (!isEqual) {
 					return res.status(403).send({
 						err: 'Invalid emailId/password'
@@ -78,7 +78,7 @@ let signup = function (req, res) {
 		password: encryptedPwd
 	};
 
-	userController.add(user, function (err, user) {
+	userController.add(user, (err, user) => {
 		if (err) {
 			return res.status(500).send();
 		}
@@ -92,21 +92,23 @@ let signup = function (req, res) {
 };
 
 let getUserByToken = function (token, validateCb) {
-	async.waterfall([function (callback) {
-		let cb = function (err, items) {
-			let userId = '';
-			if (!_.isEmpty(items)) {
-				userId = items[0].id;
-				buffer.addTokenToId(token, userId);
-				callback(null, userId);
-			} else {
-				callback('invalid user');
-			}
-		};
-		userController.getUserByToken(token, cb);
-	}], function (err, userId) {
-		validateCb(err, userId);
-	});
+	async
+		.waterfall([
+				(callback) => {
+					userController.getUserByToken(token, (err, items) => {
+						let userId = '';
+						if (!_.isEmpty(items)) {
+							userId = items[0].id;
+							callback(null, userId);
+						} else {
+							callback('invalid user');
+						}
+					});
+				}
+			],
+			function (err, userId) {
+				validateCb(err, userId);
+			});
 };
 
 module.exports = {

@@ -5,16 +5,14 @@
 'use strict';
 
 let cheerio = require('cheerio');
-var fs = require('fs');
+let fs = require('fs');
 let _ = require('lodash');
-let path = require('path');
-
 
 class Importer {
 
 	static parse(userId) {
 		let filename = __dirname + '/' + '${userId}.html';
-		fs.readFile(filename, 'utf8', function (err, data) {
+		fs.readFile(filename, 'utf8', (err, data) => {
 			if (err) {
 				throw err;
 			}
@@ -33,6 +31,5 @@ class Importer {
 	}
 
 }
-
 
 module.exports = Importer;

@@ -12,7 +12,7 @@ let schema = new Schema({
 		type: String
 	},
 	emailId: {
-		type: 'String',
+		type: String,
 		required: true
 	},
 	password: {

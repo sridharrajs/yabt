@@ -17,10 +17,10 @@ class ConnectionFactory {
 		db.connect(config.mongdbUrl);
 		return new Promise((resolve, reject)=> {
 			db.connection
-				.on('open', function () {
+				.on('open', () => {
 					resolve('Success');
 				})
-				.on('error', function (err) {
+				.on('error', (err) => {
 					reject(err);
 				});
 		});
