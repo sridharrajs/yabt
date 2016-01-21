@@ -38,8 +38,8 @@ app.post('/api/login', userRoutes.loginUser);
 
 let articleRoutes = require('./routes/article-routes');
 app
-	.get('/api/article', articleRoutes.addArticle)
-	.post('/api/article', articleRoutes.getArticle)
+	.get('/api/article', articleRoutes.getArticle)
+	.post('/api/article', articleRoutes.addArticle)
 	.post('/api/import-pocket', articleRoutes.importFromPocket);
 
 process

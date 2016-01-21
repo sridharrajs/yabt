@@ -31,7 +31,7 @@ let addArticle = function (req, res) {
 
 let getArticle = function (req, res) {
 	let userId = req.uid;
-	articleController.get(userId, (err, items) => {
+	articleController.getArticles(userId, (err, items) => {
 		if (err) {
 			return res.status(500).send({
 				msg: err

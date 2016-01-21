@@ -18,7 +18,7 @@ let schema = new Schema({
 	},
 	title: {
 		type: String,
-		required: true
+		required: false
 	},
 	is_fav: {
 		type: Boolean,

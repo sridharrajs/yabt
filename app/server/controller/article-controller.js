@@ -17,9 +17,9 @@ let add = function (article, cb) {
 	});
 	item.save((err, newDoc) => {
 		if (!err) {
-			cb(null, newDoc);
+			cb(null, newDoc._doc);
 		} else {
-			cb('error');
+			cb(err);
 		}
 	});
 };
