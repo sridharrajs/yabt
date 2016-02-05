@@ -24,23 +24,6 @@ class Importer {
 			});
 		});
 		return articles;
-
-		//fs.readFile(filename, 'utf8', (err, data) => {
-		//	if (err) {
-		//		throw err;
-		//	}
-		//	let articles = [];
-		//	let $ = cheerio.load(data);
-		//	let rawLinks = $('a[href]');
-		//	_.each(rawLinks, (article)=> {
-		//		let attribute = article.attribs;
-		//		articles.push({
-		//			url: attribute.href,
-		//			time_added: attribute.time_added
-		//		});
-		//	});
-		//	return articles;
-		//});
 	}
 
 }
