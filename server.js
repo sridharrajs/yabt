@@ -26,7 +26,7 @@ config
 		console.log('Initializing settings ', chalk.blue(info));
 		return models.init();
 	})
-	.then((info)=>{
+	.then((info)=> {
 		console.log('DB Models initialized', chalk.blue(info));
 		let connectionFactory = require('./app/server/boot/connection-factory');
 		return connectionFactory.connect(config);
@@ -40,6 +40,11 @@ config
 		console.log(`Starting Server at ${chalk.green(config.port)}`, chalk.blue(info));
 	})
 	.catch((error)=> {
-		console.log(chalk.red(error));
+		console.log(chalk.red(error.stack));
 		process.exit(0);
+	});
+
+process
+	.on('uncaughtException', (err) => {
+		console.error(err.stack);
 	});

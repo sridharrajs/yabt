@@ -5,13 +5,14 @@
 'use strict';
 
 let bp = require('body-parser');
+let compression = require('compression');
 let cors = require('cors');
 let express = require('express');
-let compression = require('compression');
+let helmet = require('helmet');
 
 let app = express();
-
 app.use(cors());
+app.use(helmet());
 app.use(compression());
 app.use(bp.json());
 app.use(bp.urlencoded({
@@ -26,26 +27,15 @@ app.set('view engine', 'ejs');
 
 let authFilter = require('./middlewares/auth-filter');
 app.all('/api/*', [authFilter.authenticate]);
-app.get('/api', function (req, res) {
-	res.status(200).send({
-		msg: 'Server is up!'
-	});
-});
+
+let indexRoutes = require('./routes/index-routes');
+app.use('/api', indexRoutes);
 
 let userRoutes = require('./routes/user-routes');
-app.post('/api/users', userRoutes.signup);
-app.post('/api/login', userRoutes.loginUser);
+app.use('/api/users', userRoutes);
 
 let articleRoutes = require('./routes/article-routes');
-app
-	.get('/api/article', articleRoutes.getArticle)
-	.post('/api/article', articleRoutes.addArticle)
-	.post('/api/import-pocket', articleRoutes.importFromPocket);
-
-process
-	.on('uncaughtException', (err) => {
-		console.error(err.stack);
-	});
+app.use('/api/article', articleRoutes);
 
 function getApp() {
 	return app;

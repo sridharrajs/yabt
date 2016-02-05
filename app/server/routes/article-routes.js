@@ -4,12 +4,15 @@
 
 'use strict';
 
+let express = require('express');
 let qs = require('qs');
+
+let app = express.Router();
 
 let articleController = require('../controller/article-controller');
 let pocketImporter = require('../utils/pocket-importer');
 
-let addArticle = function (req, res) {
+app.post('/',function (req, res) {
 	let userId = req.uid;
 	let body = qs.parse(req.body);
 	let article = {
@@ -27,9 +30,9 @@ let addArticle = function (req, res) {
 		});
 	});
 
-};
+});
 
-let getArticle = function (req, res) {
+app.get('/',function (req, res) {
 	let userId = req.uid;
 	articleController.getArticles(userId, (err, items) => {
 		if (err) {
@@ -41,9 +44,9 @@ let getArticle = function (req, res) {
 			id: items
 		});
 	});
-};
+});
 
-let importFromPocket = function (req, res) {
+app.post('/import-pocket',function (req, res) {
 	let userId = req.uid;
 	let articles = pocketImporter.parse(userId);
 
@@ -60,10 +63,6 @@ let importFromPocket = function (req, res) {
 			id: items
 		});
 	});
-};
+});
 
-module.exports = {
-	addArticle,
-	getArticle,
-	importFromPocket
-};
+module.exports = app;

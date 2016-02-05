@@ -7,13 +7,16 @@
 const _ = require('lodash');
 const async = require('async');
 const bcrypt = require('bcrypt-nodejs');
+const express = require('express');
 const isValidEmail = require('is-valid-email');
 const qs = require('qs');
+
+let app = express.Router();
 
 let userController = require('../controller/user-controller');
 let security = require('../middlewares/auth-filter');
 
-let loginUser = function (req, res) {
+app.post('/login', (req, res) => {
 	try {
 		let body = qs.parse(req.body);
 		let emailId = body.emailId;
@@ -21,7 +24,7 @@ let loginUser = function (req, res) {
 
 		if (!emailId || !password) {
 			return res.status(400).send({
-				err: 'Please enter proper values!'
+				msg: 'Please enter proper values!'
 			});
 		}
 		if (!isValidEmail(emailId)) {
@@ -54,9 +57,9 @@ let loginUser = function (req, res) {
 	} catch (err) {
 		console.log('err', err);
 	}
-};
+});
 
-let signup = function (req, res) {
+app.post('/', (req, res) => {
 	let body = qs.parse(req.body);
 	let emailId = body.emailId;
 	let password = body.password;
@@ -68,7 +71,7 @@ let signup = function (req, res) {
 	}
 	if (!isValidEmail(emailId)) {
 		return res.status(400).send({
-			err: 'Please valid emailId'
+			msg: 'Please valid emailId'
 		});
 	}
 
@@ -89,30 +92,6 @@ let signup = function (req, res) {
 			profile_url: user.profile_url
 		});
 	});
-};
+});
 
-let getUserByToken = function (token, validateCb) {
-	async
-		.waterfall([
-				(callback) => {
-					userController.getUserByToken(token, (err, items) => {
-						let userId = '';
-						if (!_.isEmpty(items)) {
-							userId = items[0].id;
-							callback(null, userId);
-						} else {
-							callback('invalid user');
-						}
-					});
-				}
-			],
-			function (err, userId) {
-				validateCb(err, userId);
-			});
-};
-
-module.exports = {
-	signup,
-	getUserByToken,
-	loginUser
-};
+module.exports = app;
