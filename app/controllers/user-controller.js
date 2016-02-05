@@ -6,9 +6,9 @@
 
 let gravatar = require('nodejs-gravatar');
 let mongoose = require('mongoose');
+let wrapper = require('mongoose-callback-wrapper');
 
 let userModelSchema = require('../models/user');
-let wrapper = require('mongoose-callback-wrapper');
 let userModel = mongoose.model('user');
 
 let add = function (user, cb) {

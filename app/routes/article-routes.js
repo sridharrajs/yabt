@@ -4,6 +4,7 @@
 
 'use strict';
 let _ = require('lodash');
+let async = require('async');
 let express = require('express');
 let qs = require('qs');
 
@@ -11,6 +12,8 @@ let app = express.Router();
 
 let articleController = require('../controllers/article-controller');
 let pocketImporter = require('../utils/pocket-importer');
+let pageUtil = require('../utils/page-utils');
+let twitterUtil = require('../utils/twitter-util');
 
 app
 	.post('/', (req, res) => {
@@ -20,7 +23,15 @@ app
 			url: body.url,
 			userId: userId
 		};
-		articleController.add(article, (err, item) => {
+
+		async.waterfall([
+			(callback)=> {
+				appendPageTitle(userId, [article], callback);
+			},
+			(articles, callback)=> {
+				addArticles(articles, callback);
+			}
+		], (err, items) => {
 			if (err) {
 				return res.status(500).send({
 					msg: err
@@ -28,10 +39,11 @@ app
 			}
 			res.status(200).send({
 				data: {
-					articles: item
+					articles: items
 				}
 			});
 		});
+
 
 	})
 	.get('/', (req, res) => {
@@ -53,7 +65,10 @@ app
 				items = [];
 			}
 			res.status(200).send({
-				id: items
+				data: {
+					articles: items,
+					nextPage: ++pageNo
+				}
 			});
 		});
 	});
@@ -64,23 +79,101 @@ app.post('/import-pocket', (req, res) => {
 
 	if (_.isEmpty(articles)) {
 		return res.status(200).send({
-			msg: 'We don\'t file for user'
+			msg: 'empty articles'
 		});
 	}
 
-	articleController.addArticles({
-		articles,
-		userId
-	}, (err, items) => {
+	async
+		.waterfall([
+			(callback)=> {
+				appendPageTitle(userId, articles, callback);
+			},
+			(articles, callback)=> {
+				addArticles(articles, callback);
+			}
+		], (err, items)=> {
+			if (err) {
+				res.status(500).send({
+					msg: err
+				});
+			}
+			res.status(200).send({
+				msg: 'all good!',
+				data: items
+			});
+		});
+
+});
+
+app.delete('/:articleId', (req, res)=> {
+	let articleId = req.params.articleId;
+	articleController.deleteArticle(articleId, (err, items) => {
 		if (err) {
 			return res.status(500).send({
 				msg: err
 			});
 		}
 		res.status(200).send({
-			msg: items
+			data: '+111'
 		});
 	});
 });
+
+app.post('/import-twitter', (req, res)=> {
+	let userId = req.uid;
+	async
+		.waterfall([
+			(callback)=> {
+				twitterUtil.importFavourties(userId, callback);
+			},
+			(articles, callback)=> {
+				addArticles(articles, callback);
+			}
+		], (err, items) => {
+			if (err) {
+				return res.status(500).send({
+					msg: err
+				});
+			}
+			res.status(200).send({
+				data: items
+			});
+		});
+
+});
+
+function appendPageTitle(userId, articles, callback) {
+	async
+		.mapLimit(
+			articles,
+			10,
+			(article, titleCb)=> {
+				let url = article.url;
+				pageUtil.getPageTitle(url, (err, title) => {
+					if (err) {
+						return titleCb(err, null);
+					}
+					article.title = title.trim();
+					article.tag = pageUtil.getTagByDomain(url);
+					article.userId = userId;
+					titleCb(null, article);
+				});
+			},
+			(err, acb)=> {
+				if (err) {
+					return callback(err);
+				}
+				callback(null, acb);
+			});
+}
+
+function addArticles(articles, callback) {
+	articleController.addArticles(articles, (err, items) => {
+		if (err) {
+			return callback(err);
+		}
+		callback(null, items);
+	});
+}
 
 module.exports = app;

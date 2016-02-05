@@ -46,7 +46,7 @@ let getTagByDomain = (hostURL)=> {
 
 function getNakedDomainName(hostURL) {
 	let isWWWPresent = hostURL.indexOf('www.');
-	if (isWWWPresent) {
+	if (isWWWPresent != -1) {
 		hostURL = hostURL.replace('www.', '')
 	}
 	return hostURL;

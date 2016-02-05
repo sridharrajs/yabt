@@ -28,6 +28,7 @@ let schema = new Schema({
 });
 
 const ATTRIBUTES = [
+	'_id',
 	'password',
 	'username',
 	'profile_url',

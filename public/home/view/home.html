@@ -1,5 +1,5 @@
 <section layout="row" flex="" layout-fill>
-	<md-sidenav flex class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+	<md-sidenav flex class="md-sidenav-left md-whiteframe-z1" md-component-id="left"
 				md-is-locked-open="$mdMedia('gt-md')">
 		<md-toolbar class="md-theme-indigo">
 			<h1 class="md-toolbar-tools">MY READER</h1>
@@ -20,7 +20,6 @@
 			<md-toolbar>
 				<div class="md-toolbar-tools">
                     <span flex>
-                   		
                     </span>
 					<md-button ng-click="homeCtrl.logout()">
 						Logout
@@ -30,7 +29,7 @@
 			<md-content>
 				<div layout="column" layout-fill style="padding:0">
 					<form name="urlForm" ng-submit="homeCtrl.addUrl(urlForm.$valid)">
-						<md-input-container style="width:70%">
+						<md-input-container style="width:70%" auto-focus>
 							<label>Add An Article</label>
 							<input name="url" type="text" ng-model="homeCtrl.newUrl" required>
 							<div ng-messages="urlForm.url.$error">
@@ -38,22 +37,6 @@
 							</div>
 						</md-input-container>
 					</form>
-					<div>
-						<button type="file" ngf-select="homeCtrl.uploadFiles($file, $invalidFiles)" accept="image/*"
-								ngf-max-height="1000" ngf-max-size="1MB">
-							Select File
-						</button>
-						<br>
-						<br> File:
-						<div style="font:smaller">{{homeCtrl.f.name}} {{homeCtrl.errFile.name}}
-							{{homeCtrl.errFile.$error}} {{homeCtrl.errFile.$errorParam}}
-                            <span class="progress" ng-show="homeCtrl.f.progress >= 0">
-          <div style="width:{{homeCtrl.f.progress}}%"
-			   ng-bind="homeCtrl.f.progress + '%'"></div>
-      </span>
-						</div>
-						{{homeCtrl.errorMsg}}
-					</div>
 				</div>
 			</md-content>
 		</div>
@@ -62,12 +45,25 @@
 				<md-button ng-click="toggleLeft()" class="md-primary" hide-gt-md="">
 					Toggle left
 				</md-button>
+				<div class="text-right">
+					<button class="btn btn-default" ng-click="homeCtrl.fetchArticle()">next</button>
+				</div>
 				<md-list>
-					<md-list-item class="md-2-line" ng-repeat="item in homeCtrl.articles">
-						<md-checkbox ng-model="item.done"></md-checkbox>
+					<md-list-item class="md-2-line article" ng-repeat="item in homeCtrl.articles">
 						<div class="md-list-item-text">
 							<h3>{{item.title}}</h3>
-							<p>{{item.description}}</p>
+							<a class="row" target="_blank" href="{{item.url}}">{{item.url}}</a>
+							<div>
+							<span class="row" ng-repeat="tag in item.tags">
+								#{{tag}}
+							</span>
+							</div>
+							<div class="text-right">
+								<button class="btn btn-danger btn-sm" ng-click="homeCtrl.deleteArticle(item._id)">
+									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+									Delete
+								</button>
+							</div>
 						</div>
 					</md-list-item>
 				</md-list>

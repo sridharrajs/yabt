@@ -11,7 +11,7 @@ let config = require('../../config');
 
 const NON_AUTH_URLS = [
 	'/api/users',
-	'/api/login',
+	'/api/users/login',
 	'/api/join'
 ];
 
@@ -28,13 +28,19 @@ let authenticate = function (req, res, next) {
 	}
 
 	if (!token) {
-		res.status(401).send({
+		return res.status(401).send({
 			err: 'please login'
 		});
 	}
 	try {
 		let decoded = jwt.decode(token, config.secret);
-		req.uid = decoded.userId;
+		let userId = decoded.userId;
+		if (!userId) {
+			return res.status(401).send({
+				err: 'please login'
+			});
+		}
+		req.uid = userId;
 		next();
 	} catch (ex) {
 		console.log('Exception ', ex);

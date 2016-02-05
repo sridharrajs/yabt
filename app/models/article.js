@@ -12,6 +12,10 @@ let schema = new Schema({
 		type: String,
 		required: true
 	},
+	active: {
+		type: Boolean,
+		default: true
+	},
 	userId: {
 		type: String,
 		required: true
@@ -34,12 +38,14 @@ let schema = new Schema({
 mongoose.model('article', schema);
 
 const ATTRIBUTES = [
+	'_id',
 	'url',
 	'tags',
 	'userId',
 	'is_fav',
 	'title',
-	'time_added'
+	'time_added',
+	'active'
 ];
 
 function getAttributes() {

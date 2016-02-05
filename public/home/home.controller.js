@@ -6,17 +6,44 @@ angular
 
 function HomeCtrl($log, Auth, $state, Article, Upload, $timeout) {
 	let self = this;
-	self.logout = logout;
+
+	self.articles = [];
+	self.nextPage = 0;
+
 	self.addUrl = addUrl;
-	self.uploadFiles = uploadFiles;
+	self.deleteArticle = deleteArticle;
+	self.logout = logout;
+	self.fetchArticle = fetchArticle;
+
+	function deleteArticle(id) {
+		Article
+			.deleteArticle(id)
+			.then((response)=> {
+				console.log('resoinse', response.data);
+			})
+			.catch((err)=> {
+				alert('asdasd');
+			});
+	}
 
 	init();
 
 	function init() {
 		Article
-			.getArticles()
-			.then((data) => {
-				$log.debug(data);
+			.getArticles(self.nextPage)
+			.then((response) => {
+				self.nextPage = response.data.data.nextPage;
+				self.articles = _.union(self.articles, response.data.data.articles)
+			});
+	}
+
+	function fetchArticle() {
+		Article
+			.getArticles(self.nextPage)
+			.then((response) => {
+				self.articles.length = 0;
+				self.nextPage = response.data.data.nextPage;
+				self.articles = _.union(self.articles, response.data.data.articles)
 			});
 	}
 
@@ -44,35 +71,6 @@ function HomeCtrl($log, Auth, $state, Article, Upload, $timeout) {
 				$log.error(err);
 			});
 
-	}
-
-	function uploadFiles(file, errFiles) {
-		self.f = file;
-		self.errFile = errFiles && errFiles[0];
-		if (file) {
-			file.upload = Upload.upload({
-				url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-				data: {
-					file: file
-				}
-			});
-
-			file
-				.upload
-				.then((response) => {
-						$timeout(function () {
-							file.result = response.data;
-						});
-					},
-					(response) => {
-						if (response.status > 0)
-							self.errorMsg = response.status + ': ' + response.data;
-					},
-					(evt) => {
-						file.progress = Math.min(100, parseInt(100.0 *
-							evt.loaded / evt.total));
-					});
-		}
 	}
 
 }

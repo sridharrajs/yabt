@@ -1,7 +1,11 @@
 {
 	"domain": {
+		"twitter.com": "twitter",
+		"joelonsoftware.com": "craftmanship",
 		"medium.com": "medium",
+		"moz.com": "SEO",
+		"soundcloud.com": "audio",
 		"youtube.com": "youtube",
-		"twitter.com": "twitter"
+		"paulgraham.com": "startup"
 	}
 }
