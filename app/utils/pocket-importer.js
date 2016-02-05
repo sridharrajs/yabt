@@ -11,23 +11,36 @@ let _ = require('lodash');
 class Importer {
 
 	static parse(userId) {
-		let filename = __dirname + '/' + '${userId}.html';
-		fs.readFile(filename, 'utf8', (err, data) => {
-			if (err) {
-				throw err;
-			}
-			let articles = [];
-			let $ = cheerio.load(data);
-			let rawLinks = $('a[href]');
-			_.each(rawLinks, (article)=> {
-				let attribute = article.attribs;
-				articles.push({
-					url: attribute.href,
-					time_added: attribute.time_added
-				});
+		let filename = __dirname + `/${userId}.html`;
+		let data = fs.readFileSync(filename, 'utf8');
+		let articles = [];
+		let $ = cheerio.load(data);
+		let rawLinks = $('a[href]');
+		_.each(rawLinks, (article)=> {
+			let attribute = article.attribs;
+			articles.push({
+				url: attribute.href,
+				time_added: attribute.time_added
 			});
-			return articles;
 		});
+		return articles;
+
+		//fs.readFile(filename, 'utf8', (err, data) => {
+		//	if (err) {
+		//		throw err;
+		//	}
+		//	let articles = [];
+		//	let $ = cheerio.load(data);
+		//	let rawLinks = $('a[href]');
+		//	_.each(rawLinks, (article)=> {
+		//		let attribute = article.attribs;
+		//		articles.push({
+		//			url: attribute.href,
+		//			time_added: attribute.time_added
+		//		});
+		//	});
+		//	return articles;
+		//});
 	}
 
 }

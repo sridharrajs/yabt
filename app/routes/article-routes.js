@@ -36,7 +36,14 @@ app
 	})
 	.get('/', (req, res) => {
 		let userId = req.uid;
-		articleController.getArticles(userId, (err, items) => {
+		let pageNo = req.params.page;
+		if (!pageNo) {
+			pageNo = 0;
+		}
+		articleController.getArticles({
+			userId,
+			pageNo
+		}, (err, items) => {
 			if (err) {
 				return res.status(500).send({
 					msg: err
@@ -55,7 +62,13 @@ app.post('/import-pocket', (req, res) => {
 	let userId = req.uid;
 	let articles = pocketImporter.parse(userId);
 
-	articleController.getArticles({
+	if (_.isEmpty(articles)) {
+		return res.status(200).send({
+			msg: 'We don\'t file for user'
+		});
+	}
+
+	articleController.addArticles({
 		articles,
 		userId
 	}, (err, items) => {
@@ -65,7 +78,7 @@ app.post('/import-pocket', (req, res) => {
 			});
 		}
 		res.status(200).send({
-			id: items
+			msg: items
 		});
 	});
 });

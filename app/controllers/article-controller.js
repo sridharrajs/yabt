@@ -3,12 +3,15 @@
  */
 
 'use strict';
-
+let _ = require('lodash');
 let mongoose = require('mongoose');
+let wrapper = require('mongoose-callback-wrapper');
 
 let articleModelSchema = require('../models/article');
-let wrapper = require('mongoose-callback-wrapper');
+
 let articleModel = mongoose.model('article');
+
+const SCROLL_LIMIT = 10;
 
 let add = function (article, cb) {
 	let item = new articleModel({
@@ -16,34 +19,47 @@ let add = function (article, cb) {
 		userId: article.userId
 	});
 	item.save((err, newDoc) => {
-		if (!err) {
-			cb(null, newDoc._doc);
-		} else {
+		if (err) {
 			cb(err);
+		} else {
+			cb(null, newDoc._doc);
 		}
 	});
 };
 
 let addArticles = function (item, cb) {
 	_.each(item.articles, (article)=> {
-		let item = new articleModel({
+		let newArticle = new articleModel({
 			url: article.url,
 			userId: item.userId
 		});
-		item.save((err) => {
+		newArticle.save((err) => {
 			if (err) {
 				return cb(err);
 			}
+			cb(null, 'success');
 		});
 	});
 };
 
-let getArticles = function (userId, cb) {
+let getArticles = function (item, cb) {
 	let wrappedCallback = wrapper.wrap(cb, articleModelSchema.getAttributes());
-	articleModel.find({
-		userId: userId
-	}, wrappedCallback);
+	let query = articleModel
+		.find({
+			userId: item.userId
+		})
+		.limit(SCROLL_LIMIT)
+		.skip(computeSkipCount(item.pageNo));
+	query.exec(wrappedCallback);
 };
+
+function computeSkipCount(pageNo) {
+	if (pageNo === 0) {
+		return pageNo;
+	} else {
+		return pageNo * SCROLL_LIMIT;
+	}
+}
 
 module.exports = {
 	add,

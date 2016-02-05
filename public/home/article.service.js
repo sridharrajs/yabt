@@ -7,10 +7,10 @@ angular
 function Article(SERVERURL, $http) {
 	let service = {
 		getArticles: () => {
-			return $http.get(SERVERURL + 'article');
+			return $http.get(SERVERURL + 'articles');
 		},
 		addArticle: (data) => {
-			return $http.post(SERVERURL + 'article', data);
+			return $http.post(SERVERURL + 'articles', data);
 		}
 	};
 	return service;
