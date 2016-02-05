@@ -1,0 +1,35 @@
+<div layout="column" flex id="content" role="main" max-height="100%" max-width="100%">
+	<md-content layout="vertical" flex>
+		<div layout="row" layout-align="center center" layout-fill>
+			<md-whiteframe class="md-whiteframe-z1" layout="column" flex="30" layout-padding>
+				<md-content md-theme="docs-dark">
+					<form name="loginForm" ng-submit="authCtrl.login(loginForm.$valid)">
+						<md-input-container>
+							<label>Email</label>
+							<input type="email" ng-model="authCtrl.user.emailId" name="email" autofocus required/>
+							<div ng-messages="loginForm.email.$error" role="alert">
+								<div ng-message="required">This is required.</div>
+								<div ng-message="email">Invalid email.</div>
+							</div>
+						</md-input-container>
+						<md-input-container>
+							<label>Password</label>
+							<input ng-model="authCtrl.user.password" name="password" type="password" required>
+							<div ng-messages="loginForm.password.$error">
+								<div ng-message="required">This is required.</div>
+							</div>
+						</md-input-container>
+						<md-input-container layout-align="center center">
+							<div layout="row" layout-sm="column" layout-margin>
+								<md-button class="md-raised" flex="50" flex-sm="100" type="submit">Login</md-button>
+								<md-button class="md-raised md-primary" flex="50"
+										   ng-click="authCtrl.register(loginForm.$valid)" flex-sm="100">Register
+								</md-button>
+							</div>
+						</md-input-container>
+					</form>
+				</md-content>
+			</md-whiteframe>
+		</div>
+	</md-content>
+</div>

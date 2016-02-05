@@ -7,7 +7,7 @@
 let _ = require('lodash');
 let jwt = require('jwt-simple');
 
-let config = require('../../../config');
+let config = require('../../config');
 
 const NON_AUTH_URLS = [
 	'/api/users',

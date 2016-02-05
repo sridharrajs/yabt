@@ -13,7 +13,7 @@ const qs = require('qs');
 
 let app = express.Router();
 
-let userController = require('../controller/user-controller');
+let userController = require('../controllers/user-controller');
 let security = require('../middlewares/auth-filter');
 
 app.post('/login', (req, res) => {
