@@ -7,7 +7,7 @@
 let mongoose = require('mongoose');
 
 let articleModelSchema = require('../models/article');
-let wrapper = require('../utils/mongoose-callback-wrapper');
+let wrapper = require('mongoose-callback-wrapper');
 let articleModel = mongoose.model('article');
 
 let add = function (article, cb) {
