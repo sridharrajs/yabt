@@ -6,6 +6,9 @@
 		"moz.com": "SEO",
 		"soundcloud.com": "audio",
 		"youtube.com": "youtube",
-		"paulgraham.com": "startup"
+		"paulgraham.com": "startup",
+		"reddit.com": "reddit",
+		"github.com": "github",
+		"codereadability.com": "code"
 	}
 }

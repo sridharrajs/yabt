@@ -29,7 +29,7 @@ app
 				appendPageTitle(userId, [article], callback);
 			},
 			(articles, callback)=> {
-				addArticles(articles, callback);
+				articleController.add(_.first(articles), callback);
 			}
 		], (err, items) => {
 			if (err) {
@@ -48,7 +48,7 @@ app
 	})
 	.get('/', (req, res) => {
 		let userId = req.uid;
-		let pageNo = req.params.page;
+		let pageNo = req.query.page;
 		if (!pageNo) {
 			pageNo = 0;
 		}

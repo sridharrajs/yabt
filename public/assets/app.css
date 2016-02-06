@@ -157,9 +157,43 @@ form .progress {
 }
 
 .article {
-	width: 800px;
 	border-color: brown;
 	border-style: solid;
 	padding: 15px;
 	margin: 10px;
+}
+
+.header-wrapper {
+	margin: 10px;
+	padding: 15px;
+}
+
+.left-panel {
+	border-color: black;
+	border-style: solid;
+}
+
+.right-panel {
+	border-color: black;
+	border-style: solid;
+}
+
+.collar-btn-containter {
+	margin-right: 5px;
+}
+
+.add-article {
+	margin: 10px;
+}
+
+.alert.msg {
+	opacity: 0;
+}
+
+.alert.msg.show.alert-success {
+	opacity: 1;
+}
+
+.alert.msg.show.alert-danger {
+	opacity: 1;
 }

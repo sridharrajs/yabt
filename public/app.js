@@ -12,16 +12,15 @@
 
 	angular
 		.module('readLater', [
-			'ngMaterial',
-			'ui.router',
 			'ngMessages',
-			'ngFileUpload'
+			'ui.router',
+			'oitozero.ngSweetAlert'
 		])
 		.config(configuration)
 		.constant('SERVERURL', selectedServerURL)
 		.run(initApp);
 
-	function configuration($stateProvider, $urlRouterProvider, $mdThemingProvider, $mdIconProvider, $httpProvider) {
+	function configuration($stateProvider, $urlRouterProvider, $httpProvider) {
 		let AUTH_FDLR = 'auth/view/';
 		let HOME_FDLR = 'home/view/';
 
@@ -38,21 +37,6 @@
 			});
 
 		$urlRouterProvider.otherwise('/');
-
-		$mdIconProvider
-			.defaultIconSet('./assets/svg/avatars.svg', 128)
-			.icon('menu', './assets/svg/menu.svg', 24)
-			.icon('share', './assets/svg/share.svg', 24)
-			.icon('google_plus', './assets/svg/google_plus.svg', 512)
-			.icon('hangouts', './assets/svg/hangouts.svg', 512)
-			.icon('twitter', './assets/svg/twitter.svg', 512)
-			.icon('phone', './assets/svg/phone.svg', 512);
-
-		$mdThemingProvider
-			.theme('default')
-			.primaryPalette('brown')
-			.accentPalette('red');
-
 		$httpProvider.interceptors.push('APIInterceptor');
 	}
 

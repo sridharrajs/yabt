@@ -1,29 +1,52 @@
-'use strict';
+	'use strict';
 
 angular
 	.module('readLater')
 	.controller('HomeCtrl', HomeCtrl);
 
-function HomeCtrl($log, Auth, $state, Article, Upload, $timeout) {
+function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert) {
 	let self = this;
 
+	self.alertMsg = '';
+	self.alertClass = '';
 	self.articles = [];
 	self.nextPage = 0;
 
 	self.addUrl = addUrl;
 	self.deleteArticle = deleteArticle;
-	self.logout = logout;
 	self.fetchArticle = fetchArticle;
+	self.logout = logout;
 
 	function deleteArticle(id) {
-		Article
-			.deleteArticle(id)
-			.then((response)=> {
-				console.log('resoinse', response.data);
-			})
-			.catch((err)=> {
-				alert('asdasd');
-			});
+		SweetAlert.swal({
+			title: "Are you sure?",
+			allowOutsideClick: true,
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes",
+			closeOnConfirm: true
+		}, function () {
+			Article
+				.deleteArticle(id)
+				.then((response)=> {
+					$(`#${id}`).remove();
+					self.alertMsg = 'Success!';
+					self.alertClass = 'show alert-success';
+					clearMsg();
+				})
+				.catch((err)=> {
+					self.alertMsg = 'Failed :(';
+					self.alertClass = 'show alert-danger';
+					clearMsg();
+				});
+		});
+	}
+
+	function clearMsg() {
+		$timeout(()=> {
+			self.alertClass = '';
+		}, 1000);
 	}
 
 	init();
@@ -52,25 +75,25 @@ function HomeCtrl($log, Auth, $state, Article, Upload, $timeout) {
 		$state.go('login');
 	}
 
-	function addUrl(isValid) {
-		if (!isValid) {
-			return;
-		}
+	function addUrl() {
 		let data = {
 			url: self.newUrl
-		}
-
+		};
 		Article
 			.addArticle(data)
-			.then((data) => {
-				$log.info("Article added sucessfully");
+			.then((response) => {
 				self.newUrl = '';
-				init();
+				self.alertMsg = 'Success!';
+				self.alertClass = 'show alert-success';
+				clearMsg();
+				self.articles.unshift(response.data.data.articles);
 			})
 			.catch((err) => {
 				$log.error(err);
+				self.alertMsg = 'Failed :(';
+				self.alertClass = 'show alert-danger';
+				clearMsg();
 			});
-
 	}
 
 }

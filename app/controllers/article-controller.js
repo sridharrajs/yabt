@@ -16,7 +16,9 @@ const SCROLL_LIMIT = 10;
 let add = function (article, cb) {
 	let item = new articleModel({
 		url: article.url,
-		userId: article.userId
+		userId: article.userId,
+		title: article.title,
+		tags: article.tag
 	});
 	item.save((err, newDoc) => {
 		if (err) {

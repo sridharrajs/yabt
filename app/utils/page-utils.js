@@ -13,20 +13,22 @@ let url = require('url');
 const RULES_LOCATION = __dirname + '/../rules/rules.json';
 const RULES = JSON.parse(fs.readFileSync(RULES_LOCATION, 'UTF-8'));
 const SUCCESS_CODES = [200, 201, 301, 302];
+const TEN_SECONDS_IN_MILLISECONDS =10000;
 
 let getPageTitle = (pageURL, metaCb)=> {
 	let options = {
 		url: pageURL,
+		timeout:TEN_SECONDS_IN_MILLISECONDS,
 		headers: {
-			'User-Agent': 'Firefox'
+			'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0'
 		}
 	};
 	request(options, (err, response, body)=> {
 		if (err) {
-			metaCb(err.stack);
+			return metaCb(err.stack);
 		}
 		if (!_.contains(SUCCESS_CODES, response.statusCode)) {
-			metaCb(response.statusCode);
+			return metaCb(response.statusCode);
 		}
 		let $ = cheerio.load(body);
 		let title = $('title').text();
