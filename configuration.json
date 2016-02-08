@@ -2,7 +2,7 @@
 	"port": 9999,
 	"prod": {
 		"mongodb_url": "mongodb://localhost:27017/app",
-		"secure": true
+		"secure": false
 	},
 	"local": {
 		"mongodb_url": "mongodb://localhost:27017/myreader",
