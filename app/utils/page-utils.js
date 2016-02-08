@@ -7,18 +7,20 @@
 let _ = require('lodash');
 let cheerio = require('cheerio');
 let fs = require('fs');
-let request = require('request');
+let request = require('request').defaults({
+	maxRedirects: 20
+});
 let url = require('url');
 
 const RULES_LOCATION = __dirname + '/../rules/rules.json';
 const RULES = JSON.parse(fs.readFileSync(RULES_LOCATION, 'UTF-8'));
 const SUCCESS_CODES = [200, 201, 301, 302];
-const TEN_SECONDS_IN_MILLISECONDS =10000;
+const TEN_SECONDS_IN_MILLISECONDS = 10000;
 
 let getPageTitle = (pageURL, metaCb)=> {
 	let options = {
 		url: pageURL,
-		timeout:TEN_SECONDS_IN_MILLISECONDS,
+		rejectUnauthorized: false,
 		headers: {
 			'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0'
 		}

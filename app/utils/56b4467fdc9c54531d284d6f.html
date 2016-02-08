@@ -1,40 +1,325 @@
 <!DOCTYPE html>
 <html>
-<!--So long and thanks for all the fish-->
+	<!--So long and thanks for all the fish-->
+	<head>
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Pocket Export</title>
-</head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Pocket Export</title>
+	</head>
+	<body>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
-<body>
-    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <h1>Unread</h1>
-    <ul>
-        <li><a href="https://blog.ghost.org/focus/" time_added="1453112844" tags="">https://blog.ghost.org/focus/</a></li>
-        <li><a href="https://blog.intercom.io/how-baremetrics-went-from-0-to-14000-per-month/" time_added="1453108661" tags="">https://blog.intercom.io/how-baremetrics-went-from-0-to-14000-per-month/</a></li>
-        <li><a href="http://www.joelonsoftware.com/articles/fog0000000020.html" time_added="1453108590" tags="">http://www.joelonsoftware.com/articles/fog0000000020.html</a></li>
-        <li><a href="http://thejackalofjavascript.com/architecting-a-restful-node-js-app/" time_added="1453102085" tags="">http://thejackalofjavascript.com/architecting-a-restful-node-js-app/</a></li>
-        <li><a href="https://www.hamaralinux.org/" time_added="1453101790" tags="">https://www.hamaralinux.org/</a></li>
-        <li><a href="https://www.reddit.com/r/india/comments/3n8u5m/hamara_linux_india/" time_added="1453101727" tags="">https://www.reddit.com/r/india/comments/3n8u5m/hamara_linux_india/</a></li>
-        <li><a href="https://twitter.com/kentcdodds/status/688798679721873408" time_added="1453091936" tags="">https://twitter.com/kentcdodds/status/688798679721873408</a></li>
-        <li><a href="https://twitter.com/robomongo/status/688805337995067393" time_added="1453091903" tags="">https://twitter.com/robomongo/status/688805337995067393</a></li>
-        <li><a href="https://twitter.com/davidwalshblog/status/688813332032303105" time_added="1453091886" tags="">https://twitter.com/davidwalshblog/status/688813332032303105</a></li>
-        <li><a href="https://twitter.com/davidwalshblog/status/688813345038794753" time_added="1453091876" tags="">https://twitter.com/davidwalshblog/status/688813345038794753</a></li>
-        <li><a href="https://twitter.com/rexarul/status/688827534008426496" time_added="1453091803" tags="">https://twitter.com/rexarul/status/688827534008426496</a></li>
-        <li><a href="https://twitter.com/zenpencils/status/688828211044564992" time_added="1453091796" tags="">https://twitter.com/zenpencils/status/688828211044564992</a></li>
-        <li><a href="https://twitter.com/_ericelliott/status/688828228740468737" time_added="1453091735" tags="">https://twitter.com/_ericelliott/status/688828228740468737</a></li>
-        <li><a href="https://twitter.com/zenpencils/status/688828264488419328" time_added="1453091727" tags="">https://twitter.com/zenpencils/status/688828264488419328</a></li>
-        <li><a href="https://twitter.com/levie/status/688829435089297408" time_added="1453091711" tags="">https://twitter.com/levie/status/688829435089297408</a></li>
-        <li><a href="https://twitter.com/sindresorhus/status/688836094822100993" time_added="1453091678" tags="">https://twitter.com/sindresorhus/status/688836094822100993</a></li>
-        <li><a href="https://twitter.com/sindresorhus/status/688837735038189568" time_added="1453091662" tags="">https://twitter.com/sindresorhus/status/688837735038189568</a></li>
-        <li><a href="https://twitter.com/pmarca/status/688840339604414464" time_added="1453091635" tags="">https://twitter.com/pmarca/status/688840339604414464</a></li>
-        <li><a href="https://twitter.com/rexarul/status/688848988968194048" time_added="1453091589" tags="">https://twitter.com/rexarul/status/688848988968194048</a></li>
-        <li><a href="https://twitter.com/gortok/status/688849312525193218" time_added="1453091579" tags="">https://twitter.com/gortok/status/688849312525193218</a></li>
-    </ul>
-    <h1>Read Archive</h1>
-    <ul>
-    </ul>
-</body>
+		<h1>Unread</h1>
+		<ul>
+			<li><a href="https://blog.ghost.org/focus/" time_added="1453112844" tags="">https://blog.ghost.org/focus/</a></li>
+<li><a href="https://blog.intercom.io/how-baremetrics-went-from-0-to-14000-per-month/" time_added="1453108661" tags="">https://blog.intercom.io/how-baremetrics-went-from-0-to-14000-per-month/</a></li>
+<li><a href="http://www.joelonsoftware.com/articles/fog0000000020.html" time_added="1453108590" tags="">http://www.joelonsoftware.com/articles/fog0000000020.html</a></li>
+<li><a href="http://thejackalofjavascript.com/architecting-a-restful-node-js-app/" time_added="1453102085" tags="">http://thejackalofjavascript.com/architecting-a-restful-node-js-app/</a></li>
+<li><a href="https://www.hamaralinux.org/" time_added="1453101790" tags="">https://www.hamaralinux.org/</a></li>
+<li><a href="https://www.reddit.com/r/india/comments/3n8u5m/hamara_linux_india/" time_added="1453101727" tags="">https://www.reddit.com/r/india/comments/3n8u5m/hamara_linux_india/</a></li>
+<li><a href="https://twitter.com/kentcdodds/status/688798679721873408" time_added="1453091936" tags="">https://twitter.com/kentcdodds/status/688798679721873408</a></li>
+<li><a href="https://twitter.com/robomongo/status/688805337995067393" time_added="1453091903" tags="">https://twitter.com/robomongo/status/688805337995067393</a></li>
+<li><a href="https://twitter.com/davidwalshblog/status/688813332032303105" time_added="1453091886" tags="">https://twitter.com/davidwalshblog/status/688813332032303105</a></li>
+<li><a href="https://twitter.com/davidwalshblog/status/688813345038794753" time_added="1453091876" tags="">https://twitter.com/davidwalshblog/status/688813345038794753</a></li>
+<li><a href="https://twitter.com/rexarul/status/688827534008426496" time_added="1453091803" tags="">https://twitter.com/rexarul/status/688827534008426496</a></li>
+<li><a href="https://twitter.com/zenpencils/status/688828211044564992" time_added="1453091796" tags="">https://twitter.com/zenpencils/status/688828211044564992</a></li>
+<li><a href="https://twitter.com/_ericelliott/status/688828228740468737" time_added="1453091735" tags="">https://twitter.com/_ericelliott/status/688828228740468737</a></li>
+<li><a href="https://twitter.com/zenpencils/status/688828264488419328" time_added="1453091727" tags="">https://twitter.com/zenpencils/status/688828264488419328</a></li>
+<li><a href="https://twitter.com/levie/status/688829435089297408" time_added="1453091711" tags="">https://twitter.com/levie/status/688829435089297408</a></li>
+<li><a href="https://twitter.com/sindresorhus/status/688836094822100993" time_added="1453091678" tags="">https://twitter.com/sindresorhus/status/688836094822100993</a></li>
+<li><a href="https://twitter.com/sindresorhus/status/688837735038189568" time_added="1453091662" tags="">https://twitter.com/sindresorhus/status/688837735038189568</a></li>
+<li><a href="https://twitter.com/pmarca/status/688840339604414464" time_added="1453091635" tags="">https://twitter.com/pmarca/status/688840339604414464</a></li>
+<li><a href="https://twitter.com/rexarul/status/688848988968194048" time_added="1453091589" tags="">https://twitter.com/rexarul/status/688848988968194048</a></li>
+<li><a href="https://twitter.com/gortok/status/688849312525193218" time_added="1453091579" tags="">https://twitter.com/gortok/status/688849312525193218</a></li>
+<li><a href="https://twitter.com/_ericelliott/status/688852078312222720" time_added="1453090909" tags="">https://twitter.com/_ericelliott/status/688852078312222720</a></li>
+<li><a href="https://twitter.com/codepo8/status/688864976119971840" time_added="1453090871" tags="">https://twitter.com/codepo8/status/688864976119971840</a></li>
+<li><a href="https://twitter.com/rexarul/status/688902101657882624" time_added="1453090656" tags="">https://twitter.com/rexarul/status/688902101657882624</a></li>
+<li><a href="https://twitter.com/rexarul/status/688903068159754240" time_added="1453090633" tags="">https://twitter.com/rexarul/status/688903068159754240</a></li>
+<li><a href="https://twitter.com/r0h1n/status/688913960662384640" time_added="1453090594" tags="">https://twitter.com/r0h1n/status/688913960662384640</a></li>
+<li><a href="https://twitter.com/beingpractical/status/688916513303085059" time_added="1453090581" tags="">https://twitter.com/beingpractical/status/688916513303085059</a></li>
+<li><a href="https://twitter.com/kirang89/status/688716817032806400" time_added="1453046445" tags="">https://twitter.com/kirang89/status/688716817032806400</a></li>
+<li><a href="https://medium.com/@wob/the-sad-state-of-web-development-1603a861d29f" time_added="1453019076" tags="">https://medium.com/@wob/the-sad-state-of-web-development-1603a861d29f</a></li>
+<li><a href="http://anildash.com/2012/08/stop-publishing-web-pages.html" time_added="1453018898" tags="">http://anildash.com/2012/08/stop-publishing-web-pages.html</a></li>
+<li><a href="http://www.hanselman.com/blog/FoundVideoSocialNetworkingForDevelopersAndMakingYourBlogSuckLess.aspx" time_added="1453018791" tags="">http://www.hanselman.com/blog/FoundVideoSocialNetworkingForDevelopersAndMakingYourBlogSuckLess.aspx</a></li>
+<li><a href="http://blog.samaltman.com/before-growth" time_added="1452962649" tags="">http://blog.samaltman.com/before-growth</a></li>
+<li><a href="https://twitter.com/una/status/688123215181250561" time_added="1452944099" tags="">https://twitter.com/una/status/688123215181250561</a></li>
+<li><a href="http://a16z.com/2016/01/15/a16z-podcast-software-is-what-distinguishes-the-hardware-winners/" time_added="1452926644" tags="">http://a16z.com/2016/01/15/a16z-podcast-software-is-what-distinguishes-the-hardware-winners/</a></li>
+<li><a href="https://twitter.com/abrams/status/688157613289111552" time_added="1452917844" tags="">https://twitter.com/abrams/status/688157613289111552</a></li>
+<li><a href="https://twitter.com/codepo8/status/688162521463668737" time_added="1452917831" tags="">https://twitter.com/codepo8/status/688162521463668737</a></li>
+<li><a href="https://twitter.com/nayafia/status/687394851869093888" time_added="1452917738" tags="">https://twitter.com/nayafia/status/687394851869093888</a></li>
+<li><a href="https://twitter.com/joelgascoigne/status/688179933038837760" time_added="1452917685" tags="">https://twitter.com/joelgascoigne/status/688179933038837760</a></li>
+<li><a href="https://twitter.com/_ericelliott/status/688195297499992068" time_added="1452917503" tags="">https://twitter.com/_ericelliott/status/688195297499992068</a></li>
+<li><a href="https://twitter.com/paulg/status/688080761669300224" time_added="1452917357" tags="">https://twitter.com/paulg/status/688080761669300224</a></li>
+<li><a href="https://medium.com/@sebmck/2015-in-review-51ac7035e272#.7mh1cwvtm" time_added="1452917209" tags="">https://medium.com/@sebmck/2015-in-review-51ac7035e272#.7mh1cwvtm</a></li>
+<li><a href="https://github.com/daniellmb/jquery-archive" time_added="1452917183" tags="">https://github.com/daniellmb/jquery-archive</a></li>
+<li><a href="http://ejohn.org/blog/annotated-version-of-the-original-jquery-release/" time_added="1452917154" tags="">http://ejohn.org/blog/annotated-version-of-the-original-jquery-release/</a></li>
+<li><a href="https://twitter.com/slashdot/status/687976621798764544" time_added="1452874337" tags="">https://twitter.com/slashdot/status/687976621798764544</a></li>
+<li><a href="https://twitter.com/_ericelliott/status/687982916123635712" time_added="1452874272" tags="">https://twitter.com/_ericelliott/status/687982916123635712</a></li>
+<li><a href="https://twitter.com/leaverou/status/687995851071991808" time_added="1452873970" tags="">https://twitter.com/leaverou/status/687995851071991808</a></li>
+<li><a href="https://twitter.com/rsarver/status/687062976428294145" time_added="1452873849" tags="">https://twitter.com/rsarver/status/687062976428294145</a></li>
+<li><a href="https://twitter.com/slashdot/status/688018135732072448" time_added="1452873780" tags="">https://twitter.com/slashdot/status/688018135732072448</a></li>
+<li><a href="https://twitter.com/jdalton/status/687052646281158656" time_added="1452829366" tags="">https://twitter.com/jdalton/status/687052646281158656</a></li>
+<li><a href="https://twitter.com/_ericelliott/status/687785034510643201" time_added="1452829252" tags="">https://twitter.com/_ericelliott/status/687785034510643201</a></li>
+<li><a href="https://twitter.com/nzgb/status/687786081165651970" time_added="1452829193" tags="">https://twitter.com/nzgb/status/687786081165651970</a></li>
+<li><a href="https://twitter.com/_ericelliott/status/687831684591521792" time_added="1452828766" tags="">https://twitter.com/_ericelliott/status/687831684591521792</a></li>
+<li><a href="https://twitter.com/unclebobmartin/status/687701964319264770" time_added="1452797324" tags="">https://twitter.com/unclebobmartin/status/687701964319264770</a></li>
+<li><a href="https://twitter.com/jeresig/status/687703507017809920" time_added="1452797279" tags="">https://twitter.com/jeresig/status/687703507017809920</a></li>
+<li><a href="https://twitter.com/ryanscherf/status/687705428268978176" time_added="1452797157" tags="">https://twitter.com/ryanscherf/status/687705428268978176</a></li>
+<li><a href="https://twitter.com/bennadel/status/687630387003174912" time_added="1452797025" tags="">https://twitter.com/bennadel/status/687630387003174912</a></li>
+<li><a href="https://twitter.com/slashdot/status/687669373650231296" time_added="1452796478" tags="">https://twitter.com/slashdot/status/687669373650231296</a></li>
+<li><a href="https://twitter.com/slashdot/status/687689731283509249" time_added="1452796017" tags="">https://twitter.com/slashdot/status/687689731283509249</a></li>
+<li><a href="https://twitter.com/tecoholic/status/687662087913385984" time_added="1452795677" tags="">https://twitter.com/tecoholic/status/687662087913385984</a></li>
+<li><a href="http://ryanmorr.com/understanding-scope-and-context-in-javascript/" time_added="1452770621" tags="">http://ryanmorr.com/understanding-scope-and-context-in-javascript/</a></li>
+<li><a href="https://github.com/mknichel/javascript-errors" time_added="1452770407" tags="">https://github.com/mknichel/javascript-errors</a></li>
+<li><a href="https://medium.com/@ajsharp/please-please-don-t-use-css-in-js-ffeae26f20f" time_added="1452770381" tags="">https://medium.com/@ajsharp/please-please-don-t-use-css-in-js-ffeae26f20f</a></li>
+<li><a href="https://medium.com/@joshburgess/javascript-fatigue-an-alternative-perspective-b6ae411e89ac" time_added="1452769560" tags="">https://medium.com/@joshburgess/javascript-fatigue-an-alternative-perspective-b6ae411e89ac</a></li>
+<li><a href="https://medium.com/the-writers-room/the-spark-file-8d6e7df7ae58" time_added="1452766614" tags="">https://medium.com/the-writers-room/the-spark-file-8d6e7df7ae58</a></li>
+<li><a href="http://a16z.com/2016/01/05/a16z-podcast-the-future-of-software-development/" time_added="1452763513" tags="">http://a16z.com/2016/01/05/a16z-podcast-the-future-of-software-development/</a></li>
+<li><a href="https://twitter.com/joelgascoigne/status/687552829117063169" time_added="1452760684" tags="">https://twitter.com/joelgascoigne/status/687552829117063169</a></li>
+<li><a href="http://philosophy.stackexchange.com/questions/31488/what-does-bertrand-russell-mean-by-saying-christianity-nowadays-requires-us-to-u" time_added="1452748296" tags="">http://philosophy.stackexchange.com/questions/31488/what-does-bertrand-russell-mean-by-saying-christianity-nowadays-requires-us-to-u</a></li>
+<li><a href="https://twitter.com/slashdot/status/687337891236851713" time_added="1452745295" tags="">https://twitter.com/slashdot/status/687337891236851713</a></li>
+<li><a href="https://twitter.com/thej/status/687345709603897344" time_added="1452745263" tags="">https://twitter.com/thej/status/687345709603897344</a></li>
+<li><a href="https://twitter.com/rauchg/status/687333090809610240" time_added="1452745207" tags="">https://twitter.com/rauchg/status/687333090809610240</a></li>
+<li><a href="https://twitter.com/sindresorhus/status/687354604565229569" time_added="1452745092" tags="">https://twitter.com/sindresorhus/status/687354604565229569</a></li>
+<li><a href="https://twitter.com/samstokes/status/687371269650579456" time_added="1452745001" tags="">https://twitter.com/samstokes/status/687371269650579456</a></li>
+<li><a href="https://twitter.com/martinfowler/status/687379670912770048" time_added="1452744921" tags="">https://twitter.com/martinfowler/status/687379670912770048</a></li>
+<li><a href="https://twitter.com/paulg/status/687402394691440640" time_added="1452744772" tags="">https://twitter.com/paulg/status/687402394691440640</a></li>
+<li><a href="https://twitter.com/joelgascoigne/status/687409835311284225" time_added="1452744722" tags="">https://twitter.com/joelgascoigne/status/687409835311284225</a></li>
+<li><a href="https://twitter.com/shazow/status/687420483457925120" time_added="1452744548" tags="">https://twitter.com/shazow/status/687420483457925120</a></li>
+<li><a href="https://twitter.com/zpao/status/687362057079926784" time_added="1452744433" tags="">https://twitter.com/zpao/status/687362057079926784</a></li>
+<li><a href="https://twitter.com/kentcdodds/status/687465915345051648" time_added="1452744091" tags="">https://twitter.com/kentcdodds/status/687465915345051648</a></li>
+<li><a href="https://medium.com/javascript-scene/how-to-learn-es6-47d9a1ac2620" time_added="1452740017" tags="">https://medium.com/javascript-scene/how-to-learn-es6-47d9a1ac2620</a></li>
+<li><a href="https://twitter.com/joelgascoigne/status/687324513122578432" time_added="1452706810" tags="">https://twitter.com/joelgascoigne/status/687324513122578432</a></li>
+<li><a href="https://medium.com/@natekontny/how-can-i-find-someone-to-help-me-4a1aa4111339" time_added="1452705022" tags="">https://medium.com/@natekontny/how-can-i-find-someone-to-help-me-4a1aa4111339</a></li>
+<li><a href="https://twitter.com/npueu/status/687297279015780352" time_added="1452700449" tags="">https://twitter.com/npueu/status/687297279015780352</a></li>
+<li><a href="https://twitter.com/codepo8/status/687264196782854144" time_added="1452698473" tags="">https://twitter.com/codepo8/status/687264196782854144</a></li>
+<li><a href="https://twitter.com/joelgascoigne/status/687281524929114112" time_added="1452697737" tags="">https://twitter.com/joelgascoigne/status/687281524929114112</a></li>
+<li><a href="http://devblog.procore.com/dev/evolution-of-software-applications.html" time_added="1452686542" tags="">http://devblog.procore.com/dev/evolution-of-software-applications.html</a></li>
+<li><a href="https://fsf.org/appeal" time_added="1452663791" tags="">https://fsf.org/appeal</a></li>
+<li><a href="http://blog.wikimedia.org/2015/12/01/wikimedia-foundation-annual-campaign/" time_added="1452663766" tags="">http://blog.wikimedia.org/2015/12/01/wikimedia-foundation-annual-campaign/</a></li>
+<li><a href="http://www.thomashanning.com/10-reasons-you-should-blog-as-a-developer/" time_added="1452663030" tags="">http://www.thomashanning.com/10-reasons-you-should-blog-as-a-developer/</a></li>
+<li><a href="http://www.aaronsw.com/weblog/rawnerve" time_added="1452662051" tags="">http://www.aaronsw.com/weblog/rawnerve</a></li>
+<li><a href="https://medium.com/@mikesherov/writing-clear-code-not-clever-code-d6b90353a3c5" time_added="1452661938" tags="">https://medium.com/@mikesherov/writing-clear-code-not-clever-code-d6b90353a3c5</a></li>
+<li><a href="https://wpcurve.com/lessons-learned-reviewing-300-websites-2-weeks-build-decent-website/" time_added="1452661163" tags="">https://wpcurve.com/lessons-learned-reviewing-300-websites-2-weeks-build-decent-website/</a></li>
+<li><a href="https://github.com/toddmotto/ama/issues/8" time_added="1452658509" tags="">https://github.com/toddmotto/ama/issues/8</a></li>
+<li><a href="http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html" time_added="1452658493" tags="">http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html</a></li>
+<li><a href="https://twitter.com/pinboard/status/686968540507705345" time_added="1452628786" tags="">https://twitter.com/pinboard/status/686968540507705345</a></li>
+<li><a href="https://twitter.com/davidwalshblog/status/686972217557520385" time_added="1452628666" tags="">https://twitter.com/davidwalshblog/status/686972217557520385</a></li>
+<li><a href="https://twitter.com/_ericelliott/status/686988714145411072" time_added="1452628438" tags="">https://twitter.com/_ericelliott/status/686988714145411072</a></li>
+<li><a href="https://www.youtube.com/watch?v=tVlkxrNlp10" time_added="1452603501" tags="">https://www.youtube.com/watch?v=tVlkxrNlp10</a></li>
+<li><a href="https://www.youtube.com/watch?v=coGfGmOeLjE" time_added="1452602260" tags="">https://www.youtube.com/watch?v=coGfGmOeLjE</a></li>
+<li><a href="https://www.reddit.com/r/Entrepreneur/comments/40jeqo/last_year_i_started_my_first_brick_and_mortar/" time_added="1452599862" tags="">https://www.reddit.com/r/Entrepreneur/comments/40jeqo/last_year_i_started_my_first_brick_and_mortar/</a></li>
+<li><a href="https://github.com/aredridel/how-to-read-code" time_added="1452590263" tags="">https://github.com/aredridel/how-to-read-code</a></li>
+<li><a href="https://medium.com/@alltopstartups/don-t-find-yourself-create-yourself-7258fe16b1a7" time_added="1452571623" tags="">https://medium.com/@alltopstartups/don-t-find-yourself-create-yourself-7258fe16b1a7</a></li>
+<li><a href="https://twitter.com/camaradabakunin/status/686589638874644480" time_added="1452571295" tags="">https://twitter.com/camaradabakunin/status/686589638874644480</a></li>
+<li><a href="https://twitter.com/abrams/status/686729637259423745" time_added="1452570865" tags="">https://twitter.com/abrams/status/686729637259423745</a></li>
+<li><a href="https://twitter.com/thenewsminute/status/686748222501486592" time_added="1452570701" tags="">https://twitter.com/thenewsminute/status/686748222501486592</a></li>
+<li><a href="https://medium.com/muzli-design-inspiration/login-sign-up-inspiration-for-mobile-apps-aeff34090bbd" time_added="1452570577" tags="">https://medium.com/muzli-design-inspiration/login-sign-up-inspiration-for-mobile-apps-aeff34090bbd</a></li>
+<li><a href="https://medium.com/keep-learning-keep-growing/what-it-cost-me-to-become-more-self-aware-c704b16c2591" time_added="1452565947" tags="">https://medium.com/keep-learning-keep-growing/what-it-cost-me-to-become-more-self-aware-c704b16c2591</a></li>
+<li><a href="https://m.signalvnoise.com/discouraged-i-wasn-t-any-good-9328a8bfc31c" time_added="1452565877" tags="">https://m.signalvnoise.com/discouraged-i-wasn-t-any-good-9328a8bfc31c</a></li>
+<li><a href="https://twitter.com/wikimedia/status/686588348085841920" time_added="1452530852" tags="">https://twitter.com/wikimedia/status/686588348085841920</a></li>
+<li><a href="https://twitter.com/timoreilly/status/686503279472283652" time_added="1452527515" tags="">https://twitter.com/timoreilly/status/686503279472283652</a></li>
+<li><a href="https://twitter.com/thej/status/686505041415385088" time_added="1452527486" tags="">https://twitter.com/thej/status/686505041415385088</a></li>
+<li><a href="https://twitter.com/thejohnbernard/status/686489470636523520" time_added="1452527414" tags="">https://twitter.com/thejohnbernard/status/686489470636523520</a></li>
+<li><a href="https://twitter.com/_ericelliott/status/686534393515618305" time_added="1452527170" tags="">https://twitter.com/_ericelliott/status/686534393515618305</a></li>
+<li><a href="https://twitter.com/foundingf/status/686544876121538560" time_added="1452526924" tags="">https://twitter.com/foundingf/status/686544876121538560</a></li>
+<li><a href="https://twitter.com/c_assisi/status/686404664464662528" time_added="1452490412" tags="">https://twitter.com/c_assisi/status/686404664464662528</a></li>
+<li><a href="https://twitter.com/waltertreur/status/685149520854945792" time_added="1452439140" tags="">https://twitter.com/waltertreur/status/685149520854945792</a></li>
+<li><a href="https://twitter.com/renugarain/status/686202239015235585" time_added="1452439073" tags="">https://twitter.com/renugarain/status/686202239015235585</a></li>
+<li><a href="https://twitter.com/_ericelliott/status/686193520315621376" time_added="1452437443" tags="">https://twitter.com/_ericelliott/status/686193520315621376</a></li>
+<li><a href="https://twitter.com/bfrancis/status/677127462220906496" time_added="1452432693" tags="">https://twitter.com/bfrancis/status/677127462220906496</a></li>
+<li><a href="https://twitter.com/slashdot/status/686176760828956672" time_added="1452432382" tags="">https://twitter.com/slashdot/status/686176760828956672</a></li>
+<li><a href="https://twitter.com/dearsarah/status/686098548060889088" time_added="1452424304" tags="">https://twitter.com/dearsarah/status/686098548060889088</a></li>
+<li><a href="https://twitter.com/girlziplocked/status/685721990699720706" time_added="1452414546" tags="">https://twitter.com/girlziplocked/status/685721990699720706</a></li>
+<li><a href="https://twitter.com/rlph/status/685836889857900544" time_added="1452360411" tags="">https://twitter.com/rlph/status/685836889857900544</a></li>
+<li><a href="https://twitter.com/noahsussman/status/685871832944259072" time_added="1452359959" tags="">https://twitter.com/noahsussman/status/685871832944259072</a></li>
+<li><a href="http://www.reddit.com/r/intj/comments/40295w/intj_males_what_are_you_attracted_to/" time_added="1452342337" tags="">INTJ Males: What are you attracted to?</a></li>
+<li><a href="http://ryanholiday.net/so-you-want-to-be-a-writer-thats-mistake-1/" time_added="1452337280" tags="">http://ryanholiday.net/so-you-want-to-be-a-writer-thats-mistake-1/</a></li>
+<li><a href="https://www.facebook.com/video.php?v=1165362796808577" time_added="1452324934" tags="">https://www.facebook.com/video.php?v=1165362796808577</a></li>
+<li><a href="https://twitter.com/dhavaltrivedi/status/685689721603911683" time_added="1452322981" tags="">https://twitter.com/dhavaltrivedi/status/685689721603911683</a></li>
+<li><a href="https://twitter.com/sricalifornia/status/685696602141401088" time_added="1452322839" tags="">https://twitter.com/sricalifornia/status/685696602141401088</a></li>
+<li><a href="https://twitter.com/tejasbubane/status/685716548586110976" time_added="1452322666" tags="">https://twitter.com/tejasbubane/status/685716548586110976</a></li>
+<li><a href="https://medium.com/keep-learning-keep-growing/solve-it-for-yourself-solve-it-for-the-world-34df23042681#.in80r9ssz" time_added="1452319173" tags="">https://medium.com/keep-learning-keep-growing/solve-it-for-yourself-solve-i</a></li>
+<li><a href="https://twitter.com/backendweekly/status/685625805787930626" time_added="1452312973" tags="">https://twitter.com/backendweekly/status/685625805787930626</a></li>
+<li><a href="https://twitter.com/js_cheerleader/status/685618258888814596" time_added="1452312954" tags="">https://twitter.com/js_cheerleader/status/685618258888814596</a></li>
+<li><a href="https://twitter.com/binitamshah/status/685656421715685376" time_added="1452312625" tags="">https://twitter.com/binitamshah/status/685656421715685376</a></li>
+<li><a href="https://twitter.com/_ericelliott/status/685657539934052358" time_added="1452312601" tags="">https://twitter.com/_ericelliott/status/685657539934052358</a></li>
+<li><a href="https://twitter.com/firefoxosfeed/status/685659415383420929" time_added="1452312553" tags="">https://twitter.com/firefoxosfeed/status/685659415383420929</a></li>
+<li><a href="https://twitter.com/williamsonross/status/685564922747420672" time_added="1452312369" tags="">https://twitter.com/williamsonross/status/685564922747420672</a></li>
+<li><a href="https://twitter.com/natekontny/status/685538775204769792" time_added="1452312361" tags="">https://twitter.com/natekontny/status/685538775204769792</a></li>
+<li><a href="https://twitter.com/render_conf/status/685426230292811776" time_added="1452272193" tags="">https://twitter.com/render_conf/status/685426230292811776</a></li>
+<li><a href="https://twitter.com/kentcdodds/status/685500674226913281" time_added="1452272181" tags="">https://twitter.com/kentcdodds/status/685500674226913281</a></li>
+<li><a href="https://medium.com/support-ops/customer-support-is-a-feature-4a3bed477489" time_added="1452252158" tags="">https://medium.com/support-ops/customer-support-is-a-feature-4a3bed477489</a></li>
+<li><a href="https://m.signalvnoise.com/do-you-have-to-love-what-you-do-762fa0a50bad" time_added="1452252078" tags="">https://m.signalvnoise.com/do-you-have-to-love-what-you-do-762fa0a50bad</a></li>
+<li><a href="https://twitter.com/lukew/status/685129548766162944" time_added="1452184461" tags="">https://twitter.com/lukew/status/685129548766162944</a></li>
+<li><a href="https://twitter.com/bryanlunduke/status/685134624012419072" time_added="1452184439" tags="">https://twitter.com/bryanlunduke/status/685134624012419072</a></li>
+<li><a href="https://twitter.com/taoxiease/status/685012582852374528" time_added="1452181161" tags="">https://twitter.com/taoxiease/status/685012582852374528</a></li>
+<li><a href="https://twitter.com/nixxin/status/684976532322791426" time_added="1452180999" tags="">https://twitter.com/nixxin/status/684976532322791426</a></li>
+<li><a href="https://twitter.com/geroter/status/685058045924249600" time_added="1452179352" tags="">https://twitter.com/geroter/status/685058045924249600</a></li>
+<li><a href="https://twitter.com/erisds/status/685089008439967744" time_added="1452179206" tags="">https://twitter.com/erisds/status/685089008439967744</a></li>
+<li><a href="https://twitter.com/iam_preethi/status/684412109128519680" time_added="1452179059" tags="">https://twitter.com/iam_preethi/status/684412109128519680</a></li>
+<li><a href="https://twitter.com/thepracticaldev/status/685098281605705732" time_added="1452178730" tags="">https://twitter.com/thepracticaldev/status/685098281605705732</a></li>
+<li><a href="https://twitter.com/codepo8/status/685103987599749120" time_added="1452178606" tags="">https://twitter.com/codepo8/status/685103987599749120</a></li>
+<li><a href="https://twitter.com/natty_nat_nat/status/685023348791709697" time_added="1452178492" tags="">https://twitter.com/natty_nat_nat/status/685023348791709697</a></li>
+<li><a href="https://twitter.com/joelgascoigne/status/685108909674229760" time_added="1452178070" tags="">https://twitter.com/joelgascoigne/status/685108909674229760</a></li>
+<li><a href="http://www.jeditoolkit.com/2012/07/05/nodeconf-2012.html#post" time_added="1452081227" tags="">http://www.jeditoolkit.com/2012/07/05/nodeconf-2012.html#post</a></li>
+<li><a href="https://www.reddit.com/r/emacs/comments/169mst/i_want_to_learn_emacs_any_tips_from_veterans/" time_added="1452076889" tags="">https://www.reddit.com/r/emacs/comments/169mst/i_want_to_learn_emacs_any_tips_from_veterans/</a></li>
+<li><a href="http://stackoverflow.com/questions/485120/will-emacs-make-me-a-better-programmer" time_added="1452076867" tags="">http://stackoverflow.com/questions/485120/will-emacs-make-me-a-better-programmer</a></li>
+<li><a href="https://www.quora.com/Who-is-Steve-Yegge-referring-to-as-the-single-seed-engineer-singlehandedly-responsible-for-the-amazing-quality-of-Googles-engineering-culture" time_added="1452071874" tags="">https://www.quora.com/Who-is-Steve-Yegge-referring-to-as-the-single-seed-engineer-singlehandedly-responsible-for-the-amazing-quality-of-Googles-engineering-culture</a></li>
+<li><a href="http://steve-yegge.blogspot.in/2008/01/blogging-theory-201-size-does-matter.html" time_added="1452070628" tags="">http://steve-yegge.blogspot.in/2008/01/blogging-theory-201-size-does-matter.html</a></li>
+<li><a href="https://www.reddit.com/r/programming/comments/62art/google_disables_steve_yegges_site/" time_added="1452070582" tags="">https://www.reddit.com/r/programming/comments/62art/google_disables_steve_yegges_site/</a></li>
+<li><a href="http://blog.codinghorror.com/i-stopped-reading-your-blog-years-ago/" time_added="1452070303" tags="">http://blog.codinghorror.com/i-stopped-reading-your-blog-years-ago/</a></li>
+<li><a href="http://steve-yegge.blogspot.in/2008/02/portrait-of-n00b.html" time_added="1452066565" tags="">http://steve-yegge.blogspot.in/2008/02/portrait-of-n00b.html</a></li>
+<li><a href="https://twitter.com/_ericelliott/status/684380199610413060" time_added="1452004160" tags="">https://twitter.com/_ericelliott/status/684380199610413060</a></li>
+<li><a href="https://twitter.com/conormuirhead/status/398632930332782592" time_added="1452003523" tags="">https://twitter.com/conormuirhead/status/398632930332782592</a></li>
+<li><a href="https://twitter.com/jackerhack/status/677354187605217280" time_added="1452002828" tags="">https://twitter.com/jackerhack/status/677354187605217280</a></li>
+<li><a href="https://medium.com/@bchesky/don-t-edit-your-imagination-e51969c37d1b#.cheqmaccp" time_added="1451999900" tags="">https://medium.com/@bchesky/don-t-edit-your-imagination-e51969c37d1b#.cheqmaccp</a></li>
+<li><a href="http://www.nytimes.com/2016/01/03/fashion/bill-gates-the-billionaire-book-critic.html?_r=0" time_added="1451999449" tags="">http://www.nytimes.com/2016/01/03/fashion/bill-gates-the-billionaire-book-critic.html?_r=0</a></li>
+<li><a href="https://blog.pinboard.in/2013/08/an_interview_with_alex_bayley_of_growstuff/" time_added="1451991979" tags="">https://blog.pinboard.in/2013/08/an_interview_with_alex_bayley_of_growstuff/</a></li>
+<li><a href="https://news.ycombinator.com/item?id=764140" time_added="1451990927" tags="">https://news.ycombinator.com/item?id=764140</a></li>
+<li><a href="https://news.ycombinator.com/item?id=3321002" time_added="1451990917" tags="">https://news.ycombinator.com/item?id=3321002</a></li>
+<li><a href="https://blog.pinboard.in/2015/07/pinboard_turns_six/" time_added="1451990557" tags="">https://blog.pinboard.in/2015/07/pinboard_turns_six/</a></li>
+<li><a href="https://blog.pinboard.in/2014/07/pinboard_turns_five/" time_added="1451990540" tags="">https://blog.pinboard.in/2014/07/pinboard_turns_five/</a></li>
+<li><a href="http://www.idlewords.com/2015/11/the_advertising_bubble.htm" time_added="1451988046" tags="">http://www.idlewords.com/2015/11/the_advertising_bubble.htm</a></li>
+<li><a href="http://www.theatlantic.com/technology/archive/2014/08/advertising-is-the-internets-original-sin/376041/?single_page=true" time_added="1451987813" tags="">http://www.theatlantic.com/technology/archive/2014/08/advertising-is-the-internets-original-sin/376041/?single_page=true</a></li>
+<li><a href="https://twitter.com/intriguejournal/status/684178081909731328" time_added="1451958422" tags="">https://twitter.com/intriguejournal/status/684178081909731328</a></li>
+<li><a href="https://twitter.com/seldo/status/684153358672740352" time_added="1451956804" tags="">https://twitter.com/seldo/status/684153358672740352</a></li>
+<li><a href="https://twitter.com/gortok/status/684151313551257600" time_added="1451956329" tags="">https://twitter.com/gortok/status/684151313551257600</a></li>
+<li><a href="https://twitter.com/frankycaron/status/684140472567111680" time_added="1451956224" tags="">https://twitter.com/frankycaron/status/684140472567111680</a></li>
+<li><a href="https://twitter.com/paulg/status/684142664862711808" time_added="1451956178" tags="">https://twitter.com/paulg/status/684142664862711808</a></li>
+<li><a href="https://twitter.com/kentcdodds/status/684029637203083264" time_added="1451921413" tags="">https://twitter.com/kentcdodds/status/684029637203083264</a></li>
+<li><a href="https://twitter.com/kentcdodds/status/683879002100994048" time_added="1451920984" tags="">https://twitter.com/kentcdodds/status/683879002100994048</a></li>
+<li><a href="https://twitter.com/manishearth/status/683679875304038401" time_added="1451919389" tags="">https://twitter.com/manishearth/status/683679875304038401</a></li>
+<li><a href="https://twitter.com/codepo8/status/683966173327831040" time_added="1451919285" tags="">https://twitter.com/codepo8/status/683966173327831040</a></li>
+<li><a href="https://twitter.com/thepracticaldev/status/684005909937418240" time_added="1451918495" tags="">https://twitter.com/thepracticaldev/status/684005909937418240</a></li>
+<li><a href="https://twitter.com/antirez/status/683619643454550016" time_added="1451831358" tags="">https://twitter.com/antirez/status/683619643454550016</a></li>
+<li><a href="https://twitter.com/sarajchipps/status/683654291752628224" time_added="1451831052" tags="">https://twitter.com/sarajchipps/status/683654291752628224</a></li>
+<li><a href="https://twitter.com/politico/status/683441408234119168" time_added="1451808106" tags="">https://twitter.com/politico/status/683441408234119168</a></li>
+<li><a href="https://twitter.com/vijayanands/status/683550760768901120" time_added="1451807231" tags="">https://twitter.com/vijayanands/status/683550760768901120</a></li>
+<li><a href="https://twitter.com/paulg/status/683337357215412225" time_added="1451807207" tags="">https://twitter.com/paulg/status/683337357215412225</a></li>
+<li><a href="https://twitter.com/mikeal/status/683537897866170368" time_added="1451807101" tags="">https://twitter.com/mikeal/status/683537897866170368</a></li>
+<li><a href="https://twitter.com/paulg/status/683337247349850112" time_added="1451787293" tags="">https://twitter.com/paulg/status/683337247349850112</a></li>
+<li><a href="https://twitter.com/subatomic/status/683202358243790848" time_added="1451726182" tags="">https://twitter.com/subatomic/status/683202358243790848</a></li>
+<li><a href="https://twitter.com/slashdot/status/683184841752494080" time_added="1451721157" tags="">https://twitter.com/slashdot/status/683184841752494080</a></li>
+<li><a href="https://twitter.com/lukeschunk/status/683068065009938432" time_added="1451712167" tags="">https://twitter.com/lukeschunk/status/683068065009938432</a></li>
+<li><a href="https://twitter.com/_ericelliott/status/683119284831285248" time_added="1451711918" tags="">https://twitter.com/_ericelliott/status/683119284831285248</a></li>
+<li><a href="https://twitter.com/jessitron/status/683121255969509376" time_added="1451711875" tags="">https://twitter.com/jessitron/status/683121255969509376</a></li>
+<li><a href="https://twitter.com/amreldib/status/683138412254121984" time_added="1451711770" tags="">https://twitter.com/amreldib/status/683138412254121984</a></li>
+<li><a href="https://twitter.com/_ericelliott/status/683149484805779456" time_added="1451711722" tags="">https://twitter.com/_ericelliott/status/683149484805779456</a></li>
+<li><a href="https://twitter.com/codepo8/status/683022548544651264" time_added="1451680730" tags="">https://twitter.com/codepo8/status/683022548544651264</a></li>
+<li><a href="https://twitter.com/ellenvrana/status/683000416775356418" time_added="1451676023" tags="">https://twitter.com/ellenvrana/status/683000416775356418</a></li>
+<li><a href="https://twitter.com/kentcdodds/status/682973674698182657" time_added="1451675974" tags="">https://twitter.com/kentcdodds/status/682973674698182657</a></li>
+<li><a href="https://twitter.com/vijaysw/status/682985032269430785" time_added="1451675768" tags="">https://twitter.com/vijaysw/status/682985032269430785</a></li>
+<li><a href="http://www.phptherightway.com/" time_added="1451664327" tags="">http://www.phptherightway.com/</a></li>
+<li><a href="http://www.mattermost.org/" time_added="1451659125" tags="">http://www.mattermost.org/</a></li>
+<li><a href="http://www.ted.com/talks/robert_waldinger_what_makes_a_good_life_lessons_from_the_longest_study_on_happiness" time_added="1451656291" tags="">http://www.ted.com/talks/robert_waldinger_what_makes_a_good_life_lessons_from_the_longest_study_on_happiness</a></li>
+<li><a href="https://www.groovehq.com/blog/100k" time_added="1451630125" tags="">https://www.groovehq.com/blog/100k</a></li>
+<li><a href="https://twitter.com/ppinternational/status/682564886199574529" time_added="1451620493" tags="">https://twitter.com/ppinternational/status/682564886199574529</a></li>
+<li><a href="https://twitter.com/sunils34/status/682577726834896897" time_added="1451620403" tags="">https://twitter.com/sunils34/status/682577726834896897</a></li>
+<li><a href="https://twitter.com/pedroatamayo/status/682535887050256384" time_added="1451620387" tags="">https://twitter.com/pedroatamayo/status/682535887050256384</a></li>
+<li><a href="https://twitter.com/npueu/status/682595535702757376" time_added="1451620218" tags="">https://twitter.com/npueu/status/682595535702757376</a></li>
+<li><a href="https://twitter.com/tylermcginnis33/status/682601900882006016" time_added="1451620113" tags="">https://twitter.com/tylermcginnis33/status/682601900882006016</a></li>
+<li><a href="https://twitter.com/sunils34/status/682611999616987136" time_added="1451620018" tags="">https://twitter.com/sunils34/status/682611999616987136</a></li>
+<li><a href="https://twitter.com/dimensionmedia/status/682618969568628736" time_added="1451619969" tags="">https://twitter.com/dimensionmedia/status/682618969568628736</a></li>
+<li><a href="https://twitter.com/slashdot/status/682626851030831104" time_added="1451619880" tags="">https://twitter.com/slashdot/status/682626851030831104</a></li>
+<li><a href="https://twitter.com/petrakramer/status/682633779769401344" time_added="1451619788" tags="">https://twitter.com/petrakramer/status/682633779769401344</a></li>
+<li><a href="https://twitter.com/aral/status/682633256823603200" time_added="1451619777" tags="">https://twitter.com/aral/status/682633256823603200</a></li>
+<li><a href="https://twitter.com/nikillinit/status/682654663578091520" time_added="1451619646" tags="">https://twitter.com/nikillinit/status/682654663578091520</a></li>
+<li><a href="https://twitter.com/iam_preethi/status/682653818090160128" time_added="1451619638" tags="">https://twitter.com/iam_preethi/status/682653818090160128</a></li>
+<li><a href="https://twitter.com/larjona99/status/682656790660706304" time_added="1451619618" tags="">https://twitter.com/larjona99/status/682656790660706304</a></li>
+<li><a href="https://twitter.com/jessitron/status/682667549994029056" time_added="1451619572" tags="">https://twitter.com/jessitron/status/682667549994029056</a></li>
+<li><a href="https://twitter.com/freddyb/status/682677940107259905" time_added="1451619540" tags="">https://twitter.com/freddyb/status/682677940107259905</a></li>
+<li><a href="https://twitter.com/kentcdodds/status/682706872793612288" time_added="1451619414" tags="">https://twitter.com/kentcdodds/status/682706872793612288</a></li>
+<li><a href="https://twitter.com/senthil_hi/status/682712011008950272" time_added="1451619394" tags="">https://twitter.com/senthil_hi/status/682712011008950272</a></li>
+<li><a href="https://twitter.com/jasonfried/status/681924971468206080" time_added="1451619328" tags="">https://twitter.com/jasonfried/status/681924971468206080</a></li>
+<li><a href="https://twitter.com/sarahmei/status/682670006266499073" time_added="1451619233" tags="">https://twitter.com/sarahmei/status/682670006266499073</a></li>
+<li><a href="https://twitter.com/nacin/status/682745473157865472" time_added="1451619131" tags="">https://twitter.com/nacin/status/682745473157865472</a></li>
+<li><a href="http://blog.codinghorror.com/choosing-your-own-adventure/" time_added="1451574946" tags="">http://blog.codinghorror.com/choosing-your-own-adventure/</a></li>
+<li><a href="http://blog.codinghorror.com/today-is-support-your-favorite-small-software-vendor-day/" time_added="1451574467" tags="">http://blog.codinghorror.com/today-is-support-your-favorite-small-software-vendor-day/</a></li>
+<li><a href="http://theoatmeal.com/blog/apps" time_added="1451572301" tags="">http://theoatmeal.com/blog/apps</a></li>
+<li><a href="http://www.joshlehman.com/thoughts/stop-using-the-cup-of-coffee-vs-0-99-cent-app-analogy/" time_added="1451572236" tags="">http://www.joshlehman.com/thoughts/stop-using-the-cup-of-coffee-vs-0-99-cent-app-analogy/</a></li>
+<li><a href="https://twitter.com/kevinweil/status/682218878106124288" time_added="1451494441" tags="">https://twitter.com/kevinweil/status/682218878106124288</a></li>
+<li><a href="https://twitter.com/iam_preethi/status/682232675164237824" time_added="1451494340" tags="">https://twitter.com/iam_preethi/status/682232675164237824</a></li>
+<li><a href="https://twitter.com/martinfowler/status/682199178085318656" time_added="1451494069" tags="">https://twitter.com/martinfowler/status/682199178085318656</a></li>
+<li><a href="https://medium.com/keep-learning-keep-growing/what-i-learned-from-52-medium-articles-a6bebf3b640#.f9ylomad8" time_added="1451492368" tags="">https://medium.com/keep-learning-keep-growing/what-i-learned-from-52-medium-articles-a6bebf3b640#.f9ylomad8</a></li>
+<li><a href="https://medium.com/p/2bea9b5531f3" time_added="1451447088" tags="">https://medium.com/p/2bea9b5531f3</a></li>
+<li><a href="https://medium.com/p/577bdf2ed03b" time_added="1451447070" tags="">https://medium.com/p/577bdf2ed03b</a></li>
+<li><a href="https://medium.com/p/79867801e965" time_added="1451446746" tags="">https://medium.com/p/79867801e965</a></li>
+<li><a href="https://thedigitalsabbath.wordpress.com/introduction/" time_added="1451446460" tags="">https://thedigitalsabbath.wordpress.com/introduction/</a></li>
+<li><a href="https://twitter.com/dhh/status/681883924205809664" time_added="1451412594" tags="">https://twitter.com/dhh/status/681883924205809664</a></li>
+<li><a href="http://developer-evangelism.com/internal.php#balance" time_added="1451382764" tags="">http://developer-evangelism.com/internal.php#balance</a></li>
+<li><a href="http://www.slideshare.net/gueste94e4c/dropbox-startup-lessons-learned-3836587" time_added="1451365051" tags="">http://www.slideshare.net/gueste94e4c/dropbox-startup-lessons-learned-3836587</a></li>
+<li><a href="http://christophjanz.blogspot.de/2015/07/the-evolution-of-saas-landing-page.html" time_added="1451365042" tags="">http://christophjanz.blogspot.de/2015/07/the-evolution-of-saas-landing-page.html</a></li>
+<li><a href="https://twitter.com/janchip/status/681680119937671168" time_added="1451360777" tags="">https://twitter.com/janchip/status/681680119937671168</a></li>
+<li><a href="https://twitter.com/rrhoover/status/681609292223516676" time_added="1451357328" tags="">https://twitter.com/rrhoover/status/681609292223516676</a></li>
+<li><a href="https://twitter.com/slashdot/status/681636331756371970" time_added="1451357005" tags="">https://twitter.com/slashdot/status/681636331756371970</a></li>
+<li><a href="https://twitter.com/qz/status/681547261415931904" time_added="1451356941" tags="">https://twitter.com/qz/status/681547261415931904</a></li>
+<li><a href="https://twitter.com/nolanlawson/status/681575808301858816" time_added="1451356782" tags="">https://twitter.com/nolanlawson/status/681575808301858816</a></li>
+<li><a href="https://twitter.com/abishtoo/status/681661833564913664" time_added="1451356675" tags="">https://twitter.com/abishtoo/status/681661833564913664</a></li>
+<li><a href="https://twitter.com/johnmaeda/status/681630414633590784" time_added="1451356601" tags="">https://twitter.com/johnmaeda/status/681630414633590784</a></li>
+<li><a href="https://twitter.com/recode/status/681516496779083776" time_added="1451325540" tags="">https://twitter.com/recode/status/681516496779083776</a></li>
+<li><a href="https://twitter.com/arstechnica/status/681445498310537216" time_added="1451325525" tags="">https://twitter.com/arstechnica/status/681445498310537216</a></li>
+<li><a href="https://twitter.com/slashdot/status/681524582499639300" time_added="1451325186" tags="">https://twitter.com/slashdot/status/681524582499639300</a></li>
+<li><a href="http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar/ar01s04.html" time_added="1451293363" tags="">http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar/ar01s04.html</a></li>
+<li><a href="http://www.ted.com/talks/yves_morieux_how_too_many_rules_at_work_keep_you_from_getting_things_done#t-706964" time_added="1451200564" tags="">http://www.ted.com/talks/yves_morieux_how_too_many_rules_at_work_keep_you_from_getting_things_done#t-706964</a></li>
+<li><a href="http://blog.codinghorror.com/introducing-stackoverflow-com/" time_added="1451108664" tags="">http://blog.codinghorror.com/introducing-stackoverflow-com/</a></li>
+<li><a href="http://blog.codinghorror.com/douchebaggery/" time_added="1451108580" tags="">http://blog.codinghorror.com/douchebaggery/</a></li>
+<li><a href="http://blog.codinghorror.com/i-repeat-do-not-listen-to-your-users/" time_added="1451108566" tags="">http://blog.codinghorror.com/i-repeat-do-not-listen-to-your-users/</a></li>
+<li><a href="http://blog.codinghorror.com/paul-grahams-participatory-narcissism/" time_added="1451108013" tags="">http://blog.codinghorror.com/paul-grahams-participatory-narcissism/</a></li>
+<li><a href="http://blog.codinghorror.com/hackers-and-pastry-chefs/" time_added="1451107697" tags="">http://blog.codinghorror.com/hackers-and-pastry-chefs/</a></li>
+<li><a href="https://twitter.com/actor_siddharth/status/680426940164014080" time_added="1451066173" tags="">https://twitter.com/actor_siddharth/status/680426940164014080</a></li>
+<li><a href="https://twitter.com/samstokes/status/680223798298214401" time_added="1451021507" tags="">https://twitter.com/samstokes/status/680223798298214401</a></li>
+<li><a href="https://twitter.com/jshawl/status/680074702941995008" time_added="1451011997" tags="">https://twitter.com/jshawl/status/680074702941995008</a></li>
+<li><a href="https://twitter.com/sunils34/status/680075212700934144" time_added="1451011976" tags="">https://twitter.com/sunils34/status/680075212700934144</a></li>
+<li><a href="https://twitter.com/slashdot/status/680085693037719554" time_added="1451011758" tags="">https://twitter.com/slashdot/status/680085693037719554</a></li>
+<li><a href="https://twitter.com/slashdot/status/680099948973666304" time_added="1451011143" tags="">https://twitter.com/slashdot/status/680099948973666304</a></li>
+<li><a href="https://twitter.com/kimdotcom/status/679998139189702656" time_added="1451011048" tags="">https://twitter.com/kimdotcom/status/679998139189702656</a></li>
+<li><a href="https://twitter.com/kentcdodds/status/680128247674241024" time_added="1451010658" tags="">https://twitter.com/kentcdodds/status/680128247674241024</a></li>
+<li><a href="https://twitter.com/bchesky/status/680167940604465152" time_added="1451009658" tags="">https://twitter.com/bchesky/status/680167940604465152</a></li>
+<li><a href="https://twitter.com/vijayragavanv/status/680191430216650752" time_added="1451009312" tags="">https://twitter.com/vijayragavanv/status/680191430216650752</a></li>
+<li><a href="https://twitter.com/kingsnorth66/status/680151994724708352" time_added="1451009197" tags="">https://twitter.com/kingsnorth66/status/680151994724708352</a></li>
+<li><a href="https://twitter.com/jackwkinsey/status/680037061299171328" time_added="1450974809" tags="">https://twitter.com/jackwkinsey/status/680037061299171328</a></li>
+<li><a href="https://twitter.com/slashdot/status/680038799049633793" time_added="1450972760" tags="">https://twitter.com/slashdot/status/680038799049633793</a></li>
+<li><a href="https://twitter.com/nigelbabu/status/679517048184020992" time_added="1450844790" tags="">https://twitter.com/nigelbabu/status/679517048184020992</a></li>
+<li><a href="http://blog.codinghorror.com/thirteen-blog-cliches/" time_added="1450841921" tags="">http://blog.codinghorror.com/thirteen-blog-cliches/</a></li>
+<li><a href="http://www.hanselman.com/blog/SixEssentialLanguageAgnosticProgrammingBooks.aspx" time_added="1450841902" tags="">http://www.hanselman.com/blog/SixEssentialLanguageAgnosticProgrammingBooks.aspx</a></li>
+<li><a href="http://www.hanselman.com/blog/YouAreNotYourCode.aspx" time_added="1450841861" tags="">http://www.hanselman.com/blog/YouAreNotYourCode.aspx</a></li>
+<li><a href="http://blog.codinghorror.com/egoless-programming-you-are-not-your-job/" time_added="1450841846" tags="">http://blog.codinghorror.com/egoless-programming-you-are-not-your-job/</a></li>
+<li><a href="http://gapingvoid.com/blog/2007/01/14/random-thoughts-on-being-an-entrepreneur/" time_added="1450839826" tags="">http://gapingvoid.com/blog/2007/01/14/random-thoughts-on-being-an-entrepreneur/</a></li>
+<li><a href="http://www.africa.upenn.edu/Articles_Gen/Letter_Birmingham.html" time_added="1450802138" tags="">http://www.africa.upenn.edu/Articles_Gen/Letter_Birmingham.html</a></li>
+<li><a href="http://seanwes.com/podcast/074-curate-what-you-share/" time_added="1450771905" tags="">http://seanwes.com/podcast/074-curate-what-you-share/</a></li>
+<li><a href="https://blog.ghost.org/slow-blog-building/" time_added="1450771768" tags="">https://blog.ghost.org/slow-blog-building/</a></li>
+<li><a href="https://www.groovehq.com/blog/in-five-weeks" time_added="1450771759" tags="">https://www.groovehq.com/blog/in-five-weeks</a></li>
+<li><a href="http://jamesclear.com/successful-people-start-before-they-feel-ready" time_added="1450771068" tags="">Habits of Successful People: Start Before You Feel Ready</a></li>
+<li><a href="https://medium.com/@shl/schr%C3%B6dinger-s-startup-de00405d34f8#.kkah0uwc0" time_added="1450766511" tags="">https://medium.com/@shl/schr%C3%B6dinger-s-startup-de00405d34f8#.kkah0uwc0</a></li>
+<li><a href="http://www.theverge.com/2015/12/21/10640306/spacex-elon-musk-rocket-landing-success" time_added="1450762266" tags="">SpaceX successfully landed its Falcon 9 rocket after launching it to space </a></li>
+<li><a href="https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d#.6c5jr8sjx" time_added="1450759132" tags="">https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d#.6c5jr8sjx</a></li>
+<li><a href="https://www.youtube.com/watch?v=MGsalg2f9js" time_added="1450759094" tags="">https://www.youtube.com/watch?v=MGsalg2f9js</a></li>
+<li><a href="https://medium.com/@tallys/i-didn-t-belong-in-tech-4826daf6c7fc#.34kluwuhs" time_added="1450758844" tags="">https://medium.com/@tallys/i-didn-t-belong-in-tech-4826daf6c7fc#.34kluwuhs</a></li>
+<li><a href="http://martinbuberl.com/blog/20-percent-time/" time_added="1450758406" tags="">http://martinbuberl.com/blog/20-percent-time/</a></li>
+<li><a href="https://medium.com/@bryce/early-warning-signs-of-startup-trouble-10c0fbfe9df#.t7yhujzff" time_added="1450758397" tags="">https://medium.com/@bryce/early-warning-signs-of-startup-trouble-10c0fbfe9df#.t7yhujzff</a></li>
+<li><a href="http://yourstory.com/2015/12/technology-predictions-2016/" time_added="1450677816" tags="">Technology predictions for 2016</a></li>
+<li><a href="https://medium.com/@natekontny" time_added="1450667779" tags="">https://medium.com/@natekontny</a></li>
+<li><a href="https://medium.com/@kentcdodds/why-users-care-about-how-you-write-code-2c7870858df#.ss7bnmjdp" time_added="1450667769" tags="">https://medium.com/@kentcdodds/why-users-care-about-how-you-write-code-2c7870858df#.ss7bnmjdp</a></li>
+<li><a href="https://medium.com/@kentcdodds/how-getting-into-open-source-has-been-awesome-for-me-8480cd756a80#.ashpwucid" time_added="1450667759" tags="">https://medium.com/@kentcdodds/how-getting-into-open-source-has-been-awesome-for-me-8480cd756a80#.ashpwucid</a></li>
+<li><a href="https://medium.com/@kentcdodds/first-timers-only-78281ea47455#.t4av3x82p" time_added="1450667747" tags="">https://medium.com/@kentcdodds/first-timers-only-78281ea47455#.t4av3x82p</a></li>
+<li><a href="https://medium.com/@ev" time_added="1450667718" tags="">https://medium.com/@ev</a></li>
+<li><a href="http://www.catb.org/esr/writings/taoup/html/" time_added="1450666616" tags="">http://www.catb.org/esr/writings/taoup/html/</a></li>
+<li><a href="http://us6.campaign-archive2.com/?u=2abae111d44df144b3b3986bc&id=97914d2fe4&e=02f12673fe" time_added="1450666077" tags="">http://us6.campaign-archive2.com/?u=2abae111d44df144b3b3986bc&id=97914d2fe4&e=02f12673fe</a></li>
+<li><a href="http://us6.campaign-archive1.com/?u=2abae111d44df144b3b3986bc&id=929c6d7a97&e=02f12673fe" time_added="1450665774" tags="">http://us6.campaign-archive1.com/?u=2abae111d44df144b3b3986bc&id=929c6d7a97&e=02f12673fe</a></li>
+<li><a href="https://medium.com/business-startup-development-and-more/you-can-start-and-grow-a-startup-anywhere-b927c7735f76#.ce7aklvr2" time_added="1450665661" tags="medium">https://medium.com/business-startup-development-and-more/you-can-start-and-grow-a-startup-anywhere-b927c7735f76#.ce7aklvr2</a></li>
+<li><a href="https://medium.com/@ev/writing-in-medium-df8eac9f4a5e#.4m72q2p19" time_added="1450665651" tags="medium">https://medium.com/@ev/writing-in-medium-df8eac9f4a5e#.4m72q2p19</a></li>
+<li><a href="http://www.quietrev.com/an-illustrated-guide-to-introverts-in-a-start-up/?utm_medium=email&utm_source=infusionsoft&utm_campaign=weeklynews&inf_contact_key=4c2765d5f712ede53e44bd80d9e667c562c368cfacd33c97fe0fc367f5f7acaa" time_added="1450665415" tags="">http://www.quietrev.com/an-illustrated-guide-to-introverts-in-a-start-up/?utm_medium=email&utm_source=infusionsoft&utm_campaign=weeklynews&inf_contact_key=4c2765d5f712ede53e44bd80d9e667c562c368cfacd33c97fe0fc367f5f7acaa</a></li>
+<li><a href="http://ben-evans.com/benedictevans/2015/12/15/16-mobile-theses" time_added="1450665301" tags="">http://ben-evans.com/benedictevans/2015/12/15/16-mobile-theses</a></li>
+<li><a href="http://www.quietrev.com/the-quiet-leadership-institute-evolving-the-revolution-at-work-2/?utm_medium=email&utm_source=infusionsoft&utm_campaign=weeklynews&inf_contact_key=a63a06d368727b533d6b2c94c2e86da88fdea0b929a9c9fc09d0181696bb774f" time_added="1450665285" tags="">http://www.quietrev.com/the-quiet-leadership-institute-evolving-the-revolution-at-work-2/?utm_medium=email&utm_source=infusionsoft&utm_campaign=weeklynews&inf_contact_key=a63a06d368727b533d6b2c94c2e86da88fdea0b929a9c9fc09d0181696bb774f</a></li>
+<li><a href="https://medium.com/opinionated-angularjs/techniques-for-authentication-in-angularjs-applications-7bbf0346acec#.cdm5h6idh" time_added="1450662825" tags="medium">https://medium.com/opinionated-angularjs/techniques-for-authentication-in-angularjs-applications-7bbf0346acec#.cdm5h6idh</a></li>
+<li><a href="https://www.youtube.com/watch?v=finJROBdfG0" time_added="1450662017" tags="">https://www.youtube.com/watch?v=finJROBdfG0</a></li>
 
+		</ul>
+		
+		<h1>Read Archive</h1>
+		<ul>
+			
+		</ul>
+	</body>
 </html>

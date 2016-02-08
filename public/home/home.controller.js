@@ -76,6 +76,7 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert) {
 	}
 
 	function addUrl() {
+		self.loading = true;
 		let data = {
 			url: self.newUrl
 		};
@@ -87,12 +88,14 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert) {
 				self.alertClass = 'show alert-success';
 				clearMsg();
 				self.articles.unshift(response.data.data.articles);
+				self.loading = false;
 			})
 			.catch((err) => {
 				$log.error(err);
 				self.alertMsg = 'Failed :(';
 				self.alertClass = 'show alert-danger';
 				clearMsg();
+				self.loading = false;
 			});
 	}
 

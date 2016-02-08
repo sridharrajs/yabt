@@ -93,11 +93,11 @@ app.post('/import-pocket', (req, res) => {
 			}
 		], (err, items)=> {
 			if (err) {
-				res.status(500).send({
+				return res.status(500).send({
 					msg: err
 				});
 			}
-			res.status(200).send({
+			return res.status(200).send({
 				msg: 'all good!',
 				data: items
 			});
@@ -146,10 +146,13 @@ function appendPageTitle(userId, articles, callback) {
 	async
 		.mapLimit(
 			articles,
-			10,
+			9,
 			(article, titleCb)=> {
 				let url = article.url;
 				pageUtil.getPageTitle(url, (err, title) => {
+					if (err) {
+						return titleCb(null, '');
+					}
 					if (err) {
 						return titleCb(err, null);
 					}
@@ -163,6 +166,9 @@ function appendPageTitle(userId, articles, callback) {
 				if (err) {
 					return callback(err);
 				}
+				acb = _.reject(acb,(site)=>{
+					return _.isEmpty(site);
+				});
 				callback(null, acb);
 			});
 }

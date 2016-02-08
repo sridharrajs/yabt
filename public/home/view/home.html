@@ -15,7 +15,7 @@
 	</div>
 	<div class="col-md-9 right-panel">
 		//right ng-if="homeCtrl.alertMsg"
-		<div class="alert msg {{homeCtrl.alertClass}}" >
+		<div class="alert msg {{homeCtrl.alertClass}}">
 			<strong>
 				{{homeCtrl.alertMsg}}
 			</strong>
@@ -30,7 +30,9 @@
 							   required placeholder="Add An Article">
 					</div>
 					<div class="col-md-2">
-						<button type="submit" class="btn-primary form-control btn btn-default">Add</button>
+						<button ladda="homeCtrl.loading" data-spinner-color="#000000" data-style="expand-right"
+								type="submit" class="btn-primary form-control btn btn-default">Add
+						</button>
 					</div>
 				</div>
 			</form>

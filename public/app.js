@@ -14,6 +14,7 @@
 		.module('readLater', [
 			'ngMessages',
 			'ui.router',
+			'angular-ladda',
 			'oitozero.ngSweetAlert'
 		])
 		.config(configuration)
