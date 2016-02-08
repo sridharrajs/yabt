@@ -13,8 +13,11 @@ const qs = require('qs');
 
 let app = express.Router();
 
+let articleController = require('../controllers/article-controller');
 let userController = require('../controllers/user-controller');
 let security = require('../middlewares/auth-filter');
+
+let pageUtil = require('../utils/page-utils');
 
 app.post('/login', (req, res) => {
 	try {
@@ -93,5 +96,52 @@ app.post('/', (req, res) => {
 		});
 	});
 });
+
+app.get('/me', (req, res)=> {
+	let userId = req.uid;
+
+	async
+		.parallel([
+			(callback)=> {
+				getArticleCount(userId, callback);
+			},
+			(callback)=> {
+				getProfilePic(userId, callback);
+			}
+		], (err, items) => {
+			if (err) {
+				return res.status(500).send({
+					msg: err
+				});
+			}
+			res.status(200).send({
+				data: {
+					count: _.first(items),
+					tags: pageUtil.getTags(),
+					profile_url: items[1].profile_url,
+					username:items[1].username
+				}
+			});
+		});
+
+});
+
+function getArticleCount(userId, callback) {
+	articleController.getArticleCount({
+		userId
+	}, (err, count) => {
+		callback(err, count);
+	});
+}
+
+function getProfilePic(userId, callback) {
+	userController.getUserByUserId(userId, (err, items)=> {
+		let person = _.first(items);
+		callback(err, {
+			profile_url: person.profile_url,
+			username: person.username
+		});
+	});
+}
 
 module.exports = app;

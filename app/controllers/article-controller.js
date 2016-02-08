@@ -70,6 +70,15 @@ let getArticles = function (item, cb) {
 	query.exec(wrappedCallback);
 };
 
+let getArticleCount = (item, cb)=> {
+	let wrappedCallback = wrapper.wrap(cb);
+	articleModel
+		.count({
+			userId: item.userId,
+			active: true
+		}, wrappedCallback);
+};
+
 function computeSkipCount(pageNo) {
 	if (pageNo === 0) {
 		return pageNo;
@@ -96,5 +105,6 @@ module.exports = {
 	add,
 	addArticles,
 	getArticles,
-	deleteArticle
+	deleteArticle,
+	getArticleCount
 };

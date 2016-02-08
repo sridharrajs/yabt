@@ -1,10 +1,10 @@
-	'use strict';
+'use strict';
 
 angular
 	.module('readLater')
 	.controller('HomeCtrl', HomeCtrl);
 
-function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert) {
+function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert, User) {
 	let self = this;
 
 	self.alertMsg = '';
@@ -49,7 +49,18 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert) {
 		}, 1000);
 	}
 
+	self.profile_url = '';
+	self.emailId = '';
 	init();
+
+	User.getMe().then((response)=> {
+		self.profile_url = response.data.data.profile_url;
+		self.username = response.data.data.username;
+		self.count = response.data.data.count;
+		console.log('all good');
+	}).catch(()=> {
+		console.log('something');
+	});
 
 	function init() {
 		Article

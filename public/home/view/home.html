@@ -1,9 +1,15 @@
 <div class="form-group row header-wrapper">
-	<div class="col-md-11">
+	<div class="col-md-9">
 		<label class="control-label">MY READER</label>
 	</div>
-	<div class="text-right col-md-1">
-		<span class="glyphicon glyphicon-off btn btn-danger" ng-click="homeCtrl.logout()">
+	<div class="col-md-3">
+		<span class="col-md-4">
+		<img src="{{homeCtrl.profile_url}}" alt="">
+		</span>
+		<span class="col-md-4">
+		{{homeCtrl.username}}
+			</span>
+		<span class="glyphicon glyphicon-off btn btn-danger col-md-4" ng-click="homeCtrl.logout()">
 		</span>
 	</div>
 </div>
@@ -14,7 +20,9 @@
 		//left
 	</div>
 	<div class="col-md-9 right-panel">
-		//right ng-if="homeCtrl.alertMsg"
+		<div class="row text-right count">
+			Count : {{homeCtrl.count}}
+		</div>
 		<div class="alert msg {{homeCtrl.alertClass}}">
 			<strong>
 				{{homeCtrl.alertMsg}}

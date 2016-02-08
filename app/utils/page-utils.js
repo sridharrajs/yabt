@@ -5,6 +5,7 @@
 'use strict';
 
 let _ = require('lodash');
+let _s = require("underscore.string");
 let cheerio = require('cheerio');
 let fs = require('fs');
 let request = require('request').defaults({
@@ -15,7 +16,8 @@ let url = require('url');
 const RULES_LOCATION = __dirname + '/../rules/rules.json';
 const RULES = JSON.parse(fs.readFileSync(RULES_LOCATION, 'UTF-8'));
 const SUCCESS_CODES = [200, 201, 301, 302];
-const TEN_SECONDS_IN_MILLISECONDS = 10000;
+const DOMAINS = _.keys(RULES['domain']);
+const TAGS = _.values(RULES['domain']);
 
 let getPageTitle = (pageURL, metaCb)=> {
 	let options = {
@@ -40,25 +42,24 @@ let getPageTitle = (pageURL, metaCb)=> {
 
 let getTagByDomain = (hostURL)=> {
 	let host = url.parse(hostURL).hostname;
-	let justName = getNakedDomainName(host);
-	let tag = RULES['domain'][justName];
-	if (tag) {
-		return tag;
-	}
-	return '';
+	let tag = '';
+	_.each(DOMAINS, (domain)=> {
+		if (_s.include(host, domain)) {
+			tag = DOMAINS[domain];
+			return;
+		}
+	});
+	return tag;
 };
 
-function getNakedDomainName(hostURL) {
-	let isWWWPresent = hostURL.indexOf('www.');
-	if (isWWWPresent != -1) {
-		hostURL = hostURL.replace('www.', '')
-	}
-	return hostURL;
+let getTags = ()=> {
+	return TAGS;
 }
 
 module.exports = {
 	getPageTitle,
-	getTagByDomain
+	getTagByDomain,
+	getTags
 };
 
 
