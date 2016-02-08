@@ -3,7 +3,7 @@
 
 	let envirorment = {
 		'local': {
-			serverURL: 'http://myreadear.sridhar.co/api/'
+			serverURL: 'http://myreader.sridhar.co/api/'
 		}
 	};
 
