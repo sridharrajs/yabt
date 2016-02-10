@@ -19,4 +19,3 @@ function Article(SERVERURL, $http) {
 	return service;
 }
 
-

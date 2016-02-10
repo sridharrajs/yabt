@@ -1,40 +1,39 @@
 'use strict';
 
-angular
-	.module('readLater')
-	.factory('Auth', Auth);
+angular.module('readLater').factory('Auth', Auth);
 
 Auth.$inject = ['SERVERURL', '$http', '$window'];
 
 function Auth(SERVERURL, $http, $window) {
-	let AUTH_TOKEN_KEY = 'authToken';
+	var _this = this;
 
-	let auth = {
-		login: (data) => {
+	var AUTH_TOKEN_KEY = 'authToken';
+
+	var auth = {
+		login: function login(data) {
 			return $http.post(SERVERURL + 'users/login', data);
 		},
-		signup: (data) => {
+		signup: function signup(data) {
 			return $http.post(SERVERURL + 'users', data);
 		},
-		saveToken: (token) => {
+		saveToken: function saveToken(token) {
 			return $window.localStorage[AUTH_TOKEN_KEY] = token;
-
 		},
-		removeToken: () => {
+		removeToken: function removeToken() {
 			return $window.localStorage.clear();
 		},
-		getToken: () => {
+		getToken: function getToken() {
 			return $window.localStorage[AUTH_TOKEN_KEY];
 		},
-		parseJwt: (token) => {
-			let base64Url = token.split('.')[1];
-			let base64 = base64Url.replace('-', '+').replace('_', '/');
+		parseJwt: function parseJwt(token) {
+			var base64Url = token.split('.')[1];
+			var base64 = base64Url.replace('-', '+').replace('_', '/');
 			return JSON.parse($window.atob(base64));
 		},
-		isAuthed: () => {
-			let token = this.getToken();
+		isAuthed: function isAuthed() {
+			var token = _this.getToken();
 			if (token) {
-				let params = this.parseJwt(token);
+				var params = _this.parseJwt(token);
 				return Math.round(new Date().getTime() / 1000) <= params.exp;
 			} else {
 				return false;

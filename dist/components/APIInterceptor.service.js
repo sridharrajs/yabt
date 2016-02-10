@@ -1,30 +1,30 @@
 'use strict';
 
-angular
-	.module('readLater')
-	.service('APIInterceptor', APIInterceptor);
+angular.module('readLater').service('APIInterceptor', APIInterceptor);
 
 function APIInterceptor($injector, SERVERURL, $log) {
-	let service = this;
+	var service = this;
 
-	service.request = (config) => {
-		let Auth = $injector.get('Auth');
-		let access_token = Auth.getToken();
+	service.request = function (config) {
+		var Auth = $injector.get('Auth');
+		var access_token = Auth.getToken();
 		if (access_token) {
 			config.headers.authorization = access_token;
 		}
 		return config;
 	};
 
-	service.response = (res) => {
+	service.response = function (res) {
 		if (res.config.url.indexOf(SERVERURL) === 0 && res.data.token) {
-			let Auth = $injector.get('Auth');
+			var Auth = $injector.get('Auth');
 			Auth.saveToken(res.data.token);
 			$log.info("AUTH TOKEN SAVED");
 		}
 		return res;
-	}
-
+	};
 }
-
 APIInterceptor.$inject = ['$injector', 'SERVERURL', '$log'];
+
+module.exports = {
+	APIInterceptor: APIInterceptor
+};

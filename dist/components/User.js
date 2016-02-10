@@ -3,15 +3,17 @@
  */
 'use strict';
 
-angular
-	.module('readLater')
-	.factory('User', User);
+angular.module('readLater').factory('User', User);
 
 function User(SERVERURL, $http) {
-	let service = {
-		getMe: () => {
+	var service = {
+		getMe: function getMe() {
 			return $http.get(SERVERURL + 'users/me');
 		}
 	};
 	return service;
 }
+
+module.exports = {
+	User: User
+};
