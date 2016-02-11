@@ -3,7 +3,6 @@
  */
 
 'use strict';
-let _ = require('lodash');
 let async = require('async');
 let mongoose = require('mongoose');
 let wrapper = require('mongoose-callback-wrapper');
@@ -12,6 +11,14 @@ let articleModelSchema = require('../models/article');
 let articleModel = mongoose.model('article');
 
 const SCROLL_LIMIT = 10;
+
+function computeSkipCount(pageNo) {
+	if (pageNo === 0) {
+		return pageNo;
+	} else {
+		return pageNo * SCROLL_LIMIT;
+	}
+}
 
 let add = function (article, cb) {
 	let item = new articleModel({
@@ -79,14 +86,6 @@ let getArticleCount = (item, cb)=> {
 		}, wrappedCallback);
 };
 
-function computeSkipCount(pageNo) {
-	if (pageNo === 0) {
-		return pageNo;
-	} else {
-		return pageNo * SCROLL_LIMIT;
-	}
-}
-
 function deleteArticle(articleId, cb) {
 	let wrappedCallback = wrapper.wrap(cb);
 	let query = {
@@ -94,10 +93,10 @@ function deleteArticle(articleId, cb) {
 	};
 	let change = {
 		active: false
-	}
+	};
 	let upsert = {
 		upsert: false
-	}
+	};
 	articleModel.findOneAndUpdate(query, change, upsert, wrappedCallback);
 }
 

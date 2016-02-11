@@ -56,7 +56,7 @@ let getUserByUserId = (userId, cb)=> {
 		_id: new ObjectId(userId)
 	});
 	query.exec(wrappedCallback);
-}
+};
 
 module.exports = {
 	add,

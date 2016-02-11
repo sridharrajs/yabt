@@ -19,6 +19,24 @@ let security = require('../middlewares/auth-filter');
 
 let pageUtil = require('../utils/page-utils');
 
+function getArticleCount(userId, callback) {
+	articleController.getArticleCount({
+		userId
+	}, (err, count) => {
+		callback(err, count);
+	});
+}
+
+function getProfilePic(userId, callback) {
+	userController.getUserByUserId(userId, (err, items)=> {
+		let person = _.first(items);
+		callback(err, {
+			profile_url: person.profile_url,
+			username: person.username
+		});
+	});
+}
+
 app.post('/login', (req, res) => {
 	try {
 		let body = qs.parse(req.body);
@@ -32,13 +50,13 @@ app.post('/login', (req, res) => {
 		}
 		if (!isValidEmail(emailId)) {
 			return res.status(400).send({
-				err: 'Please valid emailId'
+				msg: 'Please valid emailId'
 			});
 		}
 		userController.getUserByCredentials(emailId, function (err, items) {
 			if (err || _.isEmpty(items)) {
 				return res.status(403).send({
-					err: 'Invalid emailId/password'
+					msg: 'Invalid emailId/password'
 				});
 			}
 			let userObj = items[0];
@@ -46,7 +64,7 @@ app.post('/login', (req, res) => {
 			bcrypt.compare(password, saltedPwd, (err, isEqual) => {
 				if (!isEqual) {
 					return res.status(403).send({
-						err: 'Invalid emailId/password'
+						msg: 'Invalid emailId/password'
 					});
 				}
 				let userId = userObj._id;
@@ -69,7 +87,7 @@ app.post('/', (req, res) => {
 
 	if (!emailId || !password) {
 		return res.status(400).send({
-			err: 'Please enter proper values!'
+			msg: 'Please enter proper values!'
 		});
 	}
 	if (!isValidEmail(emailId)) {
@@ -125,23 +143,5 @@ app.get('/me', (req, res)=> {
 		});
 
 });
-
-function getArticleCount(userId, callback) {
-	articleController.getArticleCount({
-		userId
-	}, (err, count) => {
-		callback(err, count);
-	});
-}
-
-function getProfilePic(userId, callback) {
-	userController.getUserByUserId(userId, (err, items)=> {
-		let person = _.first(items);
-		callback(err, {
-			profile_url: person.profile_url,
-			username: person.username
-		});
-	});
-}
 
 module.exports = app;

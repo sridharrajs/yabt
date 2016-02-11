@@ -17,9 +17,9 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert, User) {
 
 	function deleteArticle(id) {
 		SweetAlert.swal({
-			title: "Are you sure?",
+			title: 'Are you sure?',
 			allowOutsideClick: true,
-			type: "warning",
+			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: "#DD6B55",
 			confirmButtonText: "Yes",
@@ -30,6 +30,7 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert, User) {
 				self.alertMsg = 'Success!';
 				self.alertClass = 'show alert-success';
 				clearMsg();
+				self.count--;
 			}).catch(function (err) {
 				self.alertMsg = 'Failed :(';
 				self.alertClass = 'show alert-danger';
@@ -89,6 +90,7 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert, User) {
 			clearMsg();
 			self.articles.unshift(response.data.data.articles);
 			self.loading = false;
+			self.count++;
 		}).catch(function (err) {
 			$log.error(err);
 			self.alertMsg = 'Failed :(';

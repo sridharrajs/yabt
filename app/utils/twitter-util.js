@@ -22,7 +22,7 @@ function importFavourties(userId, cb) {
 	client.get('favorites/list',
 		params,
 		(err, tweets, response) => {
-			if (err) {
+			if (err || _.isUndefined(response)) {
 				cb(err);
 			}
 			let links = [];

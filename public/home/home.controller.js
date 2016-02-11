@@ -19,9 +19,9 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert, User) {
 
 	function deleteArticle(id) {
 		SweetAlert.swal({
-			title: "Are you sure?",
+			title: 'Are you sure?',
 			allowOutsideClick: true,
-			type: "warning",
+			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: "#DD6B55",
 			confirmButtonText: "Yes",
@@ -34,6 +34,7 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert, User) {
 					self.alertMsg = 'Success!';
 					self.alertClass = 'show alert-success';
 					clearMsg();
+					self.count--;
 				})
 				.catch((err)=> {
 					self.alertMsg = 'Failed :(';
@@ -53,14 +54,17 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert, User) {
 	self.emailId = '';
 	init();
 
-	User.getMe().then((response)=> {
-		self.profile_url = response.data.data.profile_url;
-		self.username = response.data.data.username;
-		self.count = response.data.data.count;
-		console.log('all good');
-	}).catch(()=> {
-		console.log('something');
-	});
+	User
+		.getMe()
+		.then((response)=> {
+			self.profile_url = response.data.data.profile_url;
+			self.username = response.data.data.username;
+			self.count = response.data.data.count;
+			console.log('all good');
+		})
+		.catch(()=> {
+			console.log('something');
+		});
 
 	function init() {
 		Article
@@ -100,6 +104,7 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert, User) {
 				clearMsg();
 				self.articles.unshift(response.data.data.articles);
 				self.loading = false;
+				self.count++;
 			})
 			.catch((err) => {
 				$log.error(err);

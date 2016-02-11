@@ -5,7 +5,7 @@
 'use strict';
 
 let _ = require('lodash');
-let _s = require("underscore.string");
+let _s = require('underscore.string');
 let cheerio = require('cheerio');
 let fs = require('fs');
 let request = require('request').defaults({
@@ -16,8 +16,8 @@ let url = require('url');
 const RULES_LOCATION = __dirname + '/../rules/rules.json';
 const RULES = JSON.parse(fs.readFileSync(RULES_LOCATION, 'UTF-8'));
 const SUCCESS_CODES = [200, 201, 301, 302];
-const DOMAINS = _.keys(RULES['domain']);
-const TAGS = _.values(RULES['domain']);
+const DOMAINS = _.keys(RULES.domain);
+const TAGS = _.values(RULES.domain);
 
 let getPageTitle = (pageURL, metaCb)=> {
 	let options = {
@@ -54,13 +54,10 @@ let getTagByDomain = (hostURL)=> {
 
 let getTags = ()=> {
 	return TAGS;
-}
+};
 
 module.exports = {
 	getPageTitle,
 	getTagByDomain,
 	getTags
 };
-
-
-

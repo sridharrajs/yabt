@@ -1,34 +1,31 @@
-<div layout="column" flex id="content" role="main" max-height="100%" max-width="100%">
-	<div>
-		<form name="loginForm" class="form-horizontal" ng-submit="authCtrl.login(loginForm.$valid)">
-			<div class="form-group">
-				<label class="col-md-2 control-label" for="emailId">Email</label>
-				<div class="col-md-10">
+<div class="row">
+	<div class="col-md-12  app-container">
+		<form name="loginForm" class="main form-horizontal" ng-submit="authCtrl.login(loginForm.$valid)">
+			<div class="alert {{authCtrl.alertClass}}">{{authCtrl.alertMsg}}</div>
+				<div class="form-group">
+				<label class="col-xs-3 control-label" for="emailId">Email</label>
+				<div class="col-xs-9">
 					<input class="form-control" type="email" id="emailId" ng-model="authCtrl.user.emailId" name="email"
 						   autofocus required/>
-					<div ng-messages="loginForm.email.$error" role="alert">
-						<div ng-message="required">This is required.</div>
-						<div ng-message="email">Invalid email.</div>
-					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-md-2 control-label" for="password">Password</label>
-				<div class="col-md-10">
+				<label class="col-xs-3 control-label" for="password">Password</label>
+				<div class="col-xs-9">
 					<input class="form-control" ng-model="authCtrl.user.password" name="password" type="password"
 						   required id="password">
-					<div ng-messages="loginForm.password.$error">
-						<div ng-message="required">This is required.</div>
-					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<div layout="row">
-					<div class="col-md-offset-2 col-md-10">
-						<button type="submit" class="btn btn-default">Login</button>
-						<button ng-click="authCtrl.register(loginForm.$valid)" class="btn btn-default">Register
-						</button>
-					</div>
+				<div class="col-xs-offset-3 col-xs-9">
+					<button type="submit"
+							ladda="authCtrl.loading" data-spinner-color="#000000" data-style="expand-right"
+							class="btn btn-primary">Login
+					</button>
+					<button style="display: none" ng-click="authCtrl.register(loginForm.$valid)"
+							class="btn btn-default">Register
+					</button>
+					<button type="reset" class="btn btn-default">Reset</button>
 				</div>
 			</div>
 		</form>

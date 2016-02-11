@@ -7,23 +7,30 @@ AuthCtrl.$inject = ["Auth", "$log", "$state"];
 function AuthCtrl(Auth, $log, $state) {
 	var self = this;
 
-	self.login = login;
-	self.register = register;
-
+	self.alertMsg = '';
+	self.alertClass = '';
 	self.user = {
 		emailId: '',
 		password: ''
 	};
 
+	self.login = login;
+	self.register = register;
+
 	function login(isValid) {
 		if (!isValid) {
 			return;
 		}
+		self.loading = true;
 		Auth.login(self.user).then(function (data) {
-			$log.info("Auth Successful");
+			self.alertMsg = 'Logging in!';
+			self.alertClass = 'show alert-success';
 			$state.go('home');
-		}).catch(function (error) {
-			$log.error(error);
+			self.loading = false;
+		}).catch(function (response) {
+			self.alertMsg = response.data.msg;
+			self.alertClass = 'show alert-danger';
+			self.loading = false;
 		});
 	}
 

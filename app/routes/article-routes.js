@@ -15,6 +15,46 @@ let pocketImporter = require('../utils/pocket-importer');
 let pageUtil = require('../utils/page-utils');
 let twitterUtil = require('../utils/twitter-util');
 
+function appendPageTitle(userId, articles, callback) {
+	async
+		.mapLimit(
+			articles,
+			9,
+			(article, titleCb)=> {
+				let url = article.url;
+				pageUtil.getPageTitle(url, (err, title) => {
+					if (err) {
+						return titleCb(null, '');
+					}
+					if (err) {
+						return titleCb(err, null);
+					}
+					article.title = title.trim();
+					article.tag = pageUtil.getTagByDomain(url);
+					article.userId = userId;
+					titleCb(null, article);
+				});
+			},
+			(err, acb)=> {
+				if (err) {
+					return callback(err);
+				}
+				acb = _.reject(acb, (site)=> {
+					return _.isEmpty(site);
+				});
+				callback(null, acb);
+			});
+}
+
+function addArticles(articles, callback) {
+	articleController.addArticles(articles, (err, items) => {
+		if (err) {
+			return callback(err);
+		}
+		callback(null, items);
+	});
+}
+
 app
 	.post('/', (req, res) => {
 		let userId = req.uid;
@@ -43,7 +83,6 @@ app
 				}
 			});
 		});
-
 
 	})
 	.get('/', (req, res) => {
@@ -113,8 +152,12 @@ app.delete('/:articleId', (req, res)=> {
 				msg: err
 			});
 		}
+		let msg = 'Article was deleted';
+		if (_.isEmpty(items)) {
+			msg = 'Nothing was changed';
+		}
 		res.status(200).send({
-			data: '+111'
+			data: msg
 		});
 	});
 });
@@ -141,45 +184,5 @@ app.post('/import-twitter', (req, res)=> {
 		});
 
 });
-
-function appendPageTitle(userId, articles, callback) {
-	async
-		.mapLimit(
-			articles,
-			9,
-			(article, titleCb)=> {
-				let url = article.url;
-				pageUtil.getPageTitle(url, (err, title) => {
-					if (err) {
-						return titleCb(null, '');
-					}
-					if (err) {
-						return titleCb(err, null);
-					}
-					article.title = title.trim();
-					article.tag = pageUtil.getTagByDomain(url);
-					article.userId = userId;
-					titleCb(null, article);
-				});
-			},
-			(err, acb)=> {
-				if (err) {
-					return callback(err);
-				}
-				acb = _.reject(acb,(site)=>{
-					return _.isEmpty(site);
-				});
-				callback(null, acb);
-			});
-}
-
-function addArticles(articles, callback) {
-	articleController.addArticles(articles, (err, items) => {
-		if (err) {
-			return callback(err);
-		}
-		callback(null, items);
-	});
-}
 
 module.exports = app;

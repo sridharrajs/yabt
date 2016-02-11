@@ -5,7 +5,7 @@
 
 	var envirorment = {
 		'local': {
-			serverURL: 'http://myreader.sridhar.co:9999/api/'
+			serverURL: 'http://localhost:9999/api/'
 		}
 	};
 
