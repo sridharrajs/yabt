@@ -7,4 +7,4 @@ bower_components/
 .idea/
 
 #distribution
-.public/dist/
+public/dist/
