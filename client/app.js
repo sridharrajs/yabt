@@ -12,6 +12,7 @@
 
 	angular
 		.module('readLater', [
+			//'ngFileUpload',
 			'ngMessages',
 			'ui.router',
 			'angular-ladda',
@@ -46,6 +47,7 @@
 		$urlRouterProvider.otherwise('/');
 		$httpProvider.interceptors.push('APIInterceptor');
 	}
+
 
 	function isAuthenticated(Auth) {
 		let authToken = Auth.getToken();

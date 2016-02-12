@@ -16,8 +16,9 @@ let url = require('url');
 const RULES_LOCATION = __dirname + '/../rules/rules.json';
 const RULES = JSON.parse(fs.readFileSync(RULES_LOCATION, 'UTF-8'));
 const SUCCESS_CODES = [200, 201, 301, 302];
-const DOMAINS = _.keys(RULES.domain);
-const TAGS = _.values(RULES.domain);
+const DOMAIN_TAG = RULES.domain;
+const DOMAINS = _.keys(DOMAIN_TAG);
+const TAGS = _.values(DOMAIN_TAG);
 
 let getPageTitle = (pageURL, metaCb)=> {
 	let options = {
@@ -45,7 +46,7 @@ let getTagByDomain = (hostURL)=> {
 	let tag = '';
 	_.each(DOMAINS, (domain)=> {
 		if (_s.include(host, domain)) {
-			tag = DOMAINS[domain];
+			tag = DOMAIN_TAG[domain];
 			return;
 		}
 	});

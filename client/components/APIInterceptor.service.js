@@ -20,7 +20,7 @@ function APIInterceptor($injector, SERVERURL, $log) {
 		if (res.config.url.indexOf(SERVERURL) === 0 && res.data.token) {
 			let Auth = $injector.get('Auth');
 			Auth.saveToken(res.data.token);
-			$log.info("AUTH TOKEN SAVED");
+			$log.info('AUTH TOKEN SAVED');
 		}
 		return res;
 	}

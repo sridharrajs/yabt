@@ -90,7 +90,9 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert, User) {
 		$state.go('login');
 	}
 
-	self.goSettings = function () {
+	self.goSettings = goSettings;
+
+	function goSettings() {
 		$state.go('settings');
 	};
 

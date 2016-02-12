@@ -8,6 +8,9 @@ let async = require('async');
 let express = require('express');
 let qs = require('qs');
 
+var multer = require('multer')
+var upload = multer({dest: 'uploads/'})
+
 let app = express.Router();
 
 let articleController = require('../controllers/article-controller');
@@ -112,35 +115,56 @@ app
 		});
 	});
 
-app.post('/import-pocket', (req, res) => {
-	let userId = req.uid;
-	let articles = pocketImporter.parse(userId);
-
-	if (_.isEmpty(articles)) {
-		return res.status(200).send({
-			msg: 'empty articles'
-		});
+var storage = multer.diskStorage({
+	destination: function (req, file, callback) {
+		callback(null, './uploads');
+	},
+	filename: function (req, file, callback) {
+		callback(null, file.fieldname + '-' + Date.now());
 	}
+});
+var upload = multer({storage: storage}).single('userPhoto');
 
-	async
-		.waterfall([
-			(callback)=> {
-				appendPageTitle(userId, articles, callback);
-			},
-			(articles, callback)=> {
-				addArticles(articles, callback);
-			}
-		], (err, items)=> {
-			if (err) {
-				return res.status(500).send({
-					msg: err
-				});
-			}
-			return res.status(200).send({
-				msg: 'all good!',
-				data: items
-			});
+app.post('/import-pocket', (req, res) => {
+	upload(req, res, function (err) {
+		if (err) {
+			return res.end("Error uploading file.");
+		}
+		//res.end("File is uploaded");
+		return res.status(200).send({
+			hello: 'hllo'
 		});
+	});
+
+
+	//let userId = req.uid;
+	//let articles = pocketImporter.parse(userId);
+	//
+	//if (_.isEmpty(articles)) {
+	//	return res.status(200).send({
+	//		msg: 'empty articles'
+	//	});
+	//}
+	//
+	//async
+	//	.waterfall([
+	//		(callback)=> {
+	//			appendPageTitle(userId, articles, callback);
+	//		},
+	//		(articles, callback)=> {
+	//			addArticles(articles, callback);
+	//		}
+	//	], (err, items)=> {
+	//		if (err) {
+	//			return res.status(500).send({
+	//				msg: err
+	//			});
+	//		}
+	//		return res.status(200).send({
+	//			msg: 'all good!',
+	//			data: items
+	//		});
+	//	});
 
 });
 

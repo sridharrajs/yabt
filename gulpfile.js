@@ -14,10 +14,12 @@ var browserSync = require('browser-sync').create();
 
 const FILES = {
 	SERVER_JS_FILES: ['gulpfile.js', 'app/**/*.js'],
-	CLIENT_JS_FILES: ['public/**/*.js', '!public/bower_components{,/**}', '!public/dist{,/**}']
+	CLIENT_NON_JS_FILES: ['client/**/*.css', 'client/**/*.html'],
+	CLIENT_JS_FILES: ['client/**/*.js'],
+	CLIENT_FILES: ['client/**/*.js', 'client/**/*.css', 'client/**/*.html']
 };
 
-const DIST = 'public/dist';
+const DIST = 'public/';
 
 gulp.task('compile-js', () => {
 	return gulp
@@ -56,13 +58,19 @@ gulp.task('lints', (callback)=> {
 });
 
 gulp.task('stream', ()=> {
-	gulp.watch(FILES.CLIENT_JS_FILES, ['compile-js']);
+	gulp.watch(FILES.CLIENT_FILES, ['compile-js', 'copy-html-css']);
 });
 
 gulp.task('browser-sync', ()=> {
 	browserSync.init({
 		server: {
-			baseDir: './'
+			baseDir: './public/'
 		}
 	});
+});
+
+gulp.task('copy-html-css', ()=> {
+	return gulp
+		.src(FILES.CLIENT_NON_JS_FILES)
+		.pipe(gulp.dest(DIST));
 });
