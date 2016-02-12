@@ -8,8 +8,7 @@ let async = require('async');
 let express = require('express');
 let qs = require('qs');
 
-var multer = require('multer')
-var upload = multer({dest: 'uploads/'})
+var multer = require('multer');
 
 let app = express.Router();
 
@@ -91,7 +90,7 @@ app
 	.get('/', (req, res) => {
 		let userId = req.uid;
 		let pageNo = req.query.page;
-		if (!pageNo) {
+		if (!pageNo || pageNo <= 0) {
 			pageNo = 0;
 		}
 		articleController.getArticles({
@@ -109,7 +108,7 @@ app
 			res.status(200).send({
 				data: {
 					articles: items,
-					nextPage: ++pageNo
+					pageNo: ++pageNo
 				}
 			});
 		});

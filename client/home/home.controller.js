@@ -10,11 +10,12 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert, User) {
 	self.alertMsg = '';
 	self.alertClass = '';
 	self.articles = [];
-	self.nextPage = 0;
+	self.pageNo = 0;
 
 	self.addUrl = addUrl;
 	self.deleteArticle = deleteArticle;
-	self.fetchArticle = fetchArticle;
+	self.fetchNextArticle = fetchNextArticle;
+	self.previousArticle = previousArticle;
 	self.logout = logout;
 
 	function deleteArticle(id) {
@@ -68,19 +69,31 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert, User) {
 
 	function init() {
 		Article
-			.getArticles(self.nextPage)
+			.getArticles(self.pageNo)
 			.then((response) => {
-				self.nextPage = response.data.data.nextPage;
+				self.pageNo = response.data.data.pageNo;
 				self.articles = _.union(self.articles, response.data.data.articles)
 			});
 	}
 
-	function fetchArticle() {
+	function fetchNextArticle() {
+		self.pageNo = self.pageNo + 1;
 		Article
-			.getArticles(self.nextPage)
+			.getArticles(self.pageNo)
 			.then((response) => {
 				self.articles.length = 0;
-				self.nextPage = response.data.data.nextPage;
+				self.articles = _.union(self.articles, response.data.data.articles)
+			});
+	}
+
+	function previousArticle() {
+		if (self.pageNo >= 1) {
+			self.pageNo = self.pageNo - 1;
+		}
+		Article
+			.getArticles(self.pageNo)
+			.then((response) => {
+				self.articles.length = 0;
 				self.articles = _.union(self.articles, response.data.data.articles)
 			});
 	}
