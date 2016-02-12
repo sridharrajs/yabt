@@ -13,7 +13,7 @@ var runSequence = require('run-sequence');
 
 const FILES = {
 	SERVER_JS_FILES: ['gulpfile.js', 'app/**/*.js'],
-	CLIENT_JS_FILES: ['public/**/*.js', '!public/bower_components{,/**}']
+	CLIENT_JS_FILES: ['public/**/*.js', '!public/bower_components{,/**}', '!public/dist{,/**}']
 };
 
 const DIST = 'public/dist';
