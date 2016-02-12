@@ -1,6 +1,6 @@
 {
 	"port": 9999,
-	"prod": {
+	"production": {
 		"mongodb_url": "mongodb://localhost:27017/myreader",
 		"secure": false
 	},
