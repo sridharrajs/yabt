@@ -115,7 +115,7 @@ app
 		});
 	});
 
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
 	destination: function (req, file, callback) {
 		callback(null, './uploads');
 	},
@@ -123,7 +123,8 @@ var storage = multer.diskStorage({
 		callback(null, file.fieldname + '-' + Date.now());
 	}
 });
-var upload = multer({storage: storage}).single('userPhoto');
+
+const upload = multer({storage: storage}).single('userPhoto');
 
 app.post('/import-pocket', (req, res) => {
 	upload(req, res, function (err) {
