@@ -8,8 +8,9 @@ const babel = require('gulp-babel');
 const jscs = require('gulp-jscs');
 const jshint = require('gulp-jshint');
 const eslint = require('gulp-eslint');
-
-var runSequence = require('run-sequence');
+const runSequence = require('run-sequence');
+const watch = require('gulp-watch');
+var browserSync = require('browser-sync').create();
 
 const FILES = {
 	SERVER_JS_FILES: ['gulpfile.js', 'app/**/*.js'],
@@ -36,13 +37,13 @@ gulp.task('jscs', () => {
 		.pipe(jscs.reporter('fail'));
 });
 
-gulp.task('jshint', function () {
+gulp.task('jshint', ()=> {
 	return gulp.src(FILES.SERVER_JS_FILES)
 		.pipe(jshint())
 		.pipe(jshint.reporter('default'));
 });
 
-gulp.task('eslint', function () {
+gulp.task('eslint', () => {
 	return gulp
 		.src(FILES.SERVER_JS_FILES)
 		.pipe(eslint())
@@ -52,4 +53,16 @@ gulp.task('eslint', function () {
 
 gulp.task('lints', (callback)=> {
 	runSequence('jshint', 'eslint', 'jscs', callback);
+});
+
+gulp.task('stream', ()=> {
+	gulp.watch(FILES.CLIENT_JS_FILES, ['compile-js']);
+});
+
+gulp.task('browser-sync', ()=> {
+	browserSync.init({
+		server: {
+			baseDir: './'
+		}
+	});
 });

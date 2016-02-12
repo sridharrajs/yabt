@@ -10,5 +10,4 @@ angular
 
 function SettingsCtrl() {
 	console.log('setting loaded');
-	console.log('shouldnt restart');
 }
