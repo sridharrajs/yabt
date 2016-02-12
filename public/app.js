@@ -3,7 +3,7 @@
 
 	let envirorment = {
 		'local': {
-			serverURL: 'http://myreader.sridhar.co/api/'
+			serverURL: 'http://localhost:9999/api/'
 		}
 	};
 
@@ -24,6 +24,7 @@
 	function configuration($stateProvider, $urlRouterProvider, $httpProvider) {
 		let AUTH_FDLR = 'auth/view/';
 		let HOME_FDLR = 'home/view/';
+		let SETTINGS_FDLR = 'settings/view/';
 
 		$stateProvider
 			.state('login', {
@@ -35,6 +36,11 @@
 				url: '/home',
 				controller: 'HomeCtrl as homeCtrl',
 				templateUrl: HOME_FDLR + 'home.html'
+			})
+			.state('settings', {
+				url: '/settings',
+				controller: 'SettingsCtrl as settingsCtrl',
+				templateUrl: SETTINGS_FDLR + 'settings.html'
 			});
 
 		$urlRouterProvider.otherwise('/');

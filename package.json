@@ -9,7 +9,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/sridharrajs/nodejs-web-boilerplate.git",
+		"url": "git+https://github.com/sridharrajs/myReader.git",
 		"start": "node-inspector && nodemon --debug server.js"
 	},
 	"engines": {

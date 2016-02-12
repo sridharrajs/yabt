@@ -90,6 +90,10 @@ function HomeCtrl($timeout, $log, Auth, $state, Article, SweetAlert, User) {
 		$state.go('login');
 	}
 
+	self.goSettings = function(){
+		$state.go('settings')
+	}
+
 	function addUrl() {
 		self.loading = true;
 		let data = {
