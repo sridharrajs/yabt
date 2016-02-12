@@ -10,6 +10,8 @@
 		"reddit.com": "reddit",
 		"github.com": "github",
 		"codereadability.com": "code",
-		"slashdot.org": "slashdot"
+		"slashdot.org": "slashdot",
+		"stackoverflow.com": "stackoverflow",
+		"mashable.com": "mashable"
 	}
 }
