@@ -3,7 +3,7 @@
 
 	let envirorment = {
 		'local': {
-			serverURL: 'http://myreader.sridhar.co/api/'
+			serverURL: 'http://localhost:9999/api/'
 		}
 	};
 
@@ -12,7 +12,7 @@
 
 	angular
 		.module('readLater', [
-			//'ngFileUpload',
+			'ngFileUpload',
 			'ngMessages',
 			'ui.router',
 			'angular-ladda',

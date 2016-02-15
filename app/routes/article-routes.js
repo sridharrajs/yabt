@@ -115,22 +115,26 @@ app
 	});
 
 const storage = multer.diskStorage({
-	destination: function (req, file, callback) {
+	destination: (req, file, callback) => {
 		callback(null, './uploads');
 	},
-	filename: function (req, file, callback) {
-		callback(null, file.fieldname + '-' + Date.now());
+	filename: (req, file, callback) => {
+		callback(null, `${req.uid}.html`);
+		//callback(null, file.fieldname + '-' + Date.now());
 	}
 });
 
-const upload = multer({storage: storage}).single('userPhoto');
+const upload = multer({
+	storage: storage
+}).single('file');
 
 app.post('/import-pocket', (req, res) => {
-	upload(req, res, function (err) {
+	upload(req, res, (err) => {
 		if (err) {
+			console.log(req.file);
+			console.log(err);
 			return res.end("Error uploading file.");
 		}
-		//res.end("File is uploaded");
 		return res.status(200).send({
 			hello: 'hllo'
 		});
