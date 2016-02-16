@@ -80,7 +80,7 @@ let getArticles = function (item, cb) {
 let getArticleCount = (item, cb)=> {
 	let wrappedCallback = wrapper.wrap(cb);
 	articleModel
-		.count({
+		.find({
 			userId: item.userId,
 			active: true
 		}, wrappedCallback);

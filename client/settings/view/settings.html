@@ -1,12 +1,28 @@
 <div class="row">
-	Settings
-	<button type="file" ngf-select="settingsCtrl.uploadFiles($file, $invalidFiles)"
-			ngf-max-height="1000" ngf-max-size="1MB" name="file">
-		Select File
-	</button>
+	<div class="alert msg {{settingsCtrl.alertClass}}">
+		<strong>
+			{{settingsCtrl.alertMsg}}
+		</strong>
+	</div>
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label for="upload" class="col-sm-4">
+				import *.html from pocket
+			</label>
+			<div class="col-sm-8">
+				<button id="upload" type="file" ngf-select="settingsCtrl.uploadFiles($file, $invalidFiles)"
+						ngf-max-height="1000" ngf-max-size="1MB" name="file"
+						ladda="settingsCtrl.loading" data-spinner-color="#000000" data-style="expand-right"
+				>
+					Select File
+				</button>
+			</div>
+		</div>
+	</form>
 
-	<button ng-click="settingsCtrl.clearArticles()">
-		Clear All
-	</button>
+	Note: It will take a minute for import to finish.
+	<!--<button ng-click="settingsCtrl.clearArticles()">-->
+	<!--Clear All-->
+	<!--</button>-->
 
 </div>

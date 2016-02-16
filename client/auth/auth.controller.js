@@ -54,4 +54,6 @@ function AuthCtrl(Auth, $log, $state) {
 			});
 	}
 
+	$('#emailId').focus();
+
 }

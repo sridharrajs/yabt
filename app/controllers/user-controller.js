@@ -4,6 +4,7 @@
 
 'use strict';
 
+let _ = require('lodash');
 let gravatar = require('nodejs-gravatar');
 let mongoose = require('mongoose');
 let wrapper = require('mongoose-callback-wrapper');
@@ -58,9 +59,33 @@ let getUserByUserId = (userId, cb)=> {
 	query.exec(wrappedCallback);
 };
 
+let updateByUserId = (user, cb)=> {
+	let condition = {
+		_id: user.userId
+	};
+	let update = {
+		username: user.username
+	};
+	if (user.password) {
+		update.password = user.password;
+	}
+	let upsert = {
+		upsert: false,
+		'new': true
+	};
+	userModel.findOneAndUpdate(condition, update, upsert, (err, doc)=> {
+		cb(err, {
+			username: doc.username,
+			emailId: doc.emailId,
+			profile_url: doc.profile_url
+		});
+	});
+};
+
 module.exports = {
 	add,
 	getUserByCredentials,
 	updateToken,
-	getUserByUserId
+	getUserByUserId,
+	updateByUserId
 };

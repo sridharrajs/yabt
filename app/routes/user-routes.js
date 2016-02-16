@@ -27,13 +27,9 @@ function getArticleCount(userId, callback) {
 	});
 }
 
-function getProfilePic(userId, callback) {
+function geUserInfo(userId, callback) {
 	userController.getUserByUserId(userId, (err, items)=> {
-		let person = _.first(items);
-		callback(err, {
-			profile_url: person.profile_url,
-			username: person.username
-		});
+		callback(err, _.first(items));
 	});
 }
 
@@ -115,18 +111,58 @@ app.post('/', (req, res) => {
 	});
 });
 
-app.get('/me', (req, res)=> {
-	let userId = req.uid;
+app
+	.get('/me', (req, res)=> {
+		let userId = req.uid;
 
-	async
-		.parallel([
-			(callback)=> {
-				getArticleCount(userId, callback);
-			},
-			(callback)=> {
-				getProfilePic(userId, callback);
-			}
-		], (err, items) => {
+		async
+			.parallel([
+				(callback)=> {
+					getArticleCount(userId, callback);
+				},
+				(callback)=> {
+					geUserInfo(userId, callback);
+				}
+			], (err, items) => {
+				if (err) {
+					return res.status(500).send({
+						msg: err
+					});
+				}
+				res.status(200).send({
+					data: {
+						articlesCount: _.size(_.first(items)),
+						tags: pageUtil.getTags(),
+						profile_url: items[1].profile_url,
+						username: items[1].username,
+						emailId: items[1].emailId
+					}
+				});
+			});
+
+	})
+	.put('/me', (req, res)=> {
+		let body = qs.parse(req.body);
+
+		let userObj = {
+			userId: req.uid,
+			username: body.username
+		};
+
+		let newPassword = body.newPassword;
+		let reloadReq = false;
+		if (newPassword && newPassword.trim()) {
+			userObj.password = bcrypt.hashSync(newPassword);
+			reloadReq = true;
+		}
+
+		if (!userObj.username) {
+			return res.status(400).send({
+				msg: 'invalid username'
+			});
+		}
+
+		userController.updateByUserId(userObj, (err, items) => {
 			if (err) {
 				return res.status(500).send({
 					msg: err
@@ -134,14 +170,12 @@ app.get('/me', (req, res)=> {
 			}
 			res.status(200).send({
 				data: {
-					count: _.first(items),
-					tags: pageUtil.getTags(),
-					profile_url: items[1].profile_url,
-					username:items[1].username
+					items: items,
+					reloadReq: reloadReq
 				}
 			});
 		});
 
-});
+	});
 
 module.exports = app;

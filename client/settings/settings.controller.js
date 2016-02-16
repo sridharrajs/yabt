@@ -12,7 +12,8 @@ function SettingsCtrl(SERVERURL, $timeout, Upload, Article) {
 	let self = this;
 
 	self.pocketFile = SERVERURL + 'articles/import-pocket';
-
+	self.alertMsg = '';
+	self.alertClass = '';
 
 	self.clearArticles = ()=> {
 		Article.deleteAll().then(()=> {
@@ -20,8 +21,15 @@ function SettingsCtrl(SERVERURL, $timeout, Upload, Article) {
 		});
 	};
 
+	function clearMsg() {
+		$timeout(()=> {
+			self.alertClass = '';
+		}, 1000);
+	}
+
 	self.uploadFiles = function (file, errFiles) {
 		console.log('setting loaded', self.pocketFile);
+		self.loading = true;
 		self.f = file;
 		self.errFile = errFiles && errFiles[0];
 		if (file) {
@@ -39,13 +47,22 @@ function SettingsCtrl(SERVERURL, $timeout, Upload, Article) {
 			file
 				.upload
 				.then((response) => {
+						self.alertMsg = 'Success!';
+						self.alertClass = 'show alert-success';
+						clearMsg();
 						$timeout(function () {
 							file.result = response.data;
 						});
+						self.loading = false;
 					},
 					(response) => {
 						if (response.status > 0)
 							self.errorMsg = response.status + ': ' + response.data;
+						self.loading = false;
+						console.log('response', response.data.msg);
+						self.alertMsg = 'Failed :(';
+						self.alertClass = 'show alert-danger';
+						clearMsg();
 					},
 					(evt) => {
 						file.progress = Math.min(100, parseInt(100.0 *

@@ -39,17 +39,28 @@
 				url: '/home',
 				controller: 'HomeCtrl as homeCtrl',
 				redirectTo: 'home.dashboard',
-				templateUrl: HOME_FDLR + 'home.html'
+				templateUrl: HOME_FDLR + 'home.html',
+				resolve: {
+					Me: getMyDetails
+				}
 			})
 			.state('home.dashboard', {
 				url: '/dashboard',
 				controller: 'DashboardCtrl as dashboardCtrl',
-				templateUrl: DASHBOARD_FDLR + 'dashboard.html'
+				templateUrl: DASHBOARD_FDLR + 'dashboard.html',
+				resolve: {
+					Me: getMyDetails,
+					init: init
+				}
 			})
 			.state('home.profile', {
 				url: '/profile',
 				controller: 'ProfileCtrl as profileCtrl',
-				templateUrl: PROFILE_FDLR + 'profile.html'
+				templateUrl: PROFILE_FDLR + 'profile.html',
+				resolve: {
+					Me: getMyDetails,
+					User: User
+				}
 			})
 			.state('home.settings', {
 				url: '/settings',
@@ -61,6 +72,27 @@
 		$httpProvider.interceptors.push('APIInterceptor');
 	}
 
+	function getMyDetails(User) {
+		return User
+			.getMe()
+			.then((response)=> {
+				return response.data.data;
+			})
+			.catch(()=> {
+				console.log('something');
+			});
+	}
+
+	function init(Article) {
+		return Article
+			.getArticles()
+			.then((response) => {
+				let initData = {};
+				initData.pageNo = response.data.data.pageNo;
+				initData.articles = response.data.data.articles;
+				return initData;
+			});
+	}
 
 	function isAuthenticated(Auth) {
 		let authToken = Auth.getToken();
