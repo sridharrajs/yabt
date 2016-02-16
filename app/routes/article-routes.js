@@ -120,7 +120,6 @@ const storage = multer.diskStorage({
 	},
 	filename: (req, file, callback) => {
 		callback(null, `${req.uid}.html`);
-		//callback(null, file.fieldname + '-' + Date.now());
 	}
 });
 
@@ -129,52 +128,70 @@ const upload = multer({
 }).single('file');
 
 app.post('/import-pocket', (req, res) => {
-	upload(req, res, (err) => {
-		if (err) {
-			console.log(req.file);
-			console.log(err);
-			return res.end("Error uploading file.");
-		}
-		return res.status(200).send({
-			hello: 'hllo'
+	let userId = req.uid;
+
+	async
+		.waterfall([
+			(callback)=> {
+				upload(req, res, (err) => {
+					if (err) {
+						console.log(req.file);
+						console.log(err);
+						return res.status(500).send({
+							msg: 'Error uploading file.'
+						});
+					}
+
+					let articles = pocketImporter.parse(userId);
+					if (_.isEmpty(articles)) {
+						return res.status(200).send({
+							msg: 'empty articles'
+						});
+					}
+					callback(null, articles);
+				});
+			},
+			(articles, callback)=> {
+				appendPageTitle(userId, articles, callback);
+			},
+			(articles, callback)=> {
+				addArticles(articles, callback);
+			}
+		], (err, items)=> {
+			if (err) {
+				return res.status(500).send({
+					msg: err
+				});
+			}
+			return res.status(200).send({
+				msg: 'all good!',
+				data: items
+			});
 		});
-	});
-
-
-	//let userId = req.uid;
-	//let articles = pocketImporter.parse(userId);
-	//
-	//if (_.isEmpty(articles)) {
-	//	return res.status(200).send({
-	//		msg: 'empty articles'
-	//	});
-	//}
-	//
-	//async
-	//	.waterfall([
-	//		(callback)=> {
-	//			appendPageTitle(userId, articles, callback);
-	//		},
-	//		(articles, callback)=> {
-	//			addArticles(articles, callback);
-	//		}
-	//	], (err, items)=> {
-	//		if (err) {
-	//			return res.status(500).send({
-	//				msg: err
-	//			});
-	//		}
-	//		return res.status(200).send({
-	//			msg: 'all good!',
-	//			data: items
-	//		});
-	//	});
 
 });
 
 app.delete('/:articleId', (req, res)=> {
 	let articleId = req.params.articleId;
 	articleController.deleteArticle(articleId, (err, items) => {
+		if (err) {
+			return res.status(500).send({
+				msg: err
+			});
+		}
+		let msg = 'Article was deleted';
+		if (_.isEmpty(items)) {
+			msg = 'Nothing was changed';
+		}
+		res.status(200).send({
+			data: msg
+		});
+	});
+});
+
+app.delete('/', (req, res)=> {
+	let userId = req.uid;
+	articleController.deleteAll(userId, (err, items) => {
 		if (err) {
 			return res.status(500).send({
 				msg: err

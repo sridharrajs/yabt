@@ -8,10 +8,17 @@ angular
 	.module('readLater')
 	.controller('SettingsCtrl', SettingsCtrl);
 
-function SettingsCtrl(SERVERURL, $timeout, Upload) {
+function SettingsCtrl(SERVERURL, $timeout, Upload, Article) {
 	let self = this;
 
 	self.pocketFile = SERVERURL + 'articles/import-pocket';
+
+
+	self.clearArticles = ()=> {
+		Article.deleteAll().then(()=> {
+
+		});
+	};
 
 	self.uploadFiles = function (file, errFiles) {
 		console.log('setting loaded', self.pocketFile);

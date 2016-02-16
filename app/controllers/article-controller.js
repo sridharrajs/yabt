@@ -100,10 +100,26 @@ function deleteArticle(articleId, cb) {
 	articleModel.findOneAndUpdate(query, change, upsert, wrappedCallback);
 }
 
+function deleteAll(userId, cb) {
+	let wrappedCallback = wrapper.wrap(cb);
+	let query = {
+		userId: userId
+	};
+	let change = {
+		active: false
+	};
+	let upsert = {
+		upsert: false,
+		multi: true
+	};
+	articleModel.update(query, change, upsert, wrappedCallback);
+}
+
 module.exports = {
 	add,
 	addArticles,
 	getArticles,
 	deleteArticle,
+	deleteAll,
 	getArticleCount
 };
