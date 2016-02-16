@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row full-height">
 	<div class="col-sm-12">
 		<nav class="navbar navbar-default">
 			<div class="container">
@@ -30,6 +30,7 @@
 					</span>
 							</a>
 							<ul class="dropdown-menu">
+								<li><a ui-sref="home.profile">Profile</a></li>
 								<li><a href="#" ng-click="homeCtrl.logout()">Logout</a></li>
 							</ul>
 						</li>
@@ -39,59 +40,21 @@
 		</nav>
 	</div>
 
-	<div class="col-sm-12">
-		<div class="col-sm-3 left-panel">
-			//left
-			<!--<button ng-click="homeCtrl.goSettings()">Gosettings</button>-->
-		</div>
-		<div class="col-sm-9 right-panel">
-			<div class="row text-right count">
-				Count : {{homeCtrl.count}}
-			</div>
-			<div class="alert msg {{homeCtrl.alertClass}}">
-				<strong>
-					{{homeCtrl.alertMsg}}
-				</strong>
-			</div>
+	<div class="col-sm-12 full-height">
+		<div class="col-sm-3 left-panel full-height">
+			<ul class="nav nav-sidebar">
+				<li>
+					<a ui-sref="home.dashboard">
+						Dashboard
+					</a>
+				</li>
+				<li>
+					<a ui-sref="home.settings">Settings</a>
+				</li>
+			</ul>
 
-			<div class="row">
-				<form class="add-article form-horizontal" name="urlForm" ng-submit="homeCtrl.addUrl()">
-					<div class="form-group">
-						<div class="col-sm-10">
-							<input autofocus class="form-control" id="articleId" name="url" type="text"
-								   ng-model="homeCtrl.newUrl"
-								   required placeholder="Enter a valid URL">
-						</div>
-						<div class="col-sm-2">
-							<button ladda="homeCtrl.loading" data-spinner-color="#000000" data-style="expand-right"
-									type="submit" class="btn-primary form-control btn btn-default">Add
-							</button>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="text-right row collar-btn-containter">
-				<button class="btn btn-default" ng-click="homeCtrl.previousArticle()">previous</button>
-				<button class="btn btn-default" ng-click="homeCtrl.fetchNextArticle()">next</button>
-			</div>
-			<div class="col-sm-12">
-				<ul class="list-group">
-					<li id="{{item._id}}" class="article list-group-item col-sm-12"
-						ng-repeat="item in homeCtrl.articles">
-						<h3 class="article-text-format col-sm-12">{{item.title}}</h3>
-						<a class="article-text-format col-sm-12" target="_blank" href="{{item.url}}">{{item.url}}</a>
-					<span class="col-sm-12" ng-repeat="tag in item.tags">
-					#{{tag}}
-				</span>
-						<div class="text-right">
-							<button class="btn btn-danger btn-sm" ng-click="homeCtrl.deleteArticle(item._id)">
-								<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-								Delete
-							</button>
-						</div>
-					</li>
-				</ul>
-			</div>
+		</div>
+		<div ui-view class="col-sm-9 right-panel">
 		</div>
 	</div>
 </div>

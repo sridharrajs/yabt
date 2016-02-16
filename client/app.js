@@ -26,6 +26,8 @@
 		let AUTH_FDLR = 'auth/view/';
 		let HOME_FDLR = 'home/view/';
 		let SETTINGS_FDLR = 'settings/view/';
+		let DASHBOARD_FDLR = 'dashboard/view/';
+		let PROFILE_FDLR = 'profile/view/';
 
 		$stateProvider
 			.state('login', {
@@ -36,9 +38,20 @@
 			.state('home', {
 				url: '/home',
 				controller: 'HomeCtrl as homeCtrl',
+				redirectTo: 'home.dashboard',
 				templateUrl: HOME_FDLR + 'home.html'
 			})
-			.state('settings', {
+			.state('home.dashboard', {
+				url: '/dashboard',
+				controller: 'DashboardCtrl as dashboardCtrl',
+				templateUrl: DASHBOARD_FDLR + 'dashboard.html'
+			})
+			.state('home.profile', {
+				url: '/profile',
+				controller: 'ProfileCtrl as profileCtrl',
+				templateUrl: PROFILE_FDLR + 'profile.html'
+			})
+			.state('home.settings', {
 				url: '/settings',
 				controller: 'SettingsCtrl as settingsCtrl',
 				templateUrl: SETTINGS_FDLR + 'settings.html'
@@ -68,7 +81,7 @@
 			if (toState.name === 'login') {
 				if (isAuthenticated(Auth)) {
 					event.preventDefault();
-					$state.go('home');
+					$state.go('home.dashboard');
 				}
 			}
 			if (toState.redirectTo) {
