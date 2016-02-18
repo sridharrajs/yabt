@@ -77,12 +77,13 @@ let getArticles = function (item, cb) {
 	query.exec(wrappedCallback);
 };
 
-let getArticleCount = (item, cb)=> {
+let getActiveCount = (item, cb)=> {
 	let wrappedCallback = wrapper.wrap(cb);
 	articleModel
 		.find({
 			userId: item.userId,
-			active: true
+			active: true,
+			is_archived: false
 		}, wrappedCallback);
 };
 
@@ -93,6 +94,20 @@ function deleteArticle(articleId, cb) {
 	};
 	let change = {
 		active: false
+	};
+	let upsert = {
+		upsert: false
+	};
+	articleModel.findOneAndUpdate(query, change, upsert, wrappedCallback);
+}
+
+function archive(articleId, cb) {
+	let wrappedCallback = wrapper.wrap(cb);
+	let query = {
+		_id: articleId
+	};
+	let change = {
+		is_archived: true
 	};
 	let upsert = {
 		upsert: false
@@ -121,5 +136,6 @@ module.exports = {
 	getArticles,
 	deleteArticle,
 	deleteAll,
-	getArticleCount
+	getActiveCount,
+	archive
 };

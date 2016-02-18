@@ -21,6 +21,7 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 	self.deleteArticle = deleteArticle;
 	self.fetchNextArticle = fetchNextArticle;
 	self.previousArticle = previousArticle;
+	self.archive = archive;
 
 	function deleteArticle(id) {
 		SweetAlert.swal({
@@ -34,6 +35,33 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 		}, function () {
 			Article
 				.deleteArticle(id)
+				.then((response)=> {
+					$(`#${id}`).remove();
+					self.alertMsg = 'Success!';
+					self.alertClass = 'show alert-success';
+					clearMsg();
+					self.articlesCount--;
+				})
+				.catch((err)=> {
+					self.alertMsg = 'Failed :(';
+					self.alertClass = 'show alert-danger';
+					clearMsg();
+				});
+		});
+	}
+
+	function archive(id) {
+		SweetAlert.swal({
+			title: 'Are you sure?',
+			allowOutsideClick: true,
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes",
+			closeOnConfirm: true
+		}, function () {
+			Article
+				.archive(id)
 				.then((response)=> {
 					$(`#${id}`).remove();
 					self.alertMsg = 'Success!';

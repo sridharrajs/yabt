@@ -6,7 +6,6 @@
 			serverURL: 'http://myreader.sridhar.co/api/'
 		}
 	};
-	
 
 	let selectedEnv = envirorment['local'];
 	let selectedServerURL = selectedEnv.serverURL;

@@ -20,7 +20,7 @@ let security = require('../middlewares/auth-filter');
 let pageUtil = require('../utils/page-utils');
 
 function getArticleCount(userId, callback) {
-	articleController.getArticleCount({
+	articleController.getActiveCount({
 		userId
 	}, (err, count) => {
 		callback(err, count);

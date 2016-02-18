@@ -37,6 +37,10 @@
 					#{{tag}}
 				</span>
 			<div class="text-right">
+				<button class="btn default btn-sm" ng-click="dashboardCtrl.archive(item._id)">
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+					Archive
+				</button>
 				<button class="btn btn-danger btn-sm" ng-click="dashboardCtrl.deleteArticle(item._id)">
 					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 					Delete

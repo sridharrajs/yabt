@@ -28,6 +28,10 @@ let schema = new Schema({
 		type: Boolean,
 		default: false
 	},
+	is_archived: {
+		type: Boolean,
+		default: false
+	},
 	time_added: {
 		type: Number,
 		default: Date.now()

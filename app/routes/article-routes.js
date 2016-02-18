@@ -230,4 +230,24 @@ app.post('/import-twitter', (req, res)=> {
 
 });
 
+function updateArticle(req, res) {
+	let articleId = req.params.articleId;
+	articleController.archive(articleId, (err, items) => {
+		if (err) {
+			return res.status(500).send({
+				msg: err
+			});
+		}
+		let msg = 'Article was deleted';
+		if (_.isEmpty(items)) {
+			msg = 'Nothing was changed';
+		}
+		res.status(200).send({
+			data: msg
+		});
+	});
+}
+
+app.put('/:articleId', updateArticle);
+
 module.exports = app;
