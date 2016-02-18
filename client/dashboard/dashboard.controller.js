@@ -32,7 +32,8 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 			confirmButtonColor: "#DD6B55",
 			confirmButtonText: "Yes",
 			closeOnConfirm: true
-		}, function () {
+		}, function (isConfirm) {
+			if(isConfirm){
 			Article
 				.deleteArticle(id)
 				.then((response)=> {
@@ -47,6 +48,7 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 					self.alertClass = 'show alert-danger';
 					clearMsg();
 				});
+			}
 		});
 	}
 
@@ -59,7 +61,8 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 			confirmButtonColor: "#DD6B55",
 			confirmButtonText: "Yes",
 			closeOnConfirm: true
-		}, function () {
+		}, function (isConfirm) {
+			if(isConfirm){
 			Article
 				.archive(id)
 				.then((response)=> {
@@ -74,6 +77,7 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 					self.alertClass = 'show alert-danger';
 					clearMsg();
 				});
+			}
 		});
 	}
 
