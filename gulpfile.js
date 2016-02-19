@@ -74,3 +74,7 @@ gulp.task('copy-html-css', ()=> {
 		.src(FILES.CLIENT_NON_JS_FILES)
 		.pipe(gulp.dest(DIST));
 });
+
+gulp.task('default', (callback)=> {
+	runSequence('compile-js', 'copy-html-css', callback);
+});

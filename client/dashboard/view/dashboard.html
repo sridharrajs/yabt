@@ -1,5 +1,5 @@
 <div class="row text-right count">
-	Count : {{dashboardCtrl.articlesCount}}
+	Unread count : {{dashboardCtrl.articlesCount}}
 </div>
 <div class="alert msg {{dashboardCtrl.alertClass}}">
 	<strong>
@@ -34,7 +34,8 @@
 			<h3 class="article-text-format col-sm-12">{{item.title}}</h3>
 			<a class="article-text-format col-sm-12" target="_blank" href="{{item.url}}">{{item.url}}</a>
 					<span class="col-sm-12" ng-repeat="tag in item.tags">
-					#{{tag}}
+						<span ng-if="tag">#</span>
+					{{tag}}
 				</span>
 			<div class="text-right">
 				<button class="btn default btn-sm" ng-click="dashboardCtrl.archive(item._id)">

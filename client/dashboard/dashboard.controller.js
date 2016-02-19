@@ -33,21 +33,21 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 			confirmButtonText: "Yes",
 			closeOnConfirm: true
 		}, function (isConfirm) {
-			if(isConfirm){
-			Article
-				.deleteArticle(id)
-				.then((response)=> {
-					$(`#${id}`).remove();
-					self.alertMsg = 'Success!';
-					self.alertClass = 'show alert-success';
-					clearMsg();
-					self.articlesCount--;
-				})
-				.catch((err)=> {
-					self.alertMsg = 'Failed :(';
-					self.alertClass = 'show alert-danger';
-					clearMsg();
-				});
+			if (isConfirm) {
+				Article
+					.deleteArticle(id)
+					.then((response)=> {
+						$(`#${id}`).remove();
+						self.alertMsg = 'Success!';
+						self.alertClass = 'show alert-success';
+						clearMsg();
+						self.articlesCount--;
+					})
+					.catch((err)=> {
+						self.alertMsg = 'Failed :(';
+						self.alertClass = 'show alert-danger';
+						clearMsg();
+					});
 			}
 		});
 	}
@@ -62,21 +62,21 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 			confirmButtonText: "Yes",
 			closeOnConfirm: true
 		}, function (isConfirm) {
-			if(isConfirm){
-			Article
-				.archive(id)
-				.then((response)=> {
-					$(`#${id}`).remove();
-					self.alertMsg = 'Success!';
-					self.alertClass = 'show alert-success';
-					clearMsg();
-					self.articlesCount--;
-				})
-				.catch((err)=> {
-					self.alertMsg = 'Failed :(';
-					self.alertClass = 'show alert-danger';
-					clearMsg();
-				});
+			if (isConfirm) {
+				Article
+					.archive(id)
+					.then((response)=> {
+						$(`#${id}`).remove();
+						self.alertMsg = 'Success!';
+						self.alertClass = 'show alert-success';
+						clearMsg();
+						self.articlesCount--;
+					})
+					.catch((err)=> {
+						self.alertMsg = 'Failed :(';
+						self.alertClass = 'show alert-danger';
+						clearMsg();
+					});
 			}
 		});
 	}
@@ -135,5 +135,12 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 	}
 
 	$('#articleId').focus();
+
+	$(document).on('paste', function (e) {
+		$('#articleId')
+			.val(e.originalEvent.clipboardData.getData('text/plain'))
+			.focus();
+		e.preventDefault();
+	});
 
 }

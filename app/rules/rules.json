@@ -13,6 +13,7 @@
 		"slashdot.org": "slashdot",
 		"stackoverflow.com": "stackoverflow",
 		"mashable.com": "mashable",
-		"codinghorror.com": "craftmanship"
+		"codinghorror.com": "craftmanship",
+		"ycombinator.com": "HackerNews"
 	}
 }
