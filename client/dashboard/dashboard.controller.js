@@ -12,7 +12,8 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 	self.alertMsg = '';
 	self.alertClass = '';
 	self.articles = [];
-
+	self.newUrl = '';
+	
 	self.pageNo = init.pageNo;
 	self.articles = _.union(self.articles, init.articles);
 	self.articlesCount = Me.articlesCount;
@@ -84,7 +85,7 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 	function clearMsg() {
 		$timeout(()=> {
 			self.alertClass = '';
-		}, 1000);
+		}, 3000);
 	}
 
 	function fetchNextArticle() {
@@ -127,20 +128,20 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 			})
 			.catch((err) => {
 				$log.error(err);
-				self.alertMsg = 'Failed :(';
+				self.alertMsg = err.data.msg;
 				self.alertClass = 'show alert-danger';
 				clearMsg();
 				self.loading = false;
 			});
 	}
 
-	$('#articleId').focus();
+	angular.element('#articleId').focus();
 
-	$(document).on('paste', function (e) {
-		$('#articleId')
-			.val(e.originalEvent.clipboardData.getData('text/plain'))
-			.focus();
+	angular.element(document).on('paste', function (e) {
+		self.newUrl = e.originalEvent.clipboardData.getData('text/plain');
+		angular.element('#articleId')
+			.focus()
+			.val(e.originalEvent.clipboardData.getData('text/plain'));
 		e.preventDefault();
 	});
-
 }

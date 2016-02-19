@@ -57,62 +57,70 @@ function addArticles(articles, callback) {
 	});
 }
 
-app
-	.post('/', (req, res) => {
-		let userId = req.uid;
-		let body = qs.parse(req.body);
-		let article = {
-			url: body.url,
-			userId: userId
-		};
+function addArticle(req, res) {
 
-		async.waterfall([
-			(callback)=> {
-				appendPageTitle(userId, [article], callback);
-			},
-			(articles, callback)=> {
-				articleController.add(_.first(articles), callback);
-			}
-		], (err, items) => {
-			if (err) {
-				return res.status(500).send({
-					msg: err
-				});
-			}
-			res.status(200).send({
-				data: {
-					articles: items
-				}
-			});
+	let userId = req.uid;
+	let body = qs.parse(req.body);
+	let url = body.url;
+
+	if (!url) {
+		return res.status(400).send({
+			msg: 'Invalid url'
 		});
+	}
 
-	})
-	.get('/', (req, res) => {
-		let userId = req.uid;
-		let pageNo = req.query.page;
-		if (!pageNo || pageNo <= 0) {
-			pageNo = 0;
+	let article = {
+		url: url,
+		userId: userId
+	};
+
+	async.waterfall([
+		(callback)=> {
+			appendPageTitle(userId, [article], callback);
+		},
+		(articles, callback)=> {
+			articleController.add(_.first(articles), callback);
 		}
-		articleController.getArticles({
-			userId,
-			pageNo
-		}, (err, items) => {
-			if (err) {
-				return res.status(500).send({
-					msg: err
-				});
-			}
-			if (_.isEmpty(items)) {
-				items = [];
-			}
-			res.status(200).send({
-				data: {
-					articles: items,
-					pageNo: ++pageNo
-				}
+	], (err, items) => {
+		if (err) {
+			return res.status(500).send({
+				msg: err
 			});
+		}
+		res.status(200).send({
+			data: {
+				articles: items
+			}
 		});
 	});
+}
+
+function getArticles(req, res) {
+	let userId = req.uid;
+	let pageNo = req.query.page;
+	if (!pageNo || pageNo <= 0) {
+		pageNo = 0;
+	}
+	articleController.getArticles({
+		userId,
+		pageNo
+	}, (err, items) => {
+		if (err) {
+			return res.status(500).send({
+				msg: err
+			});
+		}
+		if (_.isEmpty(items)) {
+			items = [];
+		}
+		res.status(200).send({
+			data: {
+				articles: items,
+				pageNo: ++pageNo
+			}
+		});
+	});
+}
 
 const storage = multer.diskStorage({
 	destination: (req, file, callback) => {
@@ -249,5 +257,8 @@ function updateArticle(req, res) {
 }
 
 app.put('/:articleId', updateArticle);
+app
+	.post('/', addArticle)
+	.get('/', getArticles);
 
 module.exports = app;
