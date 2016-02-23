@@ -23,14 +23,14 @@
 		</div>
 	</form>
 </div>
-<div class="text-right row collar-btn-containter">
-	<button class="btn btn-default" ng-click="dashboardCtrl.previousArticle()">previous</button>
-	<button class="btn btn-default" ng-click="dashboardCtrl.fetchNextArticle()">next</button>
-</div>
 <div class="col-sm-12">
+	<div class="text-right row collar-btn-containter">
+		<button class="btn btn-default" ng-click="dashboardCtrl.previousArticle()">previous</button>
+		<button class="btn btn-default" ng-click="dashboardCtrl.fetchNextArticle()">next</button>
+	</div>
 	<ul class="list-group">
 		<li id="{{item._id}}" class="article list-group-item col-sm-12"
-			ng-repeat="item in dashboardCtrl.articles">
+			ng-repeat="item in dashboardCtrl.articles track by $index" >
 			<h3 class="article-text-format col-sm-12">{{item.title}}</h3>
 			<a class="article-text-format col-sm-12" target="_blank" href="{{item.url}}">{{item.url}}</a>
 					<span class="col-sm-12" ng-repeat="tag in item.tags">
@@ -38,13 +38,15 @@
 					{{tag}}
 				</span>
 			<div class="text-right">
+				<button class="btn default btn-sm" ng-click="dashboardCtrl.favourite($index)">
+					<span class="glyphicon glyphicon-heart {{item.is_fav===true?'favourited':''}}"
+						  aria-hidden="true"></span>
+				</button>
 				<button class="btn default btn-sm" ng-click="dashboardCtrl.archive(item._id)">
 					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-					Archive
 				</button>
 				<button class="btn btn-danger btn-sm" ng-click="dashboardCtrl.deleteArticle(item._id)">
 					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-					Delete
 				</button>
 			</div>
 		</li>

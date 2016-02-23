@@ -2,15 +2,14 @@
  * Created by sridharrajs on 2/10/16.
  */
 
-const gulp = require('gulp');
-
 const babel = require('gulp-babel');
+const browserSync = require('browser-sync').create();
+const eslint = require('gulp-eslint');
 const jscs = require('gulp-jscs');
 const jshint = require('gulp-jshint');
-const eslint = require('gulp-eslint');
+const gulp = require('gulp');
 const runSequence = require('run-sequence');
 const watch = require('gulp-watch');
-var browserSync = require('browser-sync').create();
 
 const FILES = {
 	SERVER_JS_FILES: ['gulpfile.js', 'app/**/*.js'],
@@ -73,6 +72,10 @@ gulp.task('copy-html-css', ()=> {
 	return gulp
 		.src(FILES.CLIENT_NON_JS_FILES)
 		.pipe(gulp.dest(DIST));
+});
+
+gulp.task('install', (callback)=> {
+	runSequence('compile-js', 'copy-html-css', callback);
 });
 
 gulp.task('default', (callback)=> {

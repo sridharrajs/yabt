@@ -67,7 +67,8 @@ let getArticles = function (item, cb) {
 	let query = articleModel
 		.find({
 			userId: item.userId,
-			active: true
+			active: true,
+			is_archived: item.archive
 		})
 		.limit(SCROLL_LIMIT)
 		.sort({
@@ -87,20 +88,6 @@ let getActiveCount = (item, cb)=> {
 		}, wrappedCallback);
 };
 
-function deleteArticle(articleId, cb) {
-	let wrappedCallback = wrapper.wrap(cb);
-	let query = {
-		_id: articleId
-	};
-	let change = {
-		active: false
-	};
-	let upsert = {
-		upsert: false
-	};
-	articleModel.findOneAndUpdate(query, change, upsert, wrappedCallback);
-}
-
 function archive(articleId, cb) {
 	let wrappedCallback = wrapper.wrap(cb);
 	let query = {
@@ -115,13 +102,25 @@ function archive(articleId, cb) {
 	articleModel.findOneAndUpdate(query, change, upsert, wrappedCallback);
 }
 
+function updateAttributes(item, cb) {
+	let wrappedCallback = wrapper.wrap(cb);
+	let query = {
+		_id: item._id
+	};
+	let change = item.attributes;
+	let upsert = {
+		upsert: false
+	};
+	articleModel.findOneAndUpdate(query, change, upsert, wrappedCallback);
+}
+
 function deleteAll(userId, cb) {
 	let wrappedCallback = wrapper.wrap(cb);
 	let query = {
 		userId: userId
 	};
 	let change = {
-		active: false
+		is_fav: false
 	};
 	let upsert = {
 		upsert: false,
@@ -132,10 +131,10 @@ function deleteAll(userId, cb) {
 
 module.exports = {
 	add,
+	archive,
 	addArticles,
 	getArticles,
-	deleteArticle,
 	deleteAll,
 	getActiveCount,
-	archive
+	updateAttributes
 };

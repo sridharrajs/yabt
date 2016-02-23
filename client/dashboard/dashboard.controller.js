@@ -13,7 +13,7 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 	self.alertClass = '';
 	self.articles = [];
 	self.newUrl = '';
-	
+
 	self.pageNo = init.pageNo;
 	self.articles = _.union(self.articles, init.articles);
 	self.articlesCount = Me.articlesCount;
@@ -23,6 +23,7 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 	self.fetchNextArticle = fetchNextArticle;
 	self.previousArticle = previousArticle;
 	self.archive = archive;
+	self.favourite = favourite;
 
 	function deleteArticle(id) {
 		SweetAlert.swal({
@@ -110,6 +111,32 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 			});
 	}
 
+	function favourite(index) {
+		let article = self.articles[index];
+		let articleId = article._id;
+		let isFavourited = article.is_fav;
+		Article
+			.favourite({
+				articleId,
+				isFavourited
+			})
+			.then((response)=> {
+				let data = response.data.data;
+				let msg = response.data.msg;
+				self.alertMsg = msg;
+				self.alertClass = 'show alert-success';
+				clearMsg();
+				article.is_fav = !article.is_fav;
+				self.articles[index] = article;
+			})
+			.catch((response)=> {
+				let msg = response.data.msg;
+				$log.error(response);
+				self.alertMsg = msg;
+				self.alertClass = 'show alert-danger';
+			});
+	}
+
 	function addUrl() {
 		self.loading = true;
 		let data = {
@@ -126,9 +153,9 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 				self.loading = false;
 				self.articlesCount++;
 			})
-			.catch((err) => {
-				$log.error(err);
-				self.alertMsg = err.data.msg;
+			.catch((response) => {
+				$log.error(response);
+				self.alertMsg = response.data.msg;
 				self.alertClass = 'show alert-danger';
 				clearMsg();
 				self.loading = false;

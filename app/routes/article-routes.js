@@ -98,13 +98,22 @@ function addArticle(req, res) {
 function getArticles(req, res) {
 	let userId = req.uid;
 	let pageNo = req.query.page;
+	let archive = req.query.archived;
 	if (!pageNo || pageNo <= 0) {
 		pageNo = 0;
 	}
-	articleController.getArticles({
+
+	let item = {
+		archive: false,
 		userId,
 		pageNo
-	}, (err, items) => {
+	};
+
+	if (!_.isUndefined(archive)) {
+		item.archive = true;
+	}
+
+	articleController.getArticles(item, (err, items) => {
 		if (err) {
 			return res.status(500).send({
 				msg: err
@@ -239,26 +248,45 @@ app.post('/import-twitter', (req, res)=> {
 });
 
 function updateArticle(req, res) {
-	let articleId = req.params.articleId;
-	articleController.archive(articleId, (err, items) => {
+	let body = qs.parse(req.body);
+	let actions = body.actions;
+	let favourite = actions.favourite;
+	let archive = actions.archive;
+
+	let article = {
+		_id: req.params.articleId,
+		attributes: {}
+	};
+
+	if (!_.isUndefined(favourite)) {
+		article.attributes.is_fav = favourite;
+	}
+
+	if (!_.isUndefined(archive)) {
+		article.attributes.is_archived = archive;
+	}
+
+	articleController.updateAttributes(article, (err, items) => {
 		if (err) {
 			return res.status(500).send({
 				msg: err
 			});
 		}
-		let msg = 'Article was deleted';
+		let msg = 'Success!';
 		if (_.isEmpty(items)) {
 			msg = 'Nothing was changed';
 		}
 		res.status(200).send({
-			data: msg
+			msg: msg
 		});
 	});
+
 }
 
-app.put('/:articleId', updateArticle);
 app
 	.post('/', addArticle)
 	.get('/', getArticles);
+
+app.put('/:articleId', updateArticle);
 
 module.exports = app;
