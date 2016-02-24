@@ -13,6 +13,9 @@ let articleModel = mongoose.model('article');
 const SCROLL_LIMIT = 10;
 
 function computeSkipCount(pageNo) {
+	if (!pageNo || pageNo <= 0) {
+		pageNo = 0;
+	}
 	if (pageNo === 0) {
 		return pageNo;
 	} else {
@@ -62,19 +65,15 @@ let addArticles = function (articles, cb) {
 	);
 };
 
-let getArticles = function (item, cb) {
+let getArticles = function (item, pageNo, cb) {
 	let wrappedCallback = wrapper.wrap(cb, articleModelSchema.getAttributes());
 	let query = articleModel
-		.find({
-			userId: item.userId,
-			active: true,
-			is_archived: item.archive
-		})
+		.find(item)
 		.limit(SCROLL_LIMIT)
 		.sort({
 			time_added: -1
 		})
-		.skip(computeSkipCount(item.pageNo));
+		.skip(computeSkipCount(pageNo));
 	query.exec(wrappedCallback);
 };
 

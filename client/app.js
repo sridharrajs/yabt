@@ -26,6 +26,7 @@
 		let AUTH_FDLR = 'auth/view/';
 		let HOME_FDLR = 'home/view/';
 		let SETTINGS_FDLR = 'settings/view/';
+		let FAVOURITES_FDLR = 'favourites/view/';
 		let DASHBOARD_FDLR = 'dashboard/view/';
 		let PROFILE_FDLR = 'profile/view/';
 
@@ -66,6 +67,14 @@
 				url: '/settings',
 				controller: 'SettingsCtrl as settingsCtrl',
 				templateUrl: SETTINGS_FDLR + 'settings.html'
+			})
+			.state('home.favourites', {
+				url: '/favourites',
+				controller: 'FavouritesCtrl as favouritesCtrl',
+				templateUrl: FAVOURITES_FDLR + 'favourites.html',
+				resolve: {
+					init: getFavourites
+				}
 			});
 
 		$urlRouterProvider.otherwise('/');
@@ -93,6 +102,20 @@
 				return initData;
 			});
 	}
+
+	function getFavourites(Article) {
+		return Article
+			.getArticles({
+				fetchFavourites: true
+			})
+			.then((response) => {
+				let initData = {};
+				initData.pageNo = response.data.data.pageNo;
+				initData.articles = response.data.data.articles;
+				return initData;
+			});
+	}
+
 
 	function isAuthenticated(Auth) {
 		let authToken = Auth.getToken();

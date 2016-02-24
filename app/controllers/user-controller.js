@@ -4,7 +4,6 @@
 
 'use strict';
 
-let _ = require('lodash');
 let gravatar = require('nodejs-gravatar');
 let mongoose = require('mongoose');
 let wrapper = require('mongoose-callback-wrapper');

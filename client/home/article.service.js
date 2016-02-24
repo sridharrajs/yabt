@@ -5,6 +5,12 @@ angular
 	.factory('Article', Article);
 
 function Article(SERVERURL, $http) {
+
+	const DEFAULT_QUERY = {
+		pageNo: 0,
+		fetchFavourites: false
+	};
+
 	let service = {
 		addArticle: (data) => {
 			return $http.post(SERVERURL + 'articles', data);
@@ -25,16 +31,13 @@ function Article(SERVERURL, $http) {
 		favourite: (item)=> {
 			return $http.put(SERVERURL + `articles/${item.articleId}`, {
 				actions: {
-					favourite: !item.isFavourited
+					favourite: item.isFavourited
 				}
 			});
 		},
-		getArticles: (pageNo) => {
-			let page = 0;
-			if (!_.isUndefined(pageNo)) {
-				page = pageNo;
-			}
-			return $http.get(SERVERURL + `articles?page=${page}`);
+		getArticles: (query) => {
+			let paddingQuery = _.defaults(query, DEFAULT_QUERY);
+			return $http.get(SERVERURL + `articles?page=${paddingQuery.pageNo}&favourites=${paddingQuery.fetchFavourites}`);
 		}
 	};
 	return service;

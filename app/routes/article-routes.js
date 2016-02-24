@@ -98,22 +98,25 @@ function addArticle(req, res) {
 function getArticles(req, res) {
 	let userId = req.uid;
 	let pageNo = req.query.page;
-	let archive = req.query.archived;
-	if (!pageNo || pageNo <= 0) {
-		pageNo = 0;
-	}
 
-	let item = {
-		archive: false,
+	let item = { //db columns
 		userId,
-		pageNo
+		active: true
 	};
 
+	let archive = req.query.archived;
 	if (!_.isUndefined(archive)) {
-		item.archive = true;
+		item.is_archived = true;
+	} else {
+		item.is_archived = false;
 	}
 
-	articleController.getArticles(item, (err, items) => {
+	let isFavourited = req.query.favourites;
+	if (!_.isUndefined(isFavourited) && isFavourited === 'true') {
+		item.is_fav = true;
+	}
+
+	articleController.getArticles(item, pageNo, (err, items) => {
 		if (err) {
 			return res.status(500).send({
 				msg: err
@@ -190,7 +193,7 @@ app.post('/import-pocket', (req, res) => {
 
 app.delete('/:articleId', (req, res)=> {
 	let articleId = req.params.articleId;
-	articleController.deleteArticle(articleId, (err, items) => {
+	articleController.archive(articleId, (err, items) => {
 		if (err) {
 			return res.status(500).send({
 				msg: err

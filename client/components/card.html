@@ -1,0 +1,21 @@
+<li id="{{cardCtrl.id}}" class="article list-group-item col-sm-12">
+	<h3 class="article-text-format col-sm-12">{{cardCtrl.title}}</h3>
+	<a class="article-text-format col-sm-12" target="_blank" href="{{cardCtrl.url}}">
+		{{cardCtrl.url}}
+	</a>
+	<span class="col-sm-12" ng-repeat="tag in item.tags">
+		<span ng-if="tag">#</span>{{cardCtrl.tag}}
+	</span>
+	<div class="text-right">
+		<button class="btn default btn-sm" ng-click="cardCtrl.favourite($index)">
+			<span class="glyphicon glyphicon-heart {{cardCtrl.favourited}}"
+				  aria-hidden="true"></span>
+		</button>
+		<button class="btn default btn-sm" ng-click="cardCtrl.archive()">
+			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+		</button>
+		<button class="btn btn-danger btn-sm" ng-click="cardCtrl.deleteArticle()">
+			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+		</button>
+	</div>
+</li>

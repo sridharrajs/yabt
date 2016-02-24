@@ -6,7 +6,7 @@ angular
 	.module('readLater')
 	.controller('DashboardCtrl', DashboardCtrl);
 
-function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
+function DashboardCtrl($timeout, $log, Article, Me, init) {
 	let self = this;
 
 	self.alertMsg = '';
@@ -19,69 +19,8 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 	self.articlesCount = Me.articlesCount;
 
 	self.addUrl = addUrl;
-	self.deleteArticle = deleteArticle;
 	self.fetchNextArticle = fetchNextArticle;
 	self.previousArticle = previousArticle;
-	self.archive = archive;
-	self.favourite = favourite;
-
-	function deleteArticle(id) {
-		SweetAlert.swal({
-			title: 'Are you sure?',
-			allowOutsideClick: true,
-			type: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: "#DD6B55",
-			confirmButtonText: "Yes",
-			closeOnConfirm: true
-		}, function (isConfirm) {
-			if (isConfirm) {
-				Article
-					.deleteArticle(id)
-					.then((response)=> {
-						$(`#${id}`).remove();
-						self.alertMsg = 'Success!';
-						self.alertClass = 'show alert-success';
-						clearMsg();
-						self.articlesCount--;
-					})
-					.catch((err)=> {
-						self.alertMsg = 'Failed :(';
-						self.alertClass = 'show alert-danger';
-						clearMsg();
-					});
-			}
-		});
-	}
-
-	function archive(id) {
-		SweetAlert.swal({
-			title: 'Are you sure?',
-			allowOutsideClick: true,
-			type: 'warning',
-			showCancelButton: true,
-			confirmButtonColor: "#DD6B55",
-			confirmButtonText: "Yes",
-			closeOnConfirm: true
-		}, function (isConfirm) {
-			if (isConfirm) {
-				Article
-					.archive(id)
-					.then((response)=> {
-						$(`#${id}`).remove();
-						self.alertMsg = 'Success!';
-						self.alertClass = 'show alert-success';
-						clearMsg();
-						self.articlesCount--;
-					})
-					.catch((err)=> {
-						self.alertMsg = 'Failed :(';
-						self.alertClass = 'show alert-danger';
-						clearMsg();
-					});
-			}
-		});
-	}
 
 	function clearMsg() {
 		$timeout(()=> {
@@ -108,32 +47,6 @@ function DashboardCtrl($timeout, $log, Article, SweetAlert, Me, init) {
 			.then((response) => {
 				self.articles.length = 0;
 				self.articles = _.union(self.articles, response.data.data.articles)
-			});
-	}
-
-	function favourite(index) {
-		let article = self.articles[index];
-		let articleId = article._id;
-		let isFavourited = article.is_fav;
-		Article
-			.favourite({
-				articleId,
-				isFavourited
-			})
-			.then((response)=> {
-				let data = response.data.data;
-				let msg = response.data.msg;
-				self.alertMsg = msg;
-				self.alertClass = 'show alert-success';
-				clearMsg();
-				article.is_fav = !article.is_fav;
-				self.articles[index] = article;
-			})
-			.catch((response)=> {
-				let msg = response.data.msg;
-				$log.error(response);
-				self.alertMsg = msg;
-				self.alertClass = 'show alert-danger';
 			});
 	}
 
