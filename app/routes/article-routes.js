@@ -18,34 +18,33 @@ let pageUtil = require('../utils/page-utils');
 let twitterUtil = require('../utils/twitter-util');
 
 function appendPageTitle(userId, articles, callback) {
-	async
-		.mapLimit(
-			articles,
-			9,
-			(article, titleCb)=> {
-				let url = article.url;
-				pageUtil.getPageTitle(url, (err, title) => {
-					if (err) {
-						return titleCb(null, '');
-					}
-					if (err) {
-						return titleCb(err, null);
-					}
-					article.title = title.trim();
-					article.tag = pageUtil.getTagByDomain(url);
-					article.userId = userId;
-					titleCb(null, article);
-				});
-			},
-			(err, acb)=> {
+	async.mapLimit(
+		articles,
+		9,
+		(article, titleCb)=> {
+			let url = article.url;
+			pageUtil.getPageTitle(url, (err, title) => {
 				if (err) {
-					return callback(err);
+					return titleCb(null, '');
 				}
-				acb = _.reject(acb, (site)=> {
-					return _.isEmpty(site);
-				});
-				callback(null, acb);
+				if (err) {
+					return titleCb(err, null);
+				}
+				article.title = title.trim();
+				article.tag = pageUtil.getTagByDomain(url);
+				article.userId = userId;
+				titleCb(null, article);
 			});
+		},
+		(err, acb)=> {
+			if (err) {
+				return callback(err);
+			}
+			acb = _.reject(acb, (site)=> {
+				return _.isEmpty(site);
+			});
+			callback(null, acb);
+		});
 }
 
 function addArticles(articles, callback) {
@@ -147,51 +146,32 @@ const upload = multer({
 	storage: storage
 }).single('file');
 
-app.post('/import-pocket', (req, res) => {
+function importFromPocket(req, res) {
 	let userId = req.uid;
-
-	async
-		.waterfall([
-			(callback)=> {
-				upload(req, res, (err) => {
-					if (err) {
-						console.log(req.file);
-						console.log(err);
-						return res.status(500).send({
-							msg: 'Error uploading file.'
-						});
-					}
-
-					let articles = pocketImporter.parse(userId);
-					if (_.isEmpty(articles)) {
-						return res.status(200).send({
-							msg: 'empty articles'
-						});
-					}
-					callback(null, articles);
-				});
-			},
-			(articles, callback)=> {
-				appendPageTitle(userId, articles, callback);
-			},
-			(articles, callback)=> {
-				addArticles(articles, callback);
-			}
-		], (err, items)=> {
-			if (err) {
-				return res.status(500).send({
-					msg: err
-				});
-			}
-			return res.status(200).send({
-				msg: 'all good!',
-				data: items
+	async.waterfall([
+		(callback)=> {
+			uploadToDir(req, res, callback);
+		},
+		(articles, callback)=> {
+			appendPageTitle(userId, articles, callback);
+		},
+		(articles, callback)=> {
+			addArticles(articles, callback);
+		}
+	], (err, items)=> {
+		if (err) {
+			return res.status(500).send({
+				msg: err
 			});
+		}
+		return res.status(200).send({
+			msg: 'all good!',
+			data: items
 		});
+	});
+}
 
-});
-
-app.delete('/:articleId', (req, res)=> {
+function deleteArticle(req, res) {
 	let articleId = req.params.articleId;
 	articleController.archive(articleId, (err, items) => {
 		if (err) {
@@ -207,9 +187,9 @@ app.delete('/:articleId', (req, res)=> {
 			data: msg
 		});
 	});
-});
+}
 
-app.delete('/', (req, res)=> {
+function deleteAllArticles(req, res) {
 	let userId = req.uid;
 	articleController.deleteAll(userId, (err, items) => {
 		if (err) {
@@ -225,30 +205,29 @@ app.delete('/', (req, res)=> {
 			data: msg
 		});
 	});
-});
+}
 
-app.post('/import-twitter', (req, res)=> {
+function importFromTwitter(req, res) {
 	let userId = req.uid;
-	async
-		.waterfall([
-			(callback)=> {
-				twitterUtil.importFavourties(userId, callback);
-			},
-			(articles, callback)=> {
-				addArticles(articles, callback);
-			}
-		], (err, items) => {
-			if (err) {
-				return res.status(500).send({
-					msg: err
-				});
-			}
-			res.status(200).send({
-				data: items
+	async.waterfall([
+		(callback)=> {
+			twitterUtil.importFavourties(userId, callback);
+		},
+		(articles, callback)=> {
+			addArticles(articles, callback);
+		}
+	], (err, items) => {
+		if (err) {
+			return res.status(500).send({
+				msg: err
 			});
+		}
+		res.status(200).send({
+			data: items
 		});
+	});
 
-});
+}
 
 function updateArticle(req, res) {
 	let body = qs.parse(req.body);
@@ -286,10 +265,33 @@ function updateArticle(req, res) {
 
 }
 
+function uploadToDir(req, res, callback) {
+	upload(req, res, (err) => {
+		if (err) {
+			return res.status(500).send({
+				msg: err
+			});
+		}
+
+		let articles = pocketImporter.parse(userId);
+		if (_.isEmpty(articles)) {
+			return res.status(200).send({
+				msg: 'empty articles'
+			});
+		}
+		callback(null, articles);
+	});
+}
+
 app
 	.post('/', addArticle)
 	.get('/', getArticles);
 
 app.put('/:articleId', updateArticle);
+app.post('/import-twitter', importFromTwitter);
+app.post('/import-pocket', importFromPocket);
+
+app.delete('/:articleId', deleteArticle);
+app.delete('/', deleteAllArticles);
 
 module.exports = app;

@@ -16,13 +16,11 @@ class ConnectionFactory {
 	static connect(config) {
 		db.connect(config.mongdbUrl);
 		return new Promise((resolve, reject)=> {
-			db.connection
-				.on('open', () => {
-					resolve('Success');
-				})
-				.on('error', (err) => {
-					reject(err);
-				});
+			db.connection.on('open', () => {
+				resolve('Success');
+			}).on('error', (err) => {
+				reject(err);
+			});
 		});
 
 	}

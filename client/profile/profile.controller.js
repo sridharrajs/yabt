@@ -31,33 +31,28 @@ function ProfileCtrl(Me, User, $timeout, $rootScope) {
 			newPassword: self.newPassword
 		};
 
-		User
-			.update(user)
-			.then((response)=> {
-				self.loading = false;
-				self.alertMsg = 'Success!';
-				self.alertClass = 'show alert-success';
-				clearMsg();
-				let reloadReq = response.data.data.reloadReq;
-				$timeout(()=> {
-					if (reloadReq) {
-						$rootScope.$broadcast('logout');
-					}
-					$rootScope.$broadcast('fetch-user', {
-						username: self.username
-					});
-				}, 2000);
-			})
-			.catch((response)=> {
-				self.loading = false;
-				console.log('response', response.data.msg);
-				self.alertMsg = 'Failed :(';
-				self.alertClass = 'show alert-danger';
-				clearMsg();
-			});
+		User.update(user).then((response)=> {
+			self.loading = false;
+			self.alertMsg = 'Success!';
+			self.alertClass = 'show alert-success';
+			clearMsg();
+			let reloadReq = response.data.data.reloadReq;
+			$timeout(()=> {
+				if (reloadReq) {
+					$rootScope.$broadcast('logout');
+				}
+				$rootScope.$broadcast('fetch-user', {
+					username: self.username
+				});
+			}, 2000);
+		}).catch((response)=> {
+			self.loading = false;
+			console.log('response', response.data.msg);
+			self.alertMsg = 'Failed :(';
+			self.alertClass = 'show alert-danger';
+			clearMsg();
+		});
 	}
-
-	console.log('ProfileCtrl is up');
 
 	function clearMsg() {
 		$timeout(()=> {

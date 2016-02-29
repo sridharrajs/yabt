@@ -42,7 +42,7 @@ let add = function (article, cb) {
 let addArticles = function (articles, cb) {
 	async.forEach(
 		articles,
-		function (article, callback) {
+		(article, callback) => {
 			let newArticle = new articleModel({
 				url: article.url,
 				userId: article.userId,
@@ -56,7 +56,7 @@ let addArticles = function (articles, cb) {
 				callback(null, 'success');
 			});
 		},
-		function (err) {
+		(err) => {
 			if (err) {
 				return cb(err);
 			}
@@ -79,12 +79,11 @@ let getArticles = function (item, pageNo, cb) {
 
 let getActiveCount = (item, cb)=> {
 	let wrappedCallback = wrapper.wrap(cb);
-	articleModel
-		.find({
-			userId: item.userId,
-			active: true,
-			is_archived: false
-		}, wrappedCallback);
+	articleModel.find({
+		userId: item.userId,
+		active: true,
+		is_archived: false
+	}, wrappedCallback);
 };
 
 function archive(articleId, cb) {

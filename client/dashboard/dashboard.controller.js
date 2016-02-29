@@ -30,49 +30,41 @@ function DashboardCtrl($timeout, $log, Article, Me, init) {
 
 	function fetchNextArticle() {
 		self.pageNo = self.pageNo + 1;
-		Article
-			.getArticles(self.pageNo)
-			.then((response) => {
-				self.articles.length = 0;
-				self.articles = _.union(self.articles, response.data.data.articles)
-			});
+		Article.getArticles(self.pageNo).then((response) => {
+			self.articles.length = 0;
+			self.articles = _.union(self.articles, response.data.data.articles)
+		});
 	}
 
 	function previousArticle() {
 		if (self.pageNo >= 1) {
 			self.pageNo = self.pageNo - 1;
 		}
-		Article
-			.getArticles(self.pageNo)
-			.then((response) => {
-				self.articles.length = 0;
-				self.articles = _.union(self.articles, response.data.data.articles)
-			});
+		Article.getArticles(self.pageNo).then((response) => {
+			self.articles.length = 0;
+			self.articles = _.union(self.articles, response.data.data.articles)
+		});
 	}
 
 	function addUrl() {
 		self.loading = true;
-		let data = {
+		Article.addArticle({
 			url: self.newUrl
-		};
-		Article
-			.addArticle(data)
-			.then((response) => {
-				self.newUrl = '';
-				self.alertMsg = 'Success!';
-				self.alertClass = 'show alert-success';
-				clearMsg();
-				self.articles.unshift(response.data.data.articles);
-				self.loading = false;
-				self.articlesCount++;
-			})
-			.catch((response) => {
-				$log.error(response);
-				self.alertMsg = response.data.msg;
-				self.alertClass = 'show alert-danger';
-				clearMsg();
-				self.loading = false;
-			});
+		}).then((response) => {
+			self.newUrl = '';
+			self.alertMsg = 'Success!';
+			self.alertClass = 'show alert-success';
+			clearMsg();
+			self.articles.unshift(response.data.data.articles);
+			self.loading = false;
+			self.articlesCount++;
+		}).catch((response) => {
+			$log.error(response);
+			self.alertMsg = response.data.msg;
+			self.alertClass = 'show alert-danger';
+			clearMsg();
+			self.loading = false;
+		});
 	}
 
 	angular.element('#articleId').focus();

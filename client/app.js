@@ -82,38 +82,31 @@
 	}
 
 	function getMyDetails(User) {
-		return User
-			.getMe()
-			.then((response)=> {
-				return response.data.data;
-			})
-			.catch(()=> {
-				console.log('something');
-			});
+		return User.getMe().then((response)=> {
+			return response.data.data;
+		}).catch(()=> {
+			console.log('something');
+		});
 	}
 
 	function init(Article) {
-		return Article
-			.getArticles()
-			.then((response) => {
-				let initData = {};
-				initData.pageNo = response.data.data.pageNo;
-				initData.articles = response.data.data.articles;
-				return initData;
-			});
+		return Article.getArticles().then((response) => {
+			let initData = {};
+			initData.pageNo = response.data.data.pageNo;
+			initData.articles = response.data.data.articles;
+			return initData;
+		});
 	}
 
 	function getFavourites(Article) {
-		return Article
-			.getArticles({
-				fetchFavourites: true
-			})
-			.then((response) => {
-				let initData = {};
-				initData.pageNo = response.data.data.pageNo;
-				initData.articles = response.data.data.articles;
-				return initData;
-			});
+		return Article.getArticles({
+			fetchFavourites: true
+		}).then((response) => {
+			let initData = {};
+			initData.pageNo = response.data.data.pageNo;
+			initData.articles = response.data.data.articles;
+			return initData;
+		});
 	}
 
 

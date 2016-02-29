@@ -44,30 +44,28 @@ function SettingsCtrl(SERVERURL, $timeout, Upload, Article) {
 				}
 			});
 
-			file
-				.upload
-				.then((response) => {
-						self.alertMsg = 'Success!';
-						self.alertClass = 'show alert-success';
-						clearMsg();
-						$timeout(function () {
-							file.result = response.data;
-						});
-						self.loading = false;
-					},
-					(response) => {
-						if (response.status > 0)
-							self.errorMsg = response.status + ': ' + response.data;
-						self.loading = false;
-						console.log('response', response.data.msg);
-						self.alertMsg = 'Failed :(';
-						self.alertClass = 'show alert-danger';
-						clearMsg();
-					},
-					(evt) => {
-						file.progress = Math.min(100, parseInt(100.0 *
-							evt.loaded / evt.total));
+			file.upload.then((response) => {
+					self.alertMsg = 'Success!';
+					self.alertClass = 'show alert-success';
+					clearMsg();
+					$timeout(function () {
+						file.result = response.data;
 					});
+					self.loading = false;
+				},
+				(response) => {
+					if (response.status > 0)
+						self.errorMsg = response.status + ': ' + response.data;
+					self.loading = false;
+					console.log('response', response.data.msg);
+					self.alertMsg = 'Failed :(';
+					self.alertClass = 'show alert-danger';
+					clearMsg();
+				},
+				(evt) => {
+					file.progress = Math.min(100, parseInt(100.0 *
+						evt.loaded / evt.total));
+				});
 		}
 	}
 

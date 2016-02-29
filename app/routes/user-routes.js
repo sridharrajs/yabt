@@ -33,7 +33,7 @@ function geUserInfo(userId, callback) {
 	});
 }
 
-app.post('/login', (req, res) => {
+function login(req, res) {
 	try {
 		let body = qs.parse(req.body);
 		let emailId = body.emailId;
@@ -49,7 +49,7 @@ app.post('/login', (req, res) => {
 				msg: 'Please valid emailId'
 			});
 		}
-		userController.getUserByCredentials(emailId, function (err, items) {
+		userController.getUserByCredentials(emailId, (err, items) => {
 			if (err || _.isEmpty(items)) {
 				return res.status(403).send({
 					msg: 'Invalid emailId/password'
@@ -74,9 +74,10 @@ app.post('/login', (req, res) => {
 	} catch (err) {
 		console.log('err', err);
 	}
-});
 
-app.post('/', (req, res) => {
+}
+
+function signup(req, res) {
 	let body = qs.parse(req.body);
 	let emailId = body.emailId;
 	let password = body.password;
@@ -92,13 +93,10 @@ app.post('/', (req, res) => {
 		});
 	}
 
-	let encryptedPwd = bcrypt.hashSync(password);
-	let user = {
+	userController.add({
 		emailId: emailId,
-		password: encryptedPwd
-	};
-
-	userController.add(user, (err, user) => {
+		password: bcrypt.hashSync(password)
+	}, (err, user) => {
 		if (err) {
 			return res.status(500).send();
 		}
@@ -109,73 +107,80 @@ app.post('/', (req, res) => {
 			profile_url: user.profile_url
 		});
 	});
-});
 
-app
-	.get('/me', (req, res)=> {
-		let userId = req.uid;
+}
 
-		async
-			.parallel([
-				(callback)=> {
-					getArticleCount(userId, callback);
-				},
-				(callback)=> {
-					geUserInfo(userId, callback);
-				}
-			], (err, items) => {
-				if (err) {
-					return res.status(500).send({
-						msg: err
-					});
-				}
-				res.status(200).send({
-					data: {
-						articlesCount: _.size(_.first(items)),
-						tags: pageUtil.getTags(),
-						profile_url: items[1].profile_url,
-						username: items[1].username,
-						emailId: items[1].emailId
-					}
-				});
-			});
+function getMe(req, res) {
+	let userId = req.uid;
 
-	})
-	.put('/me', (req, res)=> {
-		let body = qs.parse(req.body);
-
-		let userObj = {
-			userId: req.uid,
-			username: body.username
-		};
-
-		let newPassword = body.newPassword;
-		let reloadReq = false;
-		if (newPassword && newPassword.trim()) {
-			userObj.password = bcrypt.hashSync(newPassword);
-			reloadReq = true;
+	async.parallel([
+		(callback)=> {
+			getArticleCount(userId, callback);
+		},
+		(callback)=> {
+			geUserInfo(userId, callback);
 		}
-
-		if (!userObj.username) {
-			return res.status(400).send({
-				msg: 'invalid username'
+	], (err, items) => {
+		if (err) {
+			return res.status(500).send({
+				msg: err
 			});
 		}
-
-		userController.updateByUserId(userObj, (err, items) => {
-			if (err) {
-				return res.status(500).send({
-					msg: err
-				});
+		res.status(200).send({
+			data: {
+				articlesCount: _.size(_.first(items)),
+				tags: pageUtil.getTags(),
+				profile_url: items[1].profile_url,
+				username: items[1].username,
+				emailId: items[1].emailId
 			}
-			res.status(200).send({
-				data: {
-					items: items,
-					reloadReq: reloadReq
-				}
-			});
 		});
-
 	});
+}
+
+
+function updateMe(req, res) {
+	let body = qs.parse(req.body);
+
+	let userObj = {
+		userId: req.uid,
+		username: body.username
+	};
+
+	let newPassword = body.newPassword;
+	let reloadReq = false;
+	if (newPassword && newPassword.trim()) {
+		userObj.password = bcrypt.hashSync(newPassword);
+		reloadReq = true;
+	}
+
+	if (!userObj.username) {
+		return res.status(400).send({
+			msg: 'invalid username'
+		});
+	}
+
+	userController.updateByUserId(userObj, (err, items) => {
+		if (err) {
+			return res.status(500).send({
+				msg: err
+			});
+		}
+		res.status(200).send({
+			data: {
+				items: items,
+				reloadReq: reloadReq
+			}
+		});
+	});
+
+
+}
+
+app.put('/me', updateMe)
+	.get('/me', getMe);
+
+app.post('/', signup);
+app.post('/login', login);
 
 module.exports = app;

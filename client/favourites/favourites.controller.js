@@ -13,5 +13,4 @@ function controller(init) {
 	self.pageNo = init.pageNo;
 	self.articles = _.union(self.articles, init.articles);
 
-
 }
