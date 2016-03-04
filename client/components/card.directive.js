@@ -22,7 +22,7 @@ function directive() {
 	};
 }
 
-function CardController(Article, SweetAlert) {
+function CardController(Article, SweetAlert, $scope) {
 
 	const ALERT_OPTIONS = {
 		title: 'Are you sure?',
@@ -46,6 +46,10 @@ function CardController(Article, SweetAlert) {
 	self.deleteArticle = deleteArticle;
 	self.archive = archive;
 	self.favourite = favourite;
+
+	$scope.$watch('data', function () {
+		console.log('99', self.data);
+	}, true)
 
 	function getFavourites(isFav) {
 		return isFav === true ? 'favourited' : '';

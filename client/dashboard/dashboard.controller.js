@@ -30,9 +30,11 @@ function DashboardCtrl($timeout, $log, Article, Me, init) {
 
 	function fetchNextArticle() {
 		self.pageNo = self.pageNo + 1;
-		Article.getArticles(self.pageNo).then((response) => {
+		Article.getArticles({pageNo: self.pageNo}).then((response) => {
 			self.articles.length = 0;
+			//$('.article-group').empty()
 			self.articles = _.union(self.articles, response.data.data.articles)
+//			self.articles = response.data.data.articles;
 		});
 	}
 
@@ -40,8 +42,11 @@ function DashboardCtrl($timeout, $log, Article, Me, init) {
 		if (self.pageNo >= 1) {
 			self.pageNo = self.pageNo - 1;
 		}
-		Article.getArticles(self.pageNo).then((response) => {
+		Article.getArticles({
+			pageNo: self.pageNo
+		}).then((response) => {
 			self.articles.length = 0;
+			//$('.article-group').empty()
 			self.articles = _.union(self.articles, response.data.data.articles)
 		});
 	}
@@ -55,7 +60,8 @@ function DashboardCtrl($timeout, $log, Article, Me, init) {
 			self.alertMsg = 'Success!';
 			self.alertClass = 'show alert-success';
 			clearMsg();
-			self.articles.unshift(response.data.data.articles);
+			self.articles.push(response.data.data.articles);
+			//self.articles.unshift(response.data.data.articles);
 			self.loading = false;
 			self.articlesCount++;
 		}).catch((response) => {

@@ -29,7 +29,7 @@
 		<button class="btn btn-default" ng-click="dashboardCtrl.previousArticle()">previous</button>
 		<button class="btn btn-default" ng-click="dashboardCtrl.fetchNextArticle()">next</button>
 	</div>
-	<ul class="list-group">
+	<ul class="list-group article-group">
 		<card data="item" ng-repeat="item in dashboardCtrl.articles track by $index"></card>
 	</ul>
 </div>

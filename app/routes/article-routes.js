@@ -150,7 +150,7 @@ function importFromPocket(req, res) {
 	let userId = req.uid;
 	async.waterfall([
 		(callback)=> {
-			uploadToDir(req, res, callback);
+			uploadToDir(userId, req, res, callback);
 		},
 		(articles, callback)=> {
 			appendPageTitle(userId, articles, callback);
@@ -265,7 +265,7 @@ function updateArticle(req, res) {
 
 }
 
-function uploadToDir(req, res, callback) {
+function uploadToDir(userId, req, res, callback) {
 	upload(req, res, (err) => {
 		if (err) {
 			return res.status(500).send({
