@@ -8,7 +8,9 @@ function Article(SERVERURL, $http) {
 
 	const DEFAULT_QUERY = {
 		pageNo: 0,
-		fetchFavourites: false
+		fetchFavourites: false,
+		fetchArchive: false,
+		type: 'all'
 	};
 
 	let service = {
@@ -37,7 +39,7 @@ function Article(SERVERURL, $http) {
 		},
 		getArticles: (query) => {
 			let paddingQuery = _.defaults(query, DEFAULT_QUERY);
-			return $http.get(SERVERURL + `articles?page=${paddingQuery.pageNo}&favourites=${paddingQuery.fetchFavourites}`);
+			return $http.get(SERVERURL + `articles?page=${paddingQuery.pageNo}&favourites=${paddingQuery.fetchFavourites}&archive=${paddingQuery.fetchArchive}&type=${paddingQuery.type}`);
 		}
 	};
 	return service;

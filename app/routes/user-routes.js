@@ -138,7 +138,6 @@ function getMe(req, res) {
 	});
 }
 
-
 function updateMe(req, res) {
 	let body = qs.parse(req.body);
 
@@ -173,7 +172,6 @@ function updateMe(req, res) {
 			}
 		});
 	});
-
 
 }
 

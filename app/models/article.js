@@ -24,7 +24,15 @@ let schema = new Schema({
 		type: String,
 		required: false
 	},
+	description: {
+		type: String,
+		required: false
+	},
 	is_fav: {
+		type: Boolean,
+		default: false
+	},
+	is_video: {
 		type: Boolean,
 		default: false
 	},
@@ -44,11 +52,13 @@ mongoose.model('article', schema);
 const ATTRIBUTES = [
 	'_id',
 	'url',
+	'description',
 	'tags',
 	'userId',
 	'is_fav',
 	'title',
 	'time_added',
+	'is_video',
 	'active'
 ];
 

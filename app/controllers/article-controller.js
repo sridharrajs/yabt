@@ -10,25 +10,14 @@ let wrapper = require('mongoose-callback-wrapper');
 let articleModelSchema = require('../models/article');
 let articleModel = mongoose.model('article');
 
-const SCROLL_LIMIT = 10;
-
-function computeSkipCount(pageNo) {
-	if (!pageNo || pageNo <= 0) {
-		pageNo = 0;
-	}
-	if (pageNo === 0) {
-		return pageNo;
-	} else {
-		return pageNo * SCROLL_LIMIT;
-	}
-}
-
 let add = function (article, cb) {
 	let item = new articleModel({
 		url: article.url,
 		userId: article.userId,
 		title: article.title,
-		tags: article.tag
+		description: article.description,
+		tags: article.tag,
+		is_video: article.isVideo
 	});
 	item.save((err, newDoc) => {
 		if (err) {
@@ -47,6 +36,7 @@ let addArticles = function (articles, cb) {
 				url: article.url,
 				userId: article.userId,
 				title: article.title,
+				description: article.description,
 				tags: article.tag
 			});
 			newArticle.save((err) => {
@@ -69,11 +59,9 @@ let getArticles = function (item, pageNo, cb) {
 	let wrappedCallback = wrapper.wrap(cb, articleModelSchema.getAttributes());
 	let query = articleModel
 		.find(item)
-		.limit(SCROLL_LIMIT)
 		.sort({
 			time_added: -1
-		})
-		.skip(computeSkipCount(pageNo));
+		});
 	query.exec(wrappedCallback);
 };
 
@@ -93,6 +81,20 @@ function archive(articleId, cb) {
 	};
 	let change = {
 		is_archived: true
+	};
+	let upsert = {
+		upsert: false
+	};
+	articleModel.findOneAndUpdate(query, change, upsert, wrappedCallback);
+}
+
+function deleteArticle(articleId, cb) {
+	let wrappedCallback = wrapper.wrap(cb);
+	let query = {
+		_id: articleId
+	};
+	let change = {
+		active: false
 	};
 	let upsert = {
 		upsert: false
@@ -132,6 +134,7 @@ module.exports = {
 	archive,
 	addArticles,
 	getArticles,
+	deleteArticle,
 	deleteAll,
 	getActiveCount,
 	updateAttributes

@@ -22,7 +22,7 @@ function directive() {
 	};
 }
 
-function CardController(Article, SweetAlert, $scope) {
+function CardController(Article, SweetAlert, growl, $rootScope) {
 
 	const ALERT_OPTIONS = {
 		title: 'Are you sure?',
@@ -41,15 +41,12 @@ function CardController(Article, SweetAlert, $scope) {
 	self.title = self.data.title;
 	self.url = self.data.url;
 	self.is_fav = self.data.is_fav;
+	self.description = self.data.description;
 
 	self.favourited = getFavourites(self.data.is_fav);
 	self.deleteArticle = deleteArticle;
 	self.archive = archive;
 	self.favourite = favourite;
-
-	$scope.$watch('data', function () {
-		console.log('99', self.data);
-	}, true)
 
 	function getFavourites(isFav) {
 		return isFav === true ? 'favourited' : '';
@@ -62,9 +59,12 @@ function CardController(Article, SweetAlert, $scope) {
 					$(`#${self.id}`).remove();
 					self.alertMsg = 'Success!';
 					self.alertClass = 'show alert-success';
+					$rootScope.$broadcast('lessArticle');
+					growl.success('Success!');
+
 				}).catch((err)=> {
-					self.alertMsg = 'Failed :(';
-					self.alertClass = 'show alert-danger';
+					self.alertMsg = err.data.msg;
+					growl.error(`Failed! - ${self.alertMsg}`);
 				});
 			}
 		});
@@ -75,8 +75,12 @@ function CardController(Article, SweetAlert, $scope) {
 			if (isConfirm) {
 				Article.archive(self.id).then((response)=> {
 					$(`#${self.id}`).remove();
+					$rootScope.$broadcast('lessArticle');
+					growl.success('Success!');
 				}).catch((err)=> {
 					console.log('999');
+					self.alertMsg = err.data.msg;
+					growl.error(`Failed! - ${self.alertMsg}`);
 				});
 			}
 		});

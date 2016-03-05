@@ -4,13 +4,7 @@ html, body {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
-}
-
-.article {
-	border-color: brown;
-	border-style: solid;
-	padding: 15px;
-	margin: 10px;
+	background: #E7E7E7;
 }
 
 .header-wrapper {
@@ -23,14 +17,13 @@ html, body {
 }
 
 .left-panel {
-	border-color: black;
-	border-style: solid;
 	height: 70% !important;
+	position: fixed;
 }
 
 .right-panel {
-	border-color: black;
-	border-style: solid;
+	padding: 2%;
+	float: right;
 }
 
 .collar-btn-containter {
@@ -73,14 +66,45 @@ html, body {
 	height: 50px;
 }
 
-.article-text-format {
-	word-wrap: break-word;
-}
-
 .full-height {
 	height: 100%;
 }
 
 .full-width {
 	width: 100%;
+}
+
+.article {
+	margin: 5px;
+	height: 200px !important;
+	padding-bottom: 3%;
+}
+
+.article-text {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.card.btn {
+	margin: 4px;
+}
+
+.card-title {
+	height: 10%;
+}
+
+.card-body {
+	height: 80%;
+}
+
+.card-footer {
+	height: 10%;
+}
+
+.card-footer button {
+}
+
+li {
+	cursor: pointer;
 }

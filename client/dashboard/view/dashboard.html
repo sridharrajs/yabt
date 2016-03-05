@@ -1,35 +1,5 @@
-<div class="row text-right count">
-	Unread count : {{dashboardCtrl.articlesCount}}
-</div>
-<div class="alert msg {{dashboardCtrl.alertClass}}">
-	<strong>
-		{{dashboardCtrl.alertMsg}}
-	</strong>
-</div>
-
-<div class="row">
-	<form class="add-article form-horizontal" name="urlForm" ng-submit="dashboardCtrl.addUrl()">
-		<div class="form-group">
-			<div class="col-sm-10">
-				<input autofocus class="form-control" id="articleId" name="url" type="text"
-					   ng-model="dashboardCtrl.newUrl"
-					   required placeholder="Enter a valid URL">
-			</div>
-			<div class="col-sm-2">
-				<button ladda="dashboardCtrl.loading" data-spinner-color="#000000" data-style="expand-right"
-						type="submit" class="btn-primary form-control btn btn-default">Add
-				</button>
-			</div>
-		</div>
-	</form>
-</div>
-
 <div class="col-sm-12">
-	<div class="text-right row collar-btn-containter">
-		<button class="btn btn-default" ng-click="dashboardCtrl.previousArticle()">previous</button>
-		<button class="btn btn-default" ng-click="dashboardCtrl.fetchNextArticle()">next</button>
-	</div>
 	<ul class="list-group article-group">
-		<card data="item" ng-repeat="item in dashboardCtrl.articles track by $index"></card>
+		<card class="col-sm-3" data="item" ng-repeat="item in dashboardCtrl.articles | filter: homeCtrl.searchKeyword"></card>
 	</ul>
 </div>

@@ -17,32 +17,61 @@ let pocketImporter = require('../utils/pocket-importer');
 let pageUtil = require('../utils/page-utils');
 let twitterUtil = require('../utils/twitter-util');
 
-function appendPageTitle(userId, articles, callback) {
-	async.mapLimit(
-		articles,
-		9,
-		(article, titleCb)=> {
-			let url = article.url;
-			pageUtil.getPageTitle(url, (err, title) => {
+const storage = multer.diskStorage({
+	destination: (req, file, callback) => {
+		callback(null, './uploads');
+	},
+	filename: (req, file, callback) => {
+		callback(null, `${req.uid}.html`);
+	}
+});
+
+const upload = multer({
+	storage: storage
+}).single('file');
+
+function uploadToDir(userId, req, res, callback) {
+	upload(req, res, (err) => {
+		if (err) {
+			return res.status(500).send({
+				msg: err
+			});
+		}
+
+		let articles = pocketImporter.parse(userId);
+		if (_.isEmpty(articles)) {
+			return res.status(200).send({
+				msg: 'empty articles'
+			});
+		}
+		callback(null, articles);
+	});
+}
+
+function appendPageDetails(userId, articles, callback) {
+	async.mapLimit(articles, 9,
+		(article, detailsCb)=> {
+			pageUtil.getDetails(article.url, (err, details) => {
 				if (err) {
-					return titleCb(null, '');
+					return detailsCb(null, '');
 				}
 				if (err) {
-					return titleCb(err, null);
+					return detailsCb(err, null);
 				}
-				article.title = title.trim();
-				article.tag = pageUtil.getTagByDomain(url);
+				article.title = details.title;
+				article.tag = details.tag;
+				article.description = details.description;
+				article.isVideo = details.isVideo;
+				article.url = details.sanitizedURL;
 				article.userId = userId;
-				titleCb(null, article);
+				detailsCb(null, article);
 			});
 		},
 		(err, acb)=> {
 			if (err) {
 				return callback(err);
 			}
-			acb = _.reject(acb, (site)=> {
-				return _.isEmpty(site);
-			});
+			acb = _.reject(acb, site => _.isEmpty(site));
 			callback(null, acb);
 		});
 }
@@ -57,7 +86,6 @@ function addArticles(articles, callback) {
 }
 
 function addArticle(req, res) {
-
 	let userId = req.uid;
 	let body = qs.parse(req.body);
 	let url = body.url;
@@ -69,13 +97,13 @@ function addArticle(req, res) {
 	}
 
 	let article = {
-		url: url,
-		userId: userId
+		url,
+		userId
 	};
 
 	async.waterfall([
 		(callback)=> {
-			appendPageTitle(userId, [article], callback);
+			appendPageDetails(userId, [article], callback);
 		},
 		(articles, callback)=> {
 			articleController.add(_.first(articles), callback);
@@ -103,11 +131,18 @@ function getArticles(req, res) {
 		active: true
 	};
 
-	let archive = req.query.archived;
-	if (!_.isUndefined(archive)) {
+	let archive = req.query.archive;
+	if (!_.isUndefined(archive) && archive === 'true') {
 		item.is_archived = true;
 	} else {
 		item.is_archived = false;
+	}
+
+	let type = req.query.type;
+	if (!_.isUndefined(type)) {
+		if (_.contains(type, 'video')) {
+			item.is_video = true;
+		}
 	}
 
 	let isFavourited = req.query.favourites;
@@ -133,19 +168,6 @@ function getArticles(req, res) {
 	});
 }
 
-const storage = multer.diskStorage({
-	destination: (req, file, callback) => {
-		callback(null, './uploads');
-	},
-	filename: (req, file, callback) => {
-		callback(null, `${req.uid}.html`);
-	}
-});
-
-const upload = multer({
-	storage: storage
-}).single('file');
-
 function importFromPocket(req, res) {
 	let userId = req.uid;
 	async.waterfall([
@@ -153,7 +175,7 @@ function importFromPocket(req, res) {
 			uploadToDir(userId, req, res, callback);
 		},
 		(articles, callback)=> {
-			appendPageTitle(userId, articles, callback);
+			appendPageDetails(userId, articles, callback);
 		},
 		(articles, callback)=> {
 			addArticles(articles, callback);
@@ -173,7 +195,7 @@ function importFromPocket(req, res) {
 
 function deleteArticle(req, res) {
 	let articleId = req.params.articleId;
-	articleController.archive(articleId, (err, items) => {
+	articleController.deleteArticle(articleId, (err, items) => {
 		if (err) {
 			return res.status(500).send({
 				msg: err
@@ -263,24 +285,6 @@ function updateArticle(req, res) {
 		});
 	});
 
-}
-
-function uploadToDir(userId, req, res, callback) {
-	upload(req, res, (err) => {
-		if (err) {
-			return res.status(500).send({
-				msg: err
-			});
-		}
-
-		let articles = pocketImporter.parse(userId);
-		if (_.isEmpty(articles)) {
-			return res.status(200).send({
-				msg: 'empty articles'
-			});
-		}
-		callback(null, articles);
-	});
 }
 
 app
