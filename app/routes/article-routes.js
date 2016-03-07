@@ -148,6 +148,7 @@ function getArticles(req, res) {
 	let isFavourited = req.query.favourites;
 	if (!_.isUndefined(isFavourited) && isFavourited === 'true') {
 		item.is_fav = true;
+		delete item.is_archived;
 	}
 
 	articleController.getArticles(item, pageNo, (err, items) => {

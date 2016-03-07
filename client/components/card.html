@@ -8,14 +8,14 @@
 		<p class="article-text">
 			{{cardCtrl.description}}
 		</p>
-		<span ng-repeat="tag in item.tags">
-			<span ng-if="tag">#</span>{{cardCtrl.tag}}
+		<span ng-repeat="tag in cardCtrl.tags">
+			<span ng-if="tag">#</span>{{tag}}
 		</span>
 	</div>
 	<div class="card-footer text-right">
 		<button class="btn default btn-sm">
 			<a target="_blank" href="{{cardCtrl.url}}">
-				<span class="glyphicon glyphicon glyphicon-link" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
 			</a>
 		</button>
 		<button class="btn default btn-sm" ng-click="cardCtrl.archive()">

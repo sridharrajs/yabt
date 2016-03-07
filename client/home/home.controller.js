@@ -9,6 +9,7 @@ function HomeCtrl(Auth, Article, $state, Me, $rootScope, growl) {
 
 	self.articles = [];
 
+	self.activeTab = $state.current.url;
 	self.newUrl = '';
 	self.searchKeyword = '';
 
@@ -24,6 +25,8 @@ function HomeCtrl(Auth, Article, $state, Me, $rootScope, growl) {
 		Auth.removeToken();
 		$state.go('login');
 	}
+
+	console.log('gg', $state.current.url);
 
 	$rootScope.$on('fetch-user', (event, body)=> {
 		self.username = body.username;
@@ -61,6 +64,16 @@ function HomeCtrl(Auth, Article, $state, Me, $rootScope, growl) {
 		});
 	}
 
+
 	$('#articleId').focus();
+
+	self.isActiveTab = function (activeTab) {
+		return activeTab === self.activeTab;
+	};
+
+	self.selectTab = function (tab) {
+		self.activeTab = tab;
+	};
+
 
 }

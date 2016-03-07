@@ -88,7 +88,7 @@
 					init: getFavourites
 				}
 			})
-			.state('home.addsite', {
+			.state('home.add', {
 				url: 'add',
 				controller: 'HomeCtrl as homeCtrl',
 				templateUrl: ADD_FDLR + 'add.html',

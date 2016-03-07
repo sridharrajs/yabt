@@ -61,6 +61,13 @@ function extractDetails(body, pageURL, cb) {
 					meta = meta[0];
 					description = meta.attribs.content;
 				}
+				if (!description) {
+					let meta = $('meta[name=\'Description\']');
+					if (!_.isEmpty(meta)) {
+						meta = meta[0];
+						description = meta.attribs.content;
+					}
+				}
 				callback(null, description);
 			},
 			(callback)=> {
