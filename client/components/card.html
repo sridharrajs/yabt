@@ -1,8 +1,8 @@
 <li id="{{cardCtrl.id}}" class="article list-group-item col-sm-12">
-	<h3 class="article-text-format col-sm-12">{{cardCtrl.title}}</h3>
-	<a class="article-text-format col-sm-12" target="_blank" href="{{cardCtrl.url}}">
-		{{cardCtrl.url}}
+	<a href="{{cardCtrl.url}}">
+		<h3 class="article-text-format col-sm-12">{{cardCtrl.title}}</h3>
 	</a>
+
 	<span class="col-sm-12" ng-repeat="tag in item.tags">
 		<span ng-if="tag">#</span>{{cardCtrl.tag}}
 	</span>
