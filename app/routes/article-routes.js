@@ -49,31 +49,30 @@ function uploadToDir(userId, req, res, callback) {
 }
 
 function appendPageDetails(userId, articles, callback) {
-	async.mapLimit(articles, 9,
-		(article, detailsCb)=> {
-			pageUtil.getDetails(article.url, (err, details) => {
-				if (err) {
-					return detailsCb(null, '');
-				}
-				if (err) {
-					return detailsCb(err, null);
-				}
-				article.title = details.title;
-				article.tag = details.tag;
-				article.description = details.description;
-				article.isVideo = details.isVideo;
-				article.url = details.sanitizedURL;
-				article.userId = userId;
-				detailsCb(null, article);
-			});
-		},
-		(err, acb)=> {
+	async.mapLimit(articles, 9, (article, detailsCb)=> {
+		pageUtil.getDetails(article.url, (err, details) => {
 			if (err) {
-				return callback(err);
+				return detailsCb(null, '');
 			}
-			acb = _.reject(acb, site => _.isEmpty(site));
-			callback(null, acb);
+			if (err) {
+				return detailsCb(err, null);
+			}
+			article.title = details.title;
+			article.tag = details.tag;
+			article.description = details.description;
+			article.isVideo = details.isVideo;
+			article.url = details.sanitizedURL;
+			article.userId = userId;
+			article.host = details.host;
+			detailsCb(null, article);
 		});
+	}, (err, acb)=> {
+		if (err) {
+			return callback(err);
+		}
+		acb = _.reject(acb, site => _.isEmpty(site));
+		callback(null, acb);
+	});
 }
 
 function addArticles(articles, callback) {
@@ -101,14 +100,11 @@ function addArticle(req, res) {
 		userId
 	};
 
-	async.waterfall([
-		(callback)=> {
-			appendPageDetails(userId, [article], callback);
-		},
-		(articles, callback)=> {
-			articleController.add(_.first(articles), callback);
-		}
-	], (err, items) => {
+	async.waterfall([(callback)=> {
+		appendPageDetails(userId, [article], callback);
+	}, (articles, callback)=> {
+		articleController.add(_.first(articles), callback);
+	}], (err, items) => {
 		if (err) {
 			return res.status(500).send({
 				msg: err
@@ -171,17 +167,13 @@ function getArticles(req, res) {
 
 function importFromPocket(req, res) {
 	let userId = req.uid;
-	async.waterfall([
-		(callback)=> {
-			uploadToDir(userId, req, res, callback);
-		},
-		(articles, callback)=> {
-			appendPageDetails(userId, articles, callback);
-		},
-		(articles, callback)=> {
-			addArticles(articles, callback);
-		}
-	], (err, items)=> {
+	async.waterfall([(callback)=> {
+		uploadToDir(userId, req, res, callback);
+	}, (articles, callback)=> {
+		appendPageDetails(userId, articles, callback);
+	}, (articles, callback)=> {
+		addArticles(articles, callback);
+	}], (err, items)=> {
 		if (err) {
 			return res.status(500).send({
 				msg: err

@@ -24,6 +24,10 @@ let schema = new Schema({
 		type: String,
 		required: false
 	},
+	host: {
+		type: String,
+		required: false
+	},
 	description: {
 		type: String,
 		required: false
@@ -59,7 +63,8 @@ const ATTRIBUTES = [
 	'title',
 	'time_added',
 	'is_video',
-	'active'
+	'active',
+	'host'
 ];
 
 function getAttributes() {

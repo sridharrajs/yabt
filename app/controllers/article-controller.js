@@ -17,7 +17,8 @@ let add = function (article, cb) {
 		title: article.title,
 		description: article.description,
 		tags: article.tag,
-		is_video: article.isVideo
+		is_video: article.isVideo,
+		host: article.host
 	});
 	item.save((err, newDoc) => {
 		if (err) {
@@ -29,15 +30,14 @@ let add = function (article, cb) {
 };
 
 let addArticles = function (articles, cb) {
-	async.forEach(
-		articles,
-		(article, callback) => {
+	async.forEach(articles, (article, callback) => {
 			let newArticle = new articleModel({
 				url: article.url,
 				userId: article.userId,
 				title: article.title,
 				description: article.description,
-				tags: article.tag
+				tags: article.tag,
+				host: article.host
 			});
 			newArticle.save((err) => {
 				if (err) {
@@ -45,8 +45,7 @@ let addArticles = function (articles, cb) {
 				}
 				callback(null, 'success');
 			});
-		},
-		(err) => {
+		}, (err) => {
 			if (err) {
 				return cb(err);
 			}
@@ -57,11 +56,9 @@ let addArticles = function (articles, cb) {
 
 let getArticles = function (item, pageNo, cb) {
 	let wrappedCallback = wrapper.wrap(cb, articleModelSchema.getAttributes());
-	let query = articleModel
-		.find(item)
-		.sort({
-			time_added: -1
-		});
+	let query = articleModel.find(item).sort({
+		time_added: -1
+	});
 	query.exec(wrappedCallback);
 };
 

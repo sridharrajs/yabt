@@ -92,7 +92,7 @@
 			})
 			.state('home.add', {
 				url: 'add',
-				controller: 'AddCtrl as addCtrl',
+			//	controller: 'AddCtrl as addCtrl',
 				templateUrl: ADD_FDLR + 'add.html'
 			})
 			.state('home.archive', {

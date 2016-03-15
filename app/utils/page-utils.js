@@ -85,6 +85,8 @@ function extractDetails(body, pageURL, cb) {
 			items.tag = values[2];
 			items.isVideo = values[3];
 			items.sanitizedURL = values[4];
+			items.host = url.parse(pageURL).hostname;
+
 			cb(null, items);
 		}
 	);

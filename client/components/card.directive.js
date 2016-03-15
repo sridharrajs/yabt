@@ -43,6 +43,7 @@ function CardController(Article, SweetAlert, growl, $rootScope) {
 	self.is_fav = self.data.is_fav;
 	self.description = self.data.description;
 	self.tags = self.data.tags;
+	self.host = self.data.host;
 
 	self.favourited = getFavourites(self.data.is_fav);
 	self.deleteArticle = deleteArticle;
