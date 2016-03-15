@@ -82,19 +82,18 @@
 			})
 			.state('home.favourites', {
 				url: 'favourites',
-				controller: 'FavouritesCtrl as favouritesCtrl',
-				templateUrl: FAVOURITES_FDLR + 'favourites.html',
+				//controller: 'FavouritesCtrl as favouritesCtrl',
+				//templateUrl: FAVOURITES_FDLR + 'favourites.html',
+				controller: 'DashboardCtrl as dashboardCtrl',
+				templateUrl: DASHBOARD_FDLR + 'dashboard.html',
 				resolve: {
 					init: getFavourites
 				}
 			})
 			.state('home.add', {
 				url: 'add',
-				controller: 'HomeCtrl as homeCtrl',
-				templateUrl: ADD_FDLR + 'add.html',
-				resolve: {
-					Me: getMyDetails
-				}
+				controller: 'AddCtrl as addCtrl',
+				templateUrl: ADD_FDLR + 'add.html'
 			})
 			.state('home.archive', {
 				url: 'archive',

@@ -49,40 +49,33 @@ let getTagByDomain = (hostURL)=> {
 
 function extractDetails(body, pageURL, cb) {
 	let $ = cheerio.load(body);
-	async.parallel([
-			(callback)=> {
-				let title = $('title').text().trim();
-				callback(null, title);
-			},
-			(callback)=> {
-				let description = '';
-				let meta = $('meta[name=\'description\']');
+	async.parallel([(callback)=> {
+			let title = $('title').text().trim();
+			callback(null, title);
+		}, (callback)=> {
+			let description = '';
+			let meta = $('meta[name=\'description\']');
+			if (!_.isEmpty(meta)) {
+				meta = meta[0];
+				description = meta.attribs.content;
+			}
+			if (!description) {
+				meta = $('meta[name=\'Description\']');
 				if (!_.isEmpty(meta)) {
 					meta = meta[0];
 					description = meta.attribs.content;
 				}
-				if (!description) {
-					let meta = $('meta[name=\'Description\']');
-					if (!_.isEmpty(meta)) {
-						meta = meta[0];
-						description = meta.attribs.content;
-					}
-				}
-				callback(null, description);
-			},
-			(callback)=> {
-				let tag = getTagByDomain(pageURL);
-				callback(null, tag);
-			},
-			(callback)=> {
-				let isVideo = isVideoType(pageURL);
-				callback(null, isVideo);
-			},
-			(callback)=> {
-				santizeURL(pageURL, callback);
 			}
-		],
-		(err, values)=> {
+			callback(null, description);
+		}, (callback)=> {
+			let tag = getTagByDomain(pageURL);
+			callback(null, tag);
+		}, (callback)=> {
+			let isVideo = isVideoType(pageURL);
+			callback(null, isVideo);
+		}, (callback)=> {
+			santizeURL(pageURL, callback);
+		}], (err, values)=> {
 			if (err) {
 				return cb(err.stack);
 			}
