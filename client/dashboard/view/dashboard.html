@@ -1,7 +1,7 @@
 <div class="col-sm-12">
 	<ul class="list-group article-group">
 		<card class="col-md-4 col-sm-12" data="item"
-			  ng-repeat="item in dashboardCtrl.articles | filter: homeCtrl.searchKeyword">
+			  ng-repeat="item in dashboardCtrl.articles | filter: {title:homeCtrl.searchKeyword}">
 
 		</card>
 	</ul>

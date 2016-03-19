@@ -6,7 +6,7 @@ angular
 	.module('readLater')
 	.controller('DashboardCtrl', DashboardCtrl);
 
-function DashboardCtrl(Article, Me, init, $state) {
+function DashboardCtrl(Article, init) {
 	let self = this;
 
 	self.articles = [];
@@ -21,9 +21,7 @@ function DashboardCtrl(Article, Me, init, $state) {
 		self.pageNo = self.pageNo + 1;
 		Article.getArticles({pageNo: self.pageNo}).then((response) => {
 			self.articles.length = 0;
-			//$('.article-group').empty()
 			self.articles = _.union(self.articles, response.data.data.articles)
-//			self.articles = response.data.data.articles;
 		});
 	}
 

@@ -17,6 +17,7 @@ function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl) {
 	self.profile_url = Me.profile_url;
 	self.username = Me.username;
 
+	self.addUrl = addUrl;
 	self.logout = logout;
 
 	function logout() {
@@ -51,23 +52,32 @@ function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl) {
 	};
 
 	angular.element(document).on('paste', (e) => {
-		if (e.target.id === 'articleId') {
+		if (e.target.id === 'articleId' || e.target.id === 'Search-box') {
 			return;
 		}
+		let state = $state.current.url;
+
+		let urlStates = [
+			'dashboard',
+			'favourites',
+			'archive',
+			'videos',
+			'add'
+		];
+
+		if (!_.includes(urlStates, state)) {
+			return;
+		}
+
 		let clipBoard = e.originalEvent.clipboardData.getData('text/plain');
 		$state.go('home.add').then(()=> {
 			self.activeTab = 'add';
-			console.log('ccc', clipBoard);
-			console.log('self.newUrl', self.newUrl);
 			self.newUrl = clipBoard;
 			angular.element('#articleId').focus().val(clipBoard);
-			console.log('self.newUrl after', self.newUrl);
 			e.preventDefault();
 		});
 
 	});
-
-	self.addUrl = addUrl;
 
 	function addUrl() {
 		if (!self.newUrl) {

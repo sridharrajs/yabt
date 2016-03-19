@@ -35,11 +35,6 @@ function importFavourties(userId, cb) {
 	});
 }
 
-importFavourties(1, (err, item) => {
-	console.log('err', err);
-	console.log('item', item);
-});
-
 module.exports = {
 	importFavourties
 };
