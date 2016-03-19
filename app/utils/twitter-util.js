@@ -19,23 +19,26 @@ const params = {
 };
 
 function importFavourties(userId, cb) {
-	client.get('favorites/list',
-		params,
-		(err, tweets, response) => {
-			if (err || _.isUndefined(response)) {
-				cb(err);
-			}
-			let links = [];
-			_.each(tweets, (tweet)=> {
-				links.push({
-					userId: userId,
-					url: `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`,
-					title: tweet.text
-				});
+	client.get('favorites/list', params, (err, tweets, response) => {
+		if (err || _.isUndefined(response)) {
+			cb(err);
+		}
+		let links = [];
+		_.each(tweets, (tweet)=> {
+			links.push({
+				userId: userId,
+				url: `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`,
+				title: tweet.text
 			});
-			return cb(null, links);
 		});
+		return cb(null, links);
+	});
 }
+
+importFavourties(1, (err, item) => {
+	console.log('err', err);
+	console.log('item', item);
+});
 
 module.exports = {
 	importFavourties

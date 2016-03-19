@@ -224,13 +224,11 @@ function deleteAllArticles(req, res) {
 
 function importFromTwitter(req, res) {
 	let userId = req.uid;
-	async.waterfall([
-		(callback)=> {
-			twitterUtil.importFavourties(userId, callback);
-		},
-		(articles, callback)=> {
-			addArticles(articles, callback);
-		}
+	async.waterfall([(callback)=> {
+		twitterUtil.importFavourties(userId, callback);
+	}, (articles, callback)=> {
+		addArticles(articles, callback);
+	}
 	], (err, items) => {
 		if (err) {
 			return res.status(500).send({

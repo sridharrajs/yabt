@@ -10,8 +10,7 @@
 		<p class="article-text">
 			{{cardCtrl.description}}
 		</p>
-		<span
-			ng-repeat="tag in cardCtrl																																																																																																																																																																																																	.tags">
+		<span class="tag" ng-repeat="tag in cardCtrl.tags" ng-if="cardCtrl.tags.length">
 			<span ng-if="tag">#</span>{{tag}}
 		</span>
 	</div>

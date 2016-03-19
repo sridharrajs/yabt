@@ -24,6 +24,9 @@ let schema = new Schema({
 	},
 	profile_url: {
 		type: String
+	},
+	twitter_handle: {
+		type: String
 	}
 });
 
@@ -33,7 +36,8 @@ const ATTRIBUTES = [
 	'username',
 	'profile_url',
 	'doj',
-	'emailId'
+	'emailId',
+	'twitter_handle'
 ];
 
 mongoose.model('user', schema);

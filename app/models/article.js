@@ -48,6 +48,11 @@ let schema = new Schema({
 		type: Number,
 		default: Date.now()
 	},
+	channel: {
+		type: String,
+		required: false,
+		default: 'web'
+	},
 	tags: [String]
 });
 
@@ -64,7 +69,8 @@ const ATTRIBUTES = [
 	'time_added',
 	'is_video',
 	'active',
-	'host'
+	'host',
+	'channel'
 ];
 
 function getAttributes() {
