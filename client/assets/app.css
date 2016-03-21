@@ -66,6 +66,10 @@ html, body {
 	height: 50px;
 }
 
+.twitter{
+	display: none;
+}
+
 .full-height {
 	height: 100%;
 }
