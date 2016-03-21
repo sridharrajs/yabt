@@ -244,9 +244,8 @@ function importFromTwitter(req, res) {
 
 function updateArticle(req, res) {
 	let body = qs.parse(req.body);
-	let actions = body.actions;
-	let favourite = actions.favourite;
-	let archive = actions.archive;
+
+	let {favourite,archive} =body.actions;
 
 	let article = {
 		_id: req.params.articleId,

@@ -4,8 +4,8 @@
 
 'use strict';
 
-let _ = require('lodash');
-const Twitter = require('twitter');
+import * as _ from 'lodash';
+import Twitter from 'twitter';
 
 const client = new Twitter({
 	consumer_key: process.env.TWITTER_CONSUMER_KEY,

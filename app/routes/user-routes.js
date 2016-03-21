@@ -36,8 +36,7 @@ function geUserInfo(userId, callback) {
 function login(req, res) {
 	try {
 		let body = qs.parse(req.body);
-		let emailId = body.emailId;
-		let password = body.password;
+		let {emailId,password} = body;
 
 		if (!emailId || !password) {
 			return res.status(400).send({
@@ -79,8 +78,7 @@ function login(req, res) {
 
 function signup(req, res) {
 	let body = qs.parse(req.body);
-	let emailId = body.emailId;
-	let password = body.password;
+	let {emailId,password} = body;
 
 	if (!emailId || !password) {
 		return res.status(400).send({

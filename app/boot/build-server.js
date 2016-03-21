@@ -4,10 +4,10 @@
 
 'use strict';
 
-let https = require('https');
-let http = require('http');
+import https from 'https';
+import http from 'http';
 
-let application = require('../application');
+import {app as application} from '../application';
 
 function getServerByProtocol(config, app) {
 	if (config.secure) {
@@ -18,7 +18,7 @@ function getServerByProtocol(config, app) {
 
 class Server {
 	static start(config) {
-		let server = getServerByProtocol(config, application.getApp());
+		let server = getServerByProtocol(config, application);
 		return new Promise((resolve, reject)=> {
 			server.listen(config.port, ()=> {
 				resolve('success');

@@ -37,10 +37,6 @@ app.use('/api/users', userRoutes);
 let articleRoutes = require('./routes/article-routes');
 app.use('/api/articles', articleRoutes);
 
-function getApp() {
-	return app;
-}
-
 module.exports = {
-	getApp
+	app
 };
