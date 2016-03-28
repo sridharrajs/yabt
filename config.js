@@ -18,7 +18,7 @@ class Config {
 
 	static isValidEnv(HOST_ENV) {
 		return new Promise((resolve, reject)=> {
-			if (_.contains(ENVS, HOST_ENV)) {
+			if (_.includes(ENVS, HOST_ENV)) {
 				resolve('Success');
 			} else {
 				reject('Failed');
