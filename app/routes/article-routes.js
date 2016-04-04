@@ -52,9 +52,6 @@ function appendPageDetails(userId, articles, callback) {
 	async.mapLimit(articles, 9, (article, detailsCb)=> {
 		pageUtil.getDetails(article.url, (err, details) => {
 			if (err) {
-				return detailsCb(null, '');
-			}
-			if (err) {
 				return detailsCb(err, null);
 			}
 			article.title = details.title;
@@ -88,6 +85,7 @@ function addArticle(req, res) {
 	let userId = req.uid;
 	let body = qs.parse(req.body);
 	let url = body.url;
+	let notes = body.notes;
 
 	if (!url) {
 		return res.status(400).send({
@@ -97,7 +95,8 @@ function addArticle(req, res) {
 
 	let article = {
 		url,
-		userId
+		userId,
+		notes
 	};
 
 	async.waterfall([(callback)=> {
@@ -106,13 +105,23 @@ function addArticle(req, res) {
 		articleController.add(_.first(articles), callback);
 	}], (err, items) => {
 		if (err) {
+			if (err.code === 11000) {
+				return res.status(200).send({
+					msg: err.msg,
+					data: {
+						countIncremented: false
+					}
+				});
+			}
 			return res.status(500).send({
 				msg: err
 			});
 		}
 		res.status(200).send({
+			msg: 'Success',
 			data: {
-				articles: items
+				articles: items,
+				countIncremented: true
 			}
 		});
 	});
@@ -244,9 +253,9 @@ function importFromTwitter(req, res) {
 
 function updateArticle(req, res) {
 	let body = qs.parse(req.body);
-	let actions = body.actions;
-	let favourite = actions.favourite;
-	let archive = actions.archive;
+
+	let favourite = body.actions.favourite;
+	let archive = body.actions.archive;
 
 	let article = {
 		_id: req.params.articleId,

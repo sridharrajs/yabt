@@ -98,7 +98,9 @@ function signup(req, res) {
 		password: bcrypt.hashSync(password)
 	}, (err, user) => {
 		if (err) {
-			return res.status(500).send();
+			return res.status(500).send({
+				err: err
+			});
 		}
 		let token = security.generateToken(user._id);
 		res.status(200).send({

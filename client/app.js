@@ -10,7 +10,6 @@
 	let selectedEnv = envirorment['local'];
 	let selectedServerURL = selectedEnv.serverURL;
 
-
 	angular
 		.module('readLater', [
 				'ngFileUpload',
@@ -18,7 +17,8 @@
 				'ui.router',
 				'angular-ladda',
 				'oitozero.ngSweetAlert',
-				'angular-growl'
+				'angular-growl',
+				'angularSpinner'
 			],
 			(growlProvider) => {
 				growlProvider.globalTimeToLive({
@@ -38,7 +38,6 @@
 		let ADD_FDLR = 'add/view/';
 		let BUNDLE_FDLR = 'bundle/view/';
 		let SETTINGS_FDLR = 'settings/view/';
-		let FAVOURITES_FDLR = 'favourites/view/';
 		let DASHBOARD_FDLR = 'dashboard/view/';
 		let PROFILE_FDLR = 'profile/view/';
 
@@ -54,11 +53,17 @@
 				redirectTo: 'home.dashboard',
 				templateUrl: HOME_FDLR + 'home.html',
 				resolve: {
-					Me: getMyDetails
+					Me: getMyDetails,
+					add: (usSpinnerService)=> {
+						return new Promise((resolve, reject)=> {
+							usSpinnerService.spin('spinner-1');
+							resolve();
+						});
+					}
 				}
 			})
-			.state('home.dashboard', {
-				url: 'dashboard',
+			.state('home.unreads', {
+				url: 'unreads',
 				controller: 'DashboardCtrl as dashboardCtrl',
 				templateUrl: DASHBOARD_FDLR + 'dashboard.html',
 				resolve: {
@@ -179,24 +184,32 @@
 		return false;
 	}
 
-	function initApp($rootScope, Auth, $state) {
+	function initApp($rootScope, Auth, $state, usSpinnerService) {
 		$rootScope.$on('$stateChangeStart', (event, toState) => {
+			usSpinnerService.spin('spinner-1');
+
 			if (toState.name !== 'login') {
 				if (!isAuthenticated(Auth)) {
 					event.preventDefault();
 					$state.go('login');
 				}
 			}
+
 			if (toState.name === 'login') {
 				if (isAuthenticated(Auth)) {
 					event.preventDefault();
-					$state.go('home.dashboard');
+					$state.go('home.unreads');
 				}
 			}
+
 			if (toState.redirectTo) {
 				event.preventDefault();
 				$state.go(toState.redirectTo);
 			}
+		});
+
+		$rootScope.$on('$stateChangeStart', () => {
+			$rootScope.stateIsLoading = false;
 		});
 	}
 

@@ -8,7 +8,7 @@ let _ = require('lodash');
 let jwt = require('jwt-simple');
 
 let config = require('../../config');
-
+let userController = require('../controllers/user-controller');
 const NON_AUTH_URLS = [
 	'/api/users',
 	'/api/users/login',
@@ -42,6 +42,10 @@ let authenticate = function (req, res, next) {
 		}
 		req.uid = userId;
 		next();
+		userController.updateLastSeen(userId, (err, item) => {
+			console.log('err', err);
+			console.log('item', item);
+		});
 	} catch (ex) {
 		console.log('Exception ', ex);
 	}

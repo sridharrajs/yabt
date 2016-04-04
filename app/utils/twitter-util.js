@@ -5,7 +5,7 @@
 'use strict';
 
 let _ = require('lodash');
-const Twitter = require('twitter');
+let Twitter = require('twitter');
 
 const client = new Twitter({
 	consumer_key: process.env.TWITTER_CONSUMER_KEY,
