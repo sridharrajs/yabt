@@ -108,3 +108,16 @@ html, body {
 li {
 	cursor: pointer;
 }
+
+.form-group label.required:after {
+	content: "*";
+	color: red;
+}
+
+.add:focus {
+	outline: none;
+}
+
+h4 {
+	text-transform: capitalize;
+}

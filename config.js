@@ -4,8 +4,8 @@
 
 'use strict';
 
-import _ from 'lodash';
-import fs from 'fs';
+let fs = require('fs');
+let _ = require('lodash');
 
 const ENVS = [
 	'production',

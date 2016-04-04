@@ -37,6 +37,4 @@ app.use('/api/users', userRoutes);
 let articleRoutes = require('./routes/article-routes');
 app.use('/api/articles', articleRoutes);
 
-module.exports = {
-	app
-};
+module.exports = app;

@@ -16,18 +16,22 @@ let add = function (user, cb) {
 	let item = new userModel({
 		emailId: user.emailId,
 		password: user.password,
-		profile_url: gravatar.imageUrl(user.emailId)
+		profile_url: gravatar.imageUrl(user.emailId),
+		username: user.emailId
 	});
 	item.save((err, newDoc) => {
-		if (!err) {
-			let user = {
-				_id: newDoc._id,
-				profile_url: newDoc.profile_url
-			};
-			cb(null, user);
-		} else {
-			cb('error');
+		if (err) {
+			if (err.code === 11000) {
+				return cb('EmailId is already taken');
+			}
+			return cb(err);
 		}
+
+		let user = {
+			_id: newDoc._id,
+			profile_url: newDoc.profile_url
+		};
+		return cb(null, user);
 	});
 };
 
@@ -81,10 +85,27 @@ let updateByUserId = (user, cb)=> {
 	});
 };
 
+function updateLastSeen(userId, cb) {
+	let condition = {
+		_id: userId
+	};
+	let update = {
+		last_seen: Date.now()
+	};
+	let upsert = {
+		upsert: false,
+		'new': true
+	};
+	userModel.findOneAndUpdate(condition, update, upsert, (err, doc)=> {
+		cb(err, 'success');
+	});
+}
+
 module.exports = {
 	add,
 	getUserByCredentials,
 	updateToken,
 	getUserByUserId,
-	updateByUserId
+	updateByUserId,
+	updateLastSeen
 };

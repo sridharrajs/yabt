@@ -36,7 +36,8 @@ function geUserInfo(userId, callback) {
 function login(req, res) {
 	try {
 		let body = qs.parse(req.body);
-		let {emailId,password} = body;
+		let emailId = body.emailId;
+		let password = body.password;
 
 		if (!emailId || !password) {
 			return res.status(400).send({
@@ -78,7 +79,8 @@ function login(req, res) {
 
 function signup(req, res) {
 	let body = qs.parse(req.body);
-	let {emailId,password} = body;
+	let emailId = body.emailId;
+	let password = body.password;
 
 	if (!emailId || !password) {
 		return res.status(400).send({
@@ -96,7 +98,9 @@ function signup(req, res) {
 		password: bcrypt.hashSync(password)
 	}, (err, user) => {
 		if (err) {
-			return res.status(500).send();
+			return res.status(500).send({
+				err: err
+			});
 		}
 		let token = security.generateToken(user._id);
 		res.status(200).send({

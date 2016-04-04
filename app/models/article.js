@@ -28,6 +28,10 @@ let schema = new Schema({
 		type: String,
 		required: false
 	},
+	notes: {
+		type: String,
+		required: false
+	},
 	description: {
 		type: String,
 		required: false
@@ -45,8 +49,8 @@ let schema = new Schema({
 		default: false
 	},
 	time_added: {
-		type: Number,
-		default: Date.now()
+		type: Date,
+		default: Date.now
 	},
 	channel: {
 		type: String,
@@ -56,7 +60,21 @@ let schema = new Schema({
 	tags: [String]
 });
 
-mongoose.model('article', schema);
+//Adding composite index
+schema.index({
+	userId: 1,
+	url: 1
+}, {
+	unique: true
+});
+
+let Article = mongoose.model('article', schema);
+
+Article.on('index', (err) => {
+	if (err) {
+		console.log('Error while creating index for article', err);
+	}
+});
 
 const ATTRIBUTES = [
 	'_id',
@@ -70,6 +88,7 @@ const ATTRIBUTES = [
 	'is_video',
 	'active',
 	'host',
+	'notes',
 	'channel'
 ];
 

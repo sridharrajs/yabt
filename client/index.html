@@ -14,8 +14,6 @@
 
 	<link rel="stylesheet" href="./bower_components/angular-growl-v2/build/angular-growl.min.css">
 
-
-
 	<link rel="stylesheet" href="assets/app.css"/>
 	<style type="text/css">
 		[ng\:cloak],
@@ -26,7 +24,9 @@
 </head>
 <body ng-app="readLater" ng-cloak>
 
-<div class="container-fluid full-height" ui-view></div>
+<div class="container-fluid full-height" ui-view>
+	<span us-spinner spinner-key="spinner-1"></span>
+</div>
 
 <script src="./bower_components/jquery/dist/jquery.min.js"></script>
 <script src="./bower_components/lodash/dist/lodash.min.js"></script>
@@ -47,6 +47,8 @@
 
 <script src="./bower_components/angular-growl-v2/build/angular-growl.min.js"></script>
 
+<script src="./bower_components/spin.js/spin.js"></script>
+<script src="./bower_components/angular-spinner/angular-spinner.js"></script>
 
 <script src="./bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
 <script src="./bower_components/ng-file-upload/ng-file-upload.min.js"></script>

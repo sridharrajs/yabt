@@ -18,14 +18,21 @@ let add = function (article, cb) {
 		description: article.description,
 		tags: article.tag,
 		is_video: article.isVideo,
-		host: article.host
+		host: article.host,
+		notes: article.notes
 	});
 	item.save((err, newDoc) => {
 		if (err) {
-			cb(err);
-		} else {
-			cb(null, newDoc._doc);
+			if (err.code === 11000) {
+				return cb({
+					msg: 'Article already saved',
+					code: 11000
+				});
+			}
+			return cb(err);
 		}
+
+		cb(null, newDoc._doc);
 	});
 };
 

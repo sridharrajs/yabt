@@ -4,10 +4,10 @@
 
 'use strict';
 
-import https from 'https';
-import http from 'http';
+let https = require('https');
+let http = require('http');
 
-import {app as application} from '../application';
+let application = require('../application');
 
 function getServerByProtocol(config, app) {
 	if (config.secure) {

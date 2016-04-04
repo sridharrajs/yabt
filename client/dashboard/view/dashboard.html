@@ -1,7 +1,19 @@
+<div class="row text-right">
+
+	<form class="form-inline">
+		<div class="form-group">
+			<input type="text" placeholder="Search {{homeCtrl.activeTab}}"
+				   class="form-control"
+				   autofocus
+				   ng-model="homeCtrl.searchKeyword" id="Search-box">
+		</div>
+	</form>
+
+</div>
 <div class="col-sm-12">
 	<ul class="list-group article-group">
 		<card class="col-md-4 col-sm-12" data="item"
-			  ng-repeat="item in dashboardCtrl.articles | filter: {title:homeCtrl.searchKeyword}">
+			  ng-repeat="item in dashboardCtrl.articles | filter: homeCtrl.searchKeyword">
 
 		</card>
 	</ul>

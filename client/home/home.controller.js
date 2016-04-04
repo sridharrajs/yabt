@@ -4,13 +4,14 @@ angular
 	.module('readLater')
 	.controller('HomeCtrl', HomeCtrl);
 
-function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl) {
+function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl, usSpinnerService) {
 	let self = this;
 
 	self.articles = [];
 
 	self.activeTab = $state.current.url;
 	self.searchKeyword = '';
+	self.isUnreadTab = false;
 
 	self.articlesCount = Me.articlesCount;
 	self.emailId = Me.emailId;
@@ -19,6 +20,9 @@ function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl) {
 
 	self.addUrl = addUrl;
 	self.logout = logout;
+	self.resetForm = resetForm;
+
+	usSpinnerService.stop('spinner-1');
 
 	function logout() {
 		Auth.removeToken();
@@ -38,17 +42,30 @@ function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl) {
 	});
 
 	$rootScope.$on('lessArticle', ()=> {
-		self.articlesCount--;
+		console.log('self.activeTab', self.activeTab);
+		if (self.activeTab === 'archive') {
+			return;
+		}
+		if (self.articlesCount > 0) {
+			self.articlesCount--;
+		}
 	});
 
-	$('#articleId').focus();
+	function lazySetFocus() {
+		_.delay(() => {
+			$('#articleId').focus();
+		}, 100);
+	}
 
-	self.isActiveTab = function (activeTab) {
+	self.isActiveTab = (activeTab) => {
 		return activeTab === self.activeTab;
 	};
 
-	self.selectTab = function (tab) {
+	self.selectTab = (tab) => {
 		self.activeTab = tab;
+		self.isUnreadTab = tab === 'unreads';
+		console.log('isUnreadTab', self.isUnreadTab);
+		lazySetFocus();
 	};
 
 	angular.element(document).on('paste', (e) => {
@@ -79,18 +96,27 @@ function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl) {
 
 	});
 
+
+	function resetForm() {
+		self.newUrl = '';
+		self.notes = '';
+	}
+
 	function addUrl() {
 		if (!self.newUrl) {
 			return;
 		}
 		self.loading = true;
 		Article.addArticle({
-			url: self.newUrl
+			url: self.newUrl,
+			notes: self.notes
 		}).then((response) => {
-			growl.success('Success!');
-			self.newUrl = '';
-			$rootScope.$broadcast('addArticle');
+			growl.success(response.data.msg);
+			resetForm();
 			self.loading = false;
+			if (response.data.data.countIncremented) {
+				$rootScope.$broadcast('addArticle');
+			}
 		}).catch((response) => {
 			self.alertMsg = response.data.msg;
 			growl.error(`Failed! - ${self.alertMsg}`);

@@ -4,9 +4,10 @@
 
 'use strict';
 
-import chalk from 'chalk';
-import config from './config';
-import models from './app/models';
+let chalk = require('chalk');
+
+let config = require('./config');
+let models = require('./app/models');
 
 const HOST_ENVIRONMENT = process.env.NODE_ENV;
 const MY_SECRET = process.env.MY_SECRET;

@@ -22,17 +22,33 @@ const DOMAIN_TAG = RULES.domain;
 const DOMAINS = _.keys(DOMAIN_TAG);
 const TAGS = _.values(DOMAIN_TAG);
 
+const VIDEO_DOMAINS = [
+	'youtube.com',
+	'ted.com'
+];
+
 function santizeURL(url, cb) {
+	//because by deafult youtube urls like
+	//https://www.youtube.com/watch?v=FZ6lZJWL_Xk
+	//https://www.youtube.com/watch?v=yVpbFMhOAwE
+	if (_.includes(url, 'youtube.com')) {
+		return cb(null, url);
+	}
+
 	realurl.get(url, (error, result) => {
 		cb(null, _.first(result.split('?')));
 	});
 }
 
 function isVideoType(url) {
-	if (_.includes(url, 'youtube.com')) {
-		return true;
-	}
-	return false;
+	let isVideo = false;
+	_.each(VIDEO_DOMAINS, (domain) => {
+		if (_.includes(url, domain)) {
+			isVideo = true;
+			return false;
+		}
+	});
+	return isVideo;
 }
 
 let getTagByDomain = (hostURL)=> {

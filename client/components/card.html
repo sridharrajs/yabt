@@ -10,6 +10,9 @@
 		<p class="article-text">
 			{{cardCtrl.description}}
 		</p>
+		<p class="article-text">
+			{{cardCtrl.notes}}
+		</p>
 		<span class="tag" ng-repeat="tag in cardCtrl.tags" ng-if="cardCtrl.tags.length">
 			<span ng-if="tag">#</span>{{tag}}
 		</span>
@@ -21,15 +24,16 @@
 				{{cardCtrl.host}}
 			</a>
 		</div>
+
 		<div class="col-sm-7 text-right">
-			<button class="btn default btn-sm" ng-click="cardCtrl.archive()">
+			<button ng-show="cardCtrl.isUnreadsTab" class="btn default btn-sm" ng-click="cardCtrl.archive()" data-toggle="tooltip" data-placement="bottom" title="Archive">
 				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 			</button>
-			<button class="btn default btn-sm" ng-click="cardCtrl.favourite($index)">
+			<button class="btn default btn-sm" ng-click="cardCtrl.favourite($index)" data-toggle="tooltip" data-placement="bottom" title="Favourite">
 			<span class="glyphicon glyphicon-heart {{cardCtrl.favourited}}"
 				  aria-hidden="true"></span>
 			</button>
-			<button class="btn btn-danger btn-sm" ng-click="cardCtrl.deleteArticle()">
+			<button class="btn btn-danger btn-sm" ng-click="cardCtrl.deleteArticle()" data-toggle="tooltip" data-placement="bottom" title="Delete">
 				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 			</button>
 		</div>

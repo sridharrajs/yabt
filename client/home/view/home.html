@@ -15,18 +15,20 @@
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
 					 style="padding-right:2em">
+
+
+					<div class="navbar-form navbar-left" role="search">
+						<h4>
+							{{homeCtrl.activeTab}}
+						</h4>
+					</div>
+
+
+
+
+
+
 					<ul class="nav navbar-nav navbar-right">
-						<li><a>
-							<form class="navbar-form navbar-left" role="search">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Search by Title"
-										   ng-model="homeCtrl.searchKeyword" id="Search-box">
-								</div>
-								<button type="submit" class="btn btn-default">Submit</button>
-							</form>
-
-						</a></li>
-
 						<li>
 							<img class="gravatar-img" id="x" src="{{homeCtrl.profile_url}}" alt="">
 						</li>
@@ -63,8 +65,8 @@
 					ng-click="homeCtrl.selectTab('add')">
 					Add URL
 				</li>
-				<li class="list-group-item" ng-class="{active:homeCtrl.isActiveTab('dashboard')}"
-					ui-sref="home.dashboard" ng-click="homeCtrl.selectTab('dashboard')">
+				<li class="list-group-item" ng-class="{active:homeCtrl.isActiveTab('unreads')}"
+					ui-sref="home.unreads" ng-click="homeCtrl.selectTab('unreads')">
 					<span class="badge">{{homeCtrl.articlesCount}}</span>
 					Unreads
 				</li>
