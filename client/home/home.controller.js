@@ -42,7 +42,6 @@ function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl, usSpinnerService
 	});
 
 	$rootScope.$on('lessArticle', ()=> {
-		console.log('self.activeTab', self.activeTab);
 		if (self.activeTab === 'archive') {
 			return;
 		}
@@ -64,7 +63,6 @@ function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl, usSpinnerService
 	self.selectTab = (tab) => {
 		self.activeTab = tab;
 		self.isUnreadTab = tab === 'unreads';
-		console.log('isUnreadTab', self.isUnreadTab);
 		lazySetFocus();
 	};
 

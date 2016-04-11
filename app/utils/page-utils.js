@@ -31,7 +31,12 @@ function santizeURL(url, cb) {
 	//because by deafult youtube urls like
 	//https://www.youtube.com/watch?v=FZ6lZJWL_Xk
 	//https://www.youtube.com/watch?v=yVpbFMhOAwE
+	//https://news.ycombinator.com/item?id=11467176
+	//https://news.ycombinator.com/item?id=11467640
+
 	if (_.includes(url, 'youtube.com')) {
+		return cb(null, url);
+	} else if (_.includes(url, 'news.ycombinator.com')) {
 		return cb(null, url);
 	}
 
