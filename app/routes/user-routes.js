@@ -51,7 +51,7 @@ function login(req, res) {
 		}
 		userController.getUserByCredentials(emailId, (err, items) => {
 			if (err || _.isEmpty(items)) {
-				return res.status(403).send({
+				return res.status(401).send({
 					msg: 'Invalid emailId/password'
 				});
 			}
@@ -59,7 +59,7 @@ function login(req, res) {
 			let saltedPwd = userObj.password;
 			bcrypt.compare(password, saltedPwd, (err, isEqual) => {
 				if (!isEqual) {
-					return res.status(403).send({
+					return res.status(401).send({
 						msg: 'Invalid emailId/password'
 					});
 				}
@@ -128,13 +128,22 @@ function getMe(req, res) {
 				msg: err
 			});
 		}
+
+		let user = items[1];
+
+		if (_.isEmpty(user)) {
+			return res.status(401).send({
+				msg: 'user doesnt exist'
+			});
+		}
+
 		res.status(200).send({
 			data: {
 				articlesCount: _.size(_.first(items)),
 				tags: pageUtil.getTags(),
-				profile_url: items[1].profile_url,
-				username: items[1].username,
-				emailId: items[1].emailId
+				profile_url: user.profile_url,
+				username: user.username,
+				emailId: user.emailId
 			}
 		});
 	});

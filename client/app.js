@@ -125,11 +125,12 @@
 		$httpProvider.interceptors.push('APIInterceptor');
 	}
 
-	function getMyDetails(User) {
+	function getMyDetails(User, Auth) {
 		return User.getMe().then((response)=> {
 			return response.data.data;
 		}).catch(()=> {
 			console.log('something');
+			Auth.removeToken();
 		});
 	}
 
