@@ -41,85 +41,74 @@
 		let DASHBOARD_FDLR = 'dashboard/view/';
 		let PROFILE_FDLR = 'profile/view/';
 
-		$stateProvider
-			.state('login', {
-				url: '/',
-				controller: 'AuthCtrl as authCtrl',
-				templateUrl: AUTH_FDLR + 'login.html'
-			})
-			.state('home', {
-				url: '/',
-				controller: 'HomeCtrl as homeCtrl',
-				redirectTo: 'home.dashboard',
-				templateUrl: HOME_FDLR + 'home.html',
-				resolve: {
-					Me: getMyDetails,
-					add: (usSpinnerService)=> {
-						return new Promise((resolve, reject)=> {
-							usSpinnerService.spin('spinner-1');
-							resolve();
-						});
-					}
+		$stateProvider.state('login', {
+			url: '/',
+			controller: 'AuthCtrl as authCtrl',
+			templateUrl: AUTH_FDLR + 'login.html'
+		}).state('home', {
+			url: '/',
+			controller: 'HomeCtrl as homeCtrl',
+			redirectTo: 'home.unreads',
+			templateUrl: HOME_FDLR + 'home.html',
+			resolve: {
+				Me: getMyDetails,
+				add: (usSpinnerService)=> {
+					return new Promise((resolve, reject)=> {
+						usSpinnerService.spin('spinner-1');
+						resolve();
+					});
 				}
-			})
-			.state('home.unreads', {
-				url: 'unreads',
-				controller: 'DashboardCtrl as dashboardCtrl',
-				templateUrl: DASHBOARD_FDLR + 'dashboard.html',
-				resolve: {
-					Me: getMyDetails,
-					init: init
-				}
-			})
-			.state('home.profile', {
-				url: 'profile',
-				controller: 'ProfileCtrl as profileCtrl',
-				templateUrl: PROFILE_FDLR + 'profile.html',
-				resolve: {
-					Me: getMyDetails,
-					User: User
-				}
-			})
-			.state('home.settings', {
-				url: 'settings',
-				controller: 'SettingsCtrl as settingsCtrl',
-				templateUrl: SETTINGS_FDLR + 'settings.html'
-			})
-			.state('home.favourites', {
-				url: 'favourites',
-				controller: 'DashboardCtrl as dashboardCtrl',
-				templateUrl: DASHBOARD_FDLR + 'dashboard.html',
-				resolve: {
-					init: getFavourites
-				}
-			})
-			.state('home.add', {
-				url: 'add',
-				templateUrl: ADD_FDLR + 'add.html'
-			})
-			.state('home.archive', {
-				url: 'archive',
-				controller: 'DashboardCtrl as dashboardCtrl',
-				templateUrl: DASHBOARD_FDLR + 'dashboard.html',
-				resolve: {
-					Me: getMyDetails,
-					init: getArchive
-				}
-			})
-			.state('home.videos', {
-				url: 'videos',
-				controller: 'DashboardCtrl as dashboardCtrl',
-				templateUrl: DASHBOARD_FDLR + 'dashboard.html',
-				resolve: {
-					Me: getMyDetails,
-					init: getVideos
-				}
-			})
-			.state('home.bundle', {
-				url: 'bundle',
-				templateUrl: BUNDLE_FDLR + 'bundle.html'
-			});
-
+			}
+		}).state('home.unreads', {
+			url: 'unreads',
+			controller: 'DashboardCtrl as dashboardCtrl',
+			templateUrl: DASHBOARD_FDLR + 'dashboard.html',
+			resolve: {
+				Me: getMyDetails,
+				init: init
+			}
+		}).state('home.profile', {
+			url: 'profile',
+			controller: 'ProfileCtrl as profileCtrl',
+			templateUrl: PROFILE_FDLR + 'profile.html',
+			resolve: {
+				Me: getMyDetails,
+				User: User
+			}
+		}).state('home.settings', {
+			url: 'settings',
+			controller: 'SettingsCtrl as settingsCtrl',
+			templateUrl: SETTINGS_FDLR + 'settings.html'
+		}).state('home.favourites', {
+			url: 'favourites',
+			controller: 'DashboardCtrl as dashboardCtrl',
+			templateUrl: DASHBOARD_FDLR + 'dashboard.html',
+			resolve: {
+				init: getFavourites
+			}
+		}).state('home.add', {
+			url: 'add',
+			templateUrl: ADD_FDLR + 'add.html'
+		}).state('home.archive', {
+			url: 'archive',
+			controller: 'DashboardCtrl as dashboardCtrl',
+			templateUrl: DASHBOARD_FDLR + 'dashboard.html',
+			resolve: {
+				Me: getMyDetails,
+				init: getArchive
+			}
+		}).state('home.videos', {
+			url: 'videos',
+			controller: 'DashboardCtrl as dashboardCtrl',
+			templateUrl: DASHBOARD_FDLR + 'dashboard.html',
+			resolve: {
+				Me: getMyDetails,
+				init: getVideos
+			}
+		}).state('home.bundle', {
+			url: 'bundle',
+			templateUrl: BUNDLE_FDLR + 'bundle.html'
+		});
 
 		$urlRouterProvider.otherwise('/');
 		$httpProvider.interceptors.push('APIInterceptor');
