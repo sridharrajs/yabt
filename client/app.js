@@ -10,24 +10,22 @@
 	let selectedEnv = envirorment['local'];
 	let selectedServerURL = selectedEnv.serverURL;
 
-	angular
-		.module('readLater', [
-				'ngFileUpload',
-				'ngMessages',
-				'ui.router',
-				'angular-ladda',
-				'oitozero.ngSweetAlert',
-				'angular-growl',
-				'angularSpinner'
-			],
-			(growlProvider) => {
-				growlProvider.globalTimeToLive({
-					success: 3000,
-					error: 3000,
-					warning: 3000,
-					info: 3000
-				});
-			})
+	angular.module('readLater', [
+			'ngFileUpload',
+			'ngMessages',
+			'ui.router',
+			'angular-ladda',
+			'oitozero.ngSweetAlert',
+			'angular-growl',
+			'angularSpinner'
+		], (growlProvider) => {
+			growlProvider.globalTimeToLive({
+				success: 3000,
+				error: 3000,
+				warning: 3000,
+				info: 3000
+			});
+		})
 		.config(configuration)
 		.constant('SERVERURL', selectedServerURL)
 		.run(initApp);
