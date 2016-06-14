@@ -22,7 +22,7 @@ app.use(bp.urlencoded({
 let reqHeaderFilter = require('./middlewares/request-header');
 app.use(reqHeaderFilter.setHeaders);
 
-app.use(express.static('./public'));
+app.use(express.static('./dist'));
 app.set('view engine', 'ejs');
 
 let authFilter = require('./middlewares/auth-filter');

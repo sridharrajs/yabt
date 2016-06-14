@@ -20,6 +20,11 @@ function isNonAuthEndPointAccessURL(url) {
 }
 
 let authenticate = function (req, res, next) {
+
+	if (req.method === 'OPTIONS') {
+		return res.status(200);
+	}
+
 	let token = req.headers.authorization;
 	let isNonAuthURL = isNonAuthEndPointAccessURL(req.url);
 
@@ -43,7 +48,6 @@ let authenticate = function (req, res, next) {
 		req.uid = userId;
 		next();
 		userController.updateLastSeen(userId, (err, item) => {
-			console.log('err', err);
 			console.log('item', item);
 		});
 	} catch (ex) {

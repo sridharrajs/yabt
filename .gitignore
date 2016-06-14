@@ -6,5 +6,6 @@ bower_components/
 .idea/
 
 #distribution
-public/
+dist/
 uploads/
+app/tests/

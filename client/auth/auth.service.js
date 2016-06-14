@@ -1,24 +1,30 @@
 'use strict';
 
 angular
-	.module('readLater')
+	.module('myReader')
 	.factory('Auth', Auth);
 
-Auth.$inject = ['SERVERURL', '$http', '$window'];
+Auth.$inject = ['SERVER_URL', '$http', '$window'];
 
-function Auth(SERVERURL, $http, $window) {
+function Auth(SERVER_URL, $http, $window) {
 	let AUTH_TOKEN_KEY = 'authToken';
 
-	let auth = {
+	return {
 		login: (data) => {
-			return $http.post(SERVERURL + 'users/login', data);
+			return $http({
+				method: 'POST',
+				url: `${SERVER_URL}users/login`,
+				data: data
+			});
 		},
 		signup: (data) => {
-			return $http.post(SERVERURL + 'users', data);
+			return $http({
+				url: `SERVER_URL${users}`,
+				data: data
+			});
 		},
 		saveToken: (token) => {
 			return $window.localStorage[AUTH_TOKEN_KEY] = token;
-
 		},
 		removeToken: () => {
 			return $window.localStorage.clear();
@@ -41,5 +47,4 @@ function Auth(SERVERURL, $http, $window) {
 			}
 		}
 	};
-	return auth;
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('readLater')
+	.module('myReader')
 	.controller('AuthCtrl', AuthCtrl);
 
 AuthCtrl.$inject = ['Auth', '$log', '$state'];
@@ -41,7 +41,7 @@ function AuthCtrl(Auth, $log, $state) {
 			return;
 		}
 		Auth.signup(self.user).then((data) => {
-			$log.info("registeration Successful");
+			$log.info('registeration Successful');
 			$state.go('home');
 		}).catch((error) => {
 			$log.error(error);

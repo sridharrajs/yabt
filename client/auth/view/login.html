@@ -5,14 +5,14 @@
 				<div class="form-group">
 				<label class="col-xs-3 control-label" for="emailId">Email</label>
 				<div class="col-xs-9">
-					<input class="form-control" type="email" id="emailId" ng-model="authCtrl.user.emailId" name="email"
+					<input class="form-control" type="email" placeholder="john@example.org" id="emailId" ng-model="authCtrl.user.emailId" name="email"
 						   autofocus required/>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-xs-3 control-label" for="password">Password</label>
 				<div class="col-xs-9">
-					<input class="form-control" ng-model="authCtrl.user.password" name="password" type="password"
+					<input class="form-control" placeholder="6+ characters password with at least 1 number" ng-model="authCtrl.user.password" name="password" type="password"
 						   required id="password">
 				</div>
 

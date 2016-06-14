@@ -12,9 +12,8 @@
 </div>
 <div class="col-sm-12">
 	<ul class="list-group article-group">
-		<card class="col-md-4 col-sm-12" data="item"
+		<card class="col-md-3 col-sm-12" data="item"
 			  ng-repeat="item in dashboardCtrl.articles | filter: homeCtrl.searchKeyword">
-
 		</card>
 	</ul>
 	<div ng-if="!dashboardCtrl.articles.length">

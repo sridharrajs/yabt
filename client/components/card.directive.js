@@ -3,7 +3,7 @@
  */
 
 angular
-	.module('readLater')
+	.module('myReader')
 	.directive('card', directive);
 
 function directive() {
@@ -25,26 +25,29 @@ function directive() {
 function CardController(Article, SweetAlert, growl, $rootScope, $state) {
 
 	const ALERT_OPTIONS = {
-		title: 'Are you sure?',
+		title: 'You cannot undo a delete, Are you sure?',
 		allowOutsideClick: true,
 		type: 'warning',
 		showCancelButton: true,
-		confirmButtonColor: "#DD6B55",
-		confirmButtonText: "Yes",
+		confirmButtonColor: '#DD6B55',
+		confirmButtonText: 'Yes',
 		closeOnConfirm: true
 	};
 
 	let self = this;
 
-	self.id = self.data._id;
-	self.tag = self.data.tag;
-	self.title = self.data.title;
-	self.url = self.data.url;
-	self.is_fav = self.data.is_fav;
-	self.description = self.data.description;
-	self.tags = self.data.tags;
-	self.host = self.data.host;
-	self.notes = self.data.notes;
+	({
+		_id: self.id,
+		tag: self.tag,
+		title: self.title,
+		url: self.url,
+		is_fav: self.is_fav,
+		description: self.description,
+		tags: self.tags,
+		host: self.host,
+		notes: self.notes
+	} = self.data);
+
 	self.isUnreadsTab = $state.current.url === 'unreads';
 
 	self.favourited = getFavourites(self.data.is_fav);
@@ -65,7 +68,6 @@ function CardController(Article, SweetAlert, growl, $rootScope, $state) {
 					self.alertClass = 'show alert-success';
 					$rootScope.$broadcast('lessArticle');
 					growl.success('Success!');
-
 				}).catch((err)=> {
 					self.alertMsg = err.data.msg;
 					growl.error(`Failed! - ${self.alertMsg}`);
@@ -75,9 +77,8 @@ function CardController(Article, SweetAlert, growl, $rootScope, $state) {
 	}
 
 	function archive() {
-		Article.archive(self.id).then((response)=> {
+		Article.archive(self.id).then(()=> {
 			$(`#${self.id}`).remove();
-
 			$rootScope.$broadcast('lessArticle');
 			growl.success('Success!');
 		}).catch((err)=> {
@@ -91,9 +92,7 @@ function CardController(Article, SweetAlert, growl, $rootScope, $state) {
 		Article.favourite({
 			articleId: self.id,
 			isFavourited: newStatus
-		}).then((response)=> {
-			let data = response.data.data;
-			let msg = response.data.msg;
+		}).then(()=> {
 			self.is_fav = newStatus;
 			self.favourited = getFavourites(newStatus);
 		}).catch((response)=> {

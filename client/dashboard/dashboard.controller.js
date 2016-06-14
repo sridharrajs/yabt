@@ -3,15 +3,13 @@
  */
 
 angular
-	.module('readLater')
+	.module('myReader')
 	.controller('DashboardCtrl', DashboardCtrl);
 
-function DashboardCtrl(Article, init) {
+function DashboardCtrl(init) {
 	let self = this;
 
-	self.articles = [];
-
-	self.pageNo = init.pageNo;
-	self.articles = _.union(self.articles, init.articles);
+	({pageNo: self.pageNo} = init);
+	self.articles = _.union([], init.articles);
 
 }

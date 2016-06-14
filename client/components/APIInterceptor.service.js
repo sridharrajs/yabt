@@ -1,10 +1,12 @@
 'use strict';
 
 angular
-	.module('readLater')
+	.module('myReader')
 	.service('APIInterceptor', APIInterceptor);
 
-function APIInterceptor($injector, SERVERURL, $log) {
+APIInterceptor.$inject = ['$injector', 'SERVER_URL', '$log'];
+
+function APIInterceptor($injector, SERVER_URL, $log) {
 	let service = this;
 
 	service.request = (config) => {
@@ -12,12 +14,13 @@ function APIInterceptor($injector, SERVERURL, $log) {
 		let access_token = Auth.getToken();
 		if (access_token) {
 			config.headers.authorization = access_token;
+			config.headers.abc = access_token;
 		}
 		return config;
 	};
 
 	service.response = (res) => {
-		if (res.config.url.indexOf(SERVERURL) === 0 && res.data.token) {
+		if (res.config.url.indexOf(SERVER_URL) === 0 && res.data.token) {
 			let Auth = $injector.get('Auth');
 			Auth.saveToken(res.data.token);
 			$log.info('AUTH TOKEN SAVED');
@@ -26,5 +29,3 @@ function APIInterceptor($injector, SERVERURL, $log) {
 	}
 
 }
-
-APIInterceptor.$inject = ['$injector', 'SERVERURL', '$log'];

@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('readLater')
+	.module('myReader')
 	.controller('HomeCtrl', HomeCtrl);
 
 function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl, usSpinnerService) {

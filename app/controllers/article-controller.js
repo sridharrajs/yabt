@@ -10,7 +10,7 @@ let wrapper = require('mongoose-callback-wrapper');
 let articleModelSchema = require('../models/article');
 let articleModel = mongoose.model('article');
 
-let add = function (article, cb) {
+function add(article, cb) {
 	let item = new articleModel({
 		url: article.url,
 		userId: article.userId,
@@ -34,9 +34,9 @@ let add = function (article, cb) {
 
 		cb(null, newDoc._doc);
 	});
-};
+}
 
-let addArticles = function (articles, cb) {
+function addArticles(articles, cb) {
 	async.forEach(articles, (article, callback) => {
 			let newArticle = new articleModel({
 				url: article.url,
@@ -59,24 +59,22 @@ let addArticles = function (articles, cb) {
 			return cb(null, '+1');
 		}
 	);
-};
+}
 
-let getArticles = function (item, pageNo, cb) {
-	let wrappedCallback = wrapper.wrap(cb, articleModelSchema.getAttributes());
-	let query = articleModel.find(item).sort({
+function getArticles(item) {
+	return articleModel.find(item).sort({
 		time_added: -1
-	});
-	query.exec(wrappedCallback);
-};
+	}).select(articleModelSchema.getPublicAttributes()).exec();
+}
 
-let getActiveCount = (item, cb)=> {
+function getActiveCount(item, cb) {
 	let wrappedCallback = wrapper.wrap(cb);
 	articleModel.find({
 		userId: item.userId,
 		active: true,
 		is_archived: false
 	}, wrappedCallback);
-};
+}
 
 function archive(articleId, cb) {
 	let wrappedCallback = wrapper.wrap(cb);
@@ -92,18 +90,10 @@ function archive(articleId, cb) {
 	articleModel.findOneAndUpdate(query, change, upsert, wrappedCallback);
 }
 
-function deleteArticle(articleId, cb) {
-	let wrappedCallback = wrapper.wrap(cb);
-	let query = {
+function deleteArticle(articleId) {
+	return articleModel.findOneAndRemove({
 		_id: articleId
-	};
-	let change = {
-		active: false
-	};
-	let upsert = {
-		upsert: false
-	};
-	articleModel.findOneAndUpdate(query, change, upsert, wrappedCallback);
+	}).exec();
 }
 
 function updateAttributes(item, cb) {

@@ -92,10 +92,28 @@ const ATTRIBUTES = [
 	'channel'
 ];
 
+function getPublicAttributes() {
+	return {
+		_id: 1,
+		url: 1,
+		description: 1,
+		tags: 1,
+		is_fav: 1,
+		title: 1,
+		time_added: 1,
+		is_video: 1,
+		active: 1,
+		host: 1,
+		notes: 1,
+		channel: 1
+	}
+}
+
 function getAttributes() {
 	return ATTRIBUTES;
 }
 
 module.exports = {
-	getAttributes
+	getAttributes,
+	getPublicAttributes
 };

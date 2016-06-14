@@ -5,18 +5,17 @@
 'use strict';
 
 angular
-	.module('readLater')
+	.module('myReader')
 	.controller('SettingsCtrl', SettingsCtrl);
 
-function SettingsCtrl(SERVERURL, $timeout, Upload, Article) {
+function SettingsCtrl(SERVER_URL, $timeout, Upload, Article) {
 	let self = this;
 
-	self.pocketFile = SERVERURL + 'articles/import-pocket';
+	self.pocketFile = SERVER_URL + 'articles/import-pocket';
 	self.alertMsg = '';
 	self.alertClass = '';
 
 	self.importFromTwitter = importFromTwitter;
-
 
 	function importFromTwitter() {
 

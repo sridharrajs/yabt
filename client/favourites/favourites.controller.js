@@ -3,7 +3,7 @@
  */
 
 angular
-	.module('readLater')
+	.module('myReader')
 	.controller('FavouritesCtrl', controller);
 
 function controller(init) {

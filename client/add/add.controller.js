@@ -3,10 +3,9 @@
  */
 
 angular
-	.module('readLater')
+	.module('myReader')
 	.controller('AddCtrl', controller);
 
-function controller(Article, $rootScope, growl) {
-
+function controller() {
 
 }

@@ -1,10 +1,10 @@
 'use strict';
 
 angular
-	.module('readLater')
+	.module('myReader')
 	.factory('Article', Article);
 
-function Article(SERVERURL, $http) {
+function Article(SERVER_URL, $http) {
 
 	const DEFAULT_QUERY = {
 		pageNo: 0,
@@ -13,35 +13,57 @@ function Article(SERVERURL, $http) {
 		type: 'all'
 	};
 
-	let service = {
+	return {
 		addArticle: (data) => {
-			return $http.post(SERVERURL + 'articles', data);
+			return $http({
+				method: 'POST',
+				url: `${SERVER_URL}articles`,
+				data: data
+			});
 		},
 		archive: (articleId)=> {
-			return $http.put(SERVERURL + `articles/${articleId}`, {
-				actions: {
-					archive: true
+			return $http({
+				method: 'PUT',
+				url: `${SERVER_URL}articles/${articleId}`,
+				data: {
+					actions: {
+						archive: true
+					}
 				}
 			});
 		},
 		deleteArticle: (articleId)=> {
-			return $http.delete(SERVERURL + `articles/${articleId}`);
+			return $http({
+				method: 'DELETE',
+				url: `${SERVER_URL}articles/${articleId}`
+			});
 		},
 		deleteAll: ()=> {
-			return $http.delete(SERVERURL + 'articles/');
+			return $http({
+				method: 'DELETE',
+				url: `${SERVER_URL}articles/`
+			});
 		},
 		favourite: (item)=> {
-			return $http.put(SERVERURL + `articles/${item.articleId}`, {
-				actions: {
-					favourite: item.isFavourited
+			return $http({
+				method: 'PUT',
+				url: `${SERVER_URL}articles/${item.articleId}`,
+				data: {
+					actions: {
+						favourite: item.isFavourited
+					}
 				}
 			});
 		},
 		getArticles: (query) => {
 			let paddingQuery = _.defaults(query, DEFAULT_QUERY);
-			return $http.get(SERVERURL + `articles?page=${paddingQuery.pageNo}&favourites=${paddingQuery.fetchFavourites}&archive=${paddingQuery.fetchArchive}&type=${paddingQuery.type}`);
+			return $http({
+				method: 'GET',
+				url: `${SERVER_URL}articles`,
+				params: paddingQuery
+			});
 		}
 	};
-	return service;
+
 }
 

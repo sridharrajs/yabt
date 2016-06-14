@@ -26,14 +26,17 @@
 		</div>
 
 		<div class="col-sm-7 text-right">
-			<button ng-show="cardCtrl.isUnreadsTab" class="btn default btn-sm" ng-click="cardCtrl.archive()" data-toggle="tooltip" data-placement="bottom" title="Archive">
+			<button ng-show="cardCtrl.isUnreadsTab" class="btn default btn-sm" ng-click="cardCtrl.archive()"
+					data-toggle="tooltip" data-placement="bottom" title="Archive">
 				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 			</button>
-			<button class="btn default btn-sm" ng-click="cardCtrl.favourite($index)" data-toggle="tooltip" data-placement="bottom" title="Favourite">
+			<button class="btn default btn-sm" ng-click="cardCtrl.favourite($index)" data-toggle="tooltip"
+					data-placement="bottom" title="Favourite">
 			<span class="glyphicon glyphicon-heart {{cardCtrl.favourited}}"
 				  aria-hidden="true"></span>
 			</button>
-			<button class="btn btn-danger btn-sm" ng-click="cardCtrl.deleteArticle()" data-toggle="tooltip" data-placement="bottom" title="Delete">
+			<button class="btn btn-danger btn-sm" ng-click="cardCtrl.deleteArticle()" data-toggle="tooltip"
+					data-placement="bottom" title="Delete">
 				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 			</button>
 		</div>

@@ -3,7 +3,7 @@
  */
 
 angular
-	.module('readLater')
+	.module('myReader')
 	.controller('ProfileCtrl', ProfileCtrl);
 
 function ProfileCtrl(Me, User, $timeout, $rootScope) {

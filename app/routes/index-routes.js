@@ -7,10 +7,12 @@
 let express = require('express');
 let app = express.Router();
 
-app.get('/', (req, res)=> {
-	res.status(200).send({
+function printStatus(req, res) {
+	return res.status(200).send({
 		msg: 'Server is up!'
 	});
-});
+}
+
+app.get('/', printStatus);
 
 module.exports = app;

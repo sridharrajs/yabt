@@ -156,22 +156,19 @@ function getArticles(req, res) {
 		delete item.is_archived;
 	}
 
-	articleController.getArticles(item, pageNo, (err, items) => {
-		if (err) {
-			return res.status(500).send({
-				msg: err
-			});
-		}
-		if (_.isEmpty(items)) {
-			items = [];
-		}
-		res.status(200).send({
+	articleController.getArticles(item).then((articles)=> {
+		return res.status(200).send({
 			data: {
-				articles: items,
+				articles: articles,
 				pageNo: ++pageNo
 			}
 		});
+	}).catch((err) => {
+		return res.status(500).send({
+			msg: err
+		});
 	});
+
 }
 
 function importFromPocket(req, res) {
@@ -197,18 +194,13 @@ function importFromPocket(req, res) {
 
 function deleteArticle(req, res) {
 	let articleId = req.params.articleId;
-	articleController.deleteArticle(articleId, (err, items) => {
-		if (err) {
-			return res.status(500).send({
-				msg: err
-			});
-		}
-		let msg = 'Article was deleted';
-		if (_.isEmpty(items)) {
-			msg = 'Nothing was changed';
-		}
-		res.status(200).send({
-			data: msg
+	articleController.deleteArticle(articleId).then(()=> {
+		return res.status(200).send({
+			data: 'Article was deleted'
+		});
+	}).catch((err) => {
+		return res.status(500).send({
+			msg: err
 		});
 	});
 }
@@ -237,8 +229,7 @@ function importFromTwitter(req, res) {
 		twitterUtil.importFavourties(userId, callback);
 	}, (articles, callback)=> {
 		addArticles(articles, callback);
-	}
-	], (err, items) => {
+	}], (err, items) => {
 		if (err) {
 			return res.status(500).send({
 				msg: err
@@ -287,8 +278,7 @@ function updateArticle(req, res) {
 
 }
 
-app
-	.post('/', addArticle)
+app.post('/', addArticle)
 	.get('/', getArticles);
 
 app.put('/:articleId', updateArticle);

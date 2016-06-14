@@ -5,17 +5,23 @@
 'use strict';
 
 angular
-	.module('readLater')
+	.module('myReader')
 	.factory('User', User);
 
-function User(SERVERURL, $http) {
-	let service = {
+function User(SERVER_URL, $http) {
+	return {
 		getMe: () => {
-			return $http.get(SERVERURL + 'users/me');
+			return $http({
+				method: 'GET',
+				url: `${SERVER_URL}users/me`
+			});
 		},
 		update: (newValues)=> {
-			return $http.put(SERVERURL + 'users/me', newValues);
+			return $http({
+				method: 'PUT',
+				url: `${SERVER_URL}users/me`,
+				data: newValues
+			});
 		}
 	};
-	return service;
 }

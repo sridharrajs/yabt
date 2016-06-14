@@ -10,7 +10,7 @@
 	let selectedEnv = envirorment['local'];
 	let selectedServerURL = selectedEnv.serverURL;
 
-	angular.module('readLater', [
+	angular.module('myReader', [
 			'ngFileUpload',
 			'ngMessages',
 			'ui.router',
@@ -27,7 +27,9 @@
 			});
 		})
 		.config(configuration)
-		.constant('SERVERURL', selectedServerURL)
+		.constant({
+			SERVER_URL: selectedServerURL
+		})
 		.run(initApp);
 
 	function configuration($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -62,7 +64,6 @@
 			controller: 'DashboardCtrl as dashboardCtrl',
 			templateUrl: DASHBOARD_FDLR + 'dashboard.html',
 			resolve: {
-				Me: getMyDetails,
 				init: init
 			}
 		}).state('home.profile', {
@@ -146,8 +147,10 @@
 			type: 'video'
 		}).then((response) => {
 			let initData = {};
-			initData.pageNo = response.data.data.pageNo;
-			initData.articles = response.data.data.articles;
+			({
+				pageNo: initData.pageNo,
+				articles: initData.articles
+			} = response.data.data);
 			return initData;
 		});
 	}
@@ -157,25 +160,22 @@
 			fetchFavourites: true
 		}).then((response) => {
 			let initData = {};
-			initData.pageNo = response.data.data.pageNo;
-			initData.articles = response.data.data.articles;
+			({
+				pageNo: initData.pageNo,
+				articles: initData.articles
+			} = response.data.data);
 			return initData;
 		});
 	}
 
 
 	function isAuthenticated(Auth) {
-		let authToken = Auth.getToken();
-		if (authToken) {
-			return true;
-		}
-		return false;
+		return Auth.getToken();
 	}
 
 	function initApp($rootScope, Auth, $state, usSpinnerService) {
 		$rootScope.$on('$stateChangeStart', (event, toState) => {
-			usSpinnerService.spin('spinner-1');
-
+			//	usSpinnerService.spin('spinner-1');
 			if (toState.name !== 'login') {
 				if (!isAuthenticated(Auth)) {
 					event.preventDefault();
@@ -199,6 +199,7 @@
 		$rootScope.$on('$stateChangeStart', () => {
 			$rootScope.stateIsLoading = false;
 		});
+
 	}
 
 }());
