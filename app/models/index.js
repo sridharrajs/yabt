@@ -4,18 +4,15 @@
 
 'use strict';
 
-let _ = require('lodash');
-
-let models = [
-	'user',
-	'article'
-];
+let requireDir = require('require-dir');
 
 function init() {
-	_.each(models, (model)=> {
-		require(`./${model}`);
-	});
-	return Promise.resolve('Success');
+	try {
+		requireDir('./');
+		return Promise.resolve();
+	} catch (ex) {
+		return Promise.reject();
+	}
 }
 
 module.exports = {
