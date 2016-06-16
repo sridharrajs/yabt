@@ -1,10 +1,9 @@
 {
 	"name": "myReader",
 	"version": "1.0.0",
-	"description": "A custom MEAN stack boilerplate for web application ",
+	"description": "MyReader is an free open source alternative to read it later services like Pocket that gives you, complete control over your data. ",
 	"main": "server.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node-inspector & nodemon --debug server.js"
 	},
 	"repository": {
