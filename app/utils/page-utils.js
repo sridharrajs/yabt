@@ -22,6 +22,8 @@ const DOMAIN_TAG = RULES.domain;
 const DOMAINS = _.keys(DOMAIN_TAG);
 const TAGS = _.values(DOMAIN_TAG);
 
+const USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0';
+
 const VIDEO_DOMAINS = [
 	'youtube.com',
 	'ted.com'
@@ -56,17 +58,16 @@ function isVideoType(url) {
 	return isVideo;
 }
 
-let getTagByDomain = (hostURL)=> {
+function getTagByDomain(hostURL) {
 	let host = url.parse(hostURL).hostname;
 	let tag = '';
 	_.each(DOMAINS, (domain)=> {
 		if (_s.include(host, domain)) {
 			tag = DOMAIN_TAG[domain];
-			return;
 		}
 	});
 	return tag;
-};
+}
 
 function extractDetails(body, pageURL, cb) {
 	let $ = cheerio.load(body);
@@ -114,12 +115,12 @@ function extractDetails(body, pageURL, cb) {
 
 }
 
-let getDetails = (pageURL, metaCb)=> {
+function getDetails(pageURL, metaCb) {
 	let options = {
 		url: pageURL,
 		rejectUnauthorized: false,
 		headers: {
-			'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0'
+			'User-Agent': USER_AGENT
 		},
 		followAllRedirects: true
 	};
@@ -137,11 +138,11 @@ let getDetails = (pageURL, metaCb)=> {
 		});
 
 	});
-};
+}
 
-let getTags = ()=> {
+function getTags() {
 	return TAGS;
-};
+}
 
 module.exports = {
 	getDetails,

@@ -3,15 +3,13 @@
  */
 
 'use strict';
-let async = require('async');
+
+let _ = require('lodash');
 let mongoose = require('mongoose');
-let wrapper = require('mongoose-callback-wrapper');
+let Article = mongoose.model('article');
 
-let articleModelSchema = require('../models/article');
-let articleModel = mongoose.model('article');
-
-function add(article, cb) {
-	let item = new articleModel({
+function add(article) {
+	let item = new Article({
 		url: article.url,
 		userId: article.userId,
 		title: article.title,
@@ -21,106 +19,84 @@ function add(article, cb) {
 		host: article.host,
 		notes: article.notes
 	});
-	item.save((err, newDoc) => {
-		if (err) {
-			if (err.code === 11000) {
-				return cb({
-					msg: 'Article already saved',
-					code: 11000
-				});
-			}
-			return cb(err);
+	return item.save().catch((err) => {
+		if (err.code === 11000) {
+			return Promise.reject({
+				msg: 'Article already saved',
+				code: 11000
+			});
 		}
-
-		cb(null, newDoc._doc);
 	});
 }
 
 function addArticles(articles, cb) {
-	async.forEach(articles, (article, callback) => {
-			let newArticle = new articleModel({
-				url: article.url,
-				userId: article.userId,
-				title: article.title,
-				description: article.description,
-				tags: article.tag,
-				host: article.host
-			});
-			newArticle.save((err) => {
-				if (err) {
-					return callback(err);
-				}
-				callback(null, 'success');
-			});
-		}, (err) => {
-			if (err) {
-				return cb(err);
-			}
-			return cb(null, '+1');
-		}
-	);
+	let bulkTransaction = Article.collection.initializeUnorderedBulkOp();
+
+	_.each(articles, (article) => {
+		bulkTransaction.insert({
+			url: article.url,
+			userId: article.userId,
+			title: article.title,
+			description: article.description,
+			tags: article.tag,
+			host: article.host
+		});
+	});
+
+	return bulkTransaction.execute().catch((err) => {
+		console.log('err.stack', err.stack);
+		return Promise.reject(err);
+	});
+
 }
 
 function getArticles(item) {
-	return articleModel.find(item).sort({
+	return Article.find(item).sort({
 		time_added: -1
-	}).select(articleModelSchema.getPublicAttributes()).exec();
+	}).exec();
 }
 
-function getActiveCount(item, cb) {
-	let wrappedCallback = wrapper.wrap(cb);
-	articleModel.find({
+function getActiveCount(item) {
+	return Article.find({
 		userId: item.userId,
 		active: true,
 		is_archived: false
-	}, wrappedCallback);
+	}).exec();
 }
 
-function archive(articleId, cb) {
-	let wrappedCallback = wrapper.wrap(cb);
-	let query = {
+function archive(articleId) {
+	return Article.findOneAndUpdate({
 		_id: articleId
-	};
-	let change = {
+	}, {
 		is_archived: true
-	};
-	let upsert = {
+	}, {
 		upsert: false
-	};
-	articleModel.findOneAndUpdate(query, change, upsert, wrappedCallback);
+	}).exec();
 }
 
 function deleteArticle(articleId) {
-	return articleModel.findOneAndRemove({
+	return Article.findOneAndRemove({
 		_id: articleId
 	}).exec();
 }
 
-function updateAttributes(item, cb) {
-	let wrappedCallback = wrapper.wrap(cb);
-	let query = {
+function updateAttributes(item) {
+	return Article.findOneAndUpdate({
 		_id: item._id
-	};
-	let change = item.attributes;
-	let upsert = {
+	}, item.attributes, {
 		upsert: false
-	};
-	articleModel.findOneAndUpdate(query, change, upsert, wrappedCallback);
+	}).exec();
 }
 
-function deleteAll(userId, cb) {
-	let wrappedCallback = wrapper.wrap(cb);
-	let query = {
+function deleteAll(userId) {
+	return Article.update({
 		userId: userId
-	};
-	let change = {
+	}, {
 		is_fav: false
-	};
-	let upsert = {
+	}, {
 		upsert: false,
 		multi: true
-	};
-	articleModel.update(query, change, upsert, wrappedCallback);
+	}).exec();
 }
 
 module.exports = {

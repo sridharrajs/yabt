@@ -6,7 +6,7 @@
 
 const _ = require('lodash');
 const async = require('async');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt-as-promised');
 const express = require('express');
 const isValidEmail = require('is-valid-email');
 const qs = require('qs');
@@ -15,7 +15,7 @@ let app = express.Router();
 
 let articleController = require('../controllers/article-controller');
 let userController = require('../controllers/user-controller');
-let security = require('../middlewares/auth-filter');
+let security = require('../middleware/auth-filter');
 
 let pageUtil = require('../utils/page-utils');
 
@@ -34,50 +34,47 @@ function geUserInfo(userId, callback) {
 }
 
 function login(req, res) {
-	try {
-		let body = qs.parse(req.body);
-		let emailId = body.emailId;
-		let password = body.password;
+	let body = qs.parse(req.body);
+	let emailId = body.emailId;
+	let password = body.password;
 
-		if (!emailId || !password) {
-			return res.status(400).send({
-				msg: 'Please enter proper values!'
-			});
-		}
-		if (!isValidEmail(emailId)) {
-			return res.status(400).send({
-				msg: 'Please valid emailId'
-			});
-		}
-		userController.getUserByCredentials(emailId, (err, items) => {
-			if (err || _.isEmpty(items)) {
-				return res.status(401).send({
-					msg: 'Invalid emailId/password'
-				});
-			}
-			let userObj = items[0];
-			let saltedPwd = userObj.password;
-			bcrypt.compare(password, saltedPwd, (err, isEqual) => {
-				if (!isEqual) {
-					return res.status(401).send({
-						msg: 'Invalid emailId/password'
-					});
-				}
-				let userId = userObj._id;
-				let token = security.generateToken(userId);
-				res.status(200).send({
-					token: token,
-					profile_url: userObj.profile_url
-				});
+	if (!emailId || !password) {
+		return res.status(400).send({
+			msg: 'Please enter proper values!'
+		});
+	}
+	if (!isValidEmail(emailId)) {
+		return res.status(400).send({
+			msg: 'Please valid emailId'
+		});
+	}
+
+	userController.getUserByCredentials(emailId).then((user)=> {
+		let saltedPwd = user.password;
+		return bcrypt.compare(password, saltedPwd).then(()=> {
+			return Promise.resolve({
+				user
 			});
 		});
-	} catch (err) {
-		console.log('err', err);
-	}
+	}).then((user)=> {
+		res.status(200).send({
+			token: security.generateToken(user.userId),
+			profile_url: user.profile_url
+		});
+	}).catch((err) => {
+		if (err instanceof bcrypt.MISMATCH_ERROR) {
+			return res.status(401).send({
+				msg: 'Invalid password'
+			});
+		}
+		return res.status(401).send({
+			msg: 'Invalid emailId/password'
+		});
+	});
 
 }
 
-function signup(req, res) {
+function signUp(req, res) {
 	let body = qs.parse(req.body);
 	let emailId = body.emailId;
 	let password = body.password;
@@ -186,10 +183,11 @@ function updateMe(req, res) {
 
 }
 
-app.put('/me', updateMe)
-	.get('/me', getMe);
+let lastLoginUpdater = require('../middleware/last-login');
+app.put('/me', [lastLoginUpdater.update], updateMe)
+	.get('/me', [lastLoginUpdater.update], getMe);
 
-app.post('/', signup);
+app.post('/', signUp);
 app.post('/login', login);
 
 module.exports = app;

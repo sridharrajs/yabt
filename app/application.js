@@ -19,20 +19,21 @@ app.use(bp.urlencoded({
 	extended: false
 }));
 
-let reqHeaderFilter = require('./middlewares/request-header');
-app.use(reqHeaderFilter.setHeaders);
+let reqHeaderFilter = require('./middleware/request-header');
+app.use(reqHeaderFilter);
 
 app.use(express.static('./dist'));
 app.set('view engine', 'ejs');
 
-let authFilter = require('./middlewares/auth-filter');
-app.all('/api/*', [authFilter.authenticate]);
+let authFilter = require('./middleware/auth-filter');
+app.all('/api/*', [authFilter]);
 
 let indexRoutes = require('./routes/index-routes');
 app.use('/api', indexRoutes);
 
+let lastLogin = require('./middleware/last-login');
 let userRoutes = require('./routes/user-routes');
-app.use('/api/users', userRoutes);
+app.use('/api/users', [lastLogin], userRoutes);
 
 let articleRoutes = require('./routes/article-routes');
 app.use('/api/articles', articleRoutes);

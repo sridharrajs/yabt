@@ -6,99 +6,74 @@
 
 let gravatar = require('nodejs-gravatar');
 let mongoose = require('mongoose');
-let wrapper = require('mongoose-callback-wrapper');
-var ObjectId = require('mongoose').Types.ObjectId;
 
-let userModelSchema = require('../models/user');
-let userModel = mongoose.model('user');
+let User = mongoose.model('user');
 
-let add = function (user, cb) {
-	let item = new userModel({
+function add(user) {
+	let item = new User({
 		emailId: user.emailId,
 		password: user.password,
 		profile_url: gravatar.imageUrl(user.emailId),
 		username: user.emailId
 	});
-	item.save((err, newDoc) => {
-		if (err) {
-			if (err.code === 11000) {
-				return cb('EmailId is already taken');
-			}
-			return cb(err);
+	return item.save().catch((err) => {
+		if (err.code === 11000) {
+			return Promise.reject('EmailId is already taken');
 		}
-
-		let user = {
-			_id: newDoc._id,
-			profile_url: newDoc.profile_url
-		};
-		return cb(null, user);
 	});
-};
+}
 
-let updateToken = function (userId, token, cb) {
-	let condition = {
+function updateToken(userId, token) {
+	return User.findOneAndUpdate({
 		_id: userId
-	};
-	let update = {
-		token: token
-	};
-	let upsert = false;
-	userModel.findOneAndUpdate(condition, update, upsert, cb);
-};
-
-let getUserByCredentials = function (emailId, cb) {
-	let wrappedCallback = wrapper.wrap(cb, userModelSchema.getAttributes());
-	let query = userModel.find({
-		emailId: emailId
+	}, {
+		token
+	}, {
+		upsert: false
 	});
-	query.exec(wrappedCallback);
-};
+}
 
-let getUserByUserId = (userId, cb)=> {
-	let wrappedCallback = wrapper.wrap(cb, userModelSchema.getAttributes());
-	let query = userModel.find({
-		_id: new ObjectId(userId)
-	});
-	query.exec(wrappedCallback);
-};
+function getUserByCredentials(email) {
+	return User.findOne({
+		email
+	}).exec();
+}
 
-let updateByUserId = (user, cb)=> {
-	let condition = {
-		_id: user.userId
-	};
+function getUserByUserId(userId) {
+	return User.find({
+		_id: userId
+	}).exec();
+}
+
+function updateByUserId(user) {
 	let update = {
 		username: user.username
 	};
 	if (user.password) {
 		update.password = user.password;
 	}
-	let upsert = {
-		upsert: false,
-		'new': true
-	};
-	userModel.findOneAndUpdate(condition, update, upsert, (err, doc)=> {
-		cb(err, {
-			username: doc.username,
-			emailId: doc.emailId,
-			profile_url: doc.profile_url
-		});
-	});
-};
 
-function updateLastSeen(userId, cb) {
-	let condition = {
-		_id: userId
-	};
-	let update = {
-		last_seen: Date.now()
-	};
-	let upsert = {
+	return User.findOneAndUpdate({
+		_id: user.userId
+	}, update, {
 		upsert: false,
 		'new': true
-	};
-	userModel.findOneAndUpdate(condition, update, upsert, (err, doc)=> {
-		cb(err, 'success');
-	});
+	}).select({
+		username: 1,
+		emailId: 1,
+		profile_url: 1
+	}).exec();
+}
+
+function updateLastSeen(userId) {
+	return User.findOneAndUpdate({
+		_id: userId
+	}, {
+		last_seen: Date.now()
+	}, {
+		upsert: false,
+		'new': true
+	}).exec();
 }
 
 module.exports = {
