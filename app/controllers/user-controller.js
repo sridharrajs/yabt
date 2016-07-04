@@ -11,9 +11,9 @@ let User = mongoose.model('user');
 
 function add(user) {
 	let item = new User({
-		emailId: user.emailId,
+		email: user.email,
 		password: user.password,
-		profile_url: gravatar.imageUrl(user.emailId),
+		profile_url: gravatar.imageUrl(user.email),
 		username: user.emailId
 	});
 	return item.save().catch((err) => {
@@ -30,7 +30,7 @@ function updateToken(userId, token) {
 		token
 	}, {
 		upsert: false
-	});
+	}).exec();
 }
 
 function getUserByCredentials(email) {
@@ -39,15 +39,15 @@ function getUserByCredentials(email) {
 	}).exec();
 }
 
-function getUserByUserId(userId) {
-	return User.find({
+function getById(userId) {
+	return User.findOne({
 		_id: userId
 	}).exec();
 }
 
 function updateByUserId(user) {
 	let update = {
-		username: user.username
+		user_name: user.user_name
 	};
 	if (user.password) {
 		update.password = user.password;
@@ -59,8 +59,8 @@ function updateByUserId(user) {
 		upsert: false,
 		'new': true
 	}).select({
-		username: 1,
-		emailId: 1,
+		user_name: 1,
+		email: 1,
 		profile_url: 1
 	}).exec();
 }
@@ -80,7 +80,7 @@ module.exports = {
 	add,
 	getUserByCredentials,
 	updateToken,
-	getUserByUserId,
+	getById,
 	updateByUserId,
 	updateLastSeen
 };

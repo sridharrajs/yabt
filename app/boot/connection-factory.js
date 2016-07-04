@@ -2,10 +2,6 @@
  * Created by sridharrajs on 1/13/16.
  */
 
-/**
- * Created by sridharrajs on 1/13/16.
- */
-
 'use strict';
 
 let mongoose = require('mongoose');

@@ -3,24 +3,16 @@
  */
 
 'use strict';
+
 let _ = require('lodash');
 let async = require('async');
-let express = require('express');
 let qs = require('qs');
+let express = require('express');
 
 let app = express.Router();
 
 let articleController = require('../controllers/article-controller');
-let twitterUtil = require('../utils/twitter-util');
-
-function addArticles(articles, callback) {
-	articleController.addArticles(articles, (err, items) => {
-		if (err) {
-			return callback(err);
-		}
-		callback(null, items);
-	});
-}
+let pageController = require('../controllers/page-controller');
 
 function addArticle(req, res) {
 	let userId = req.uid;
@@ -34,38 +26,20 @@ function addArticle(req, res) {
 		});
 	}
 
-	let article = {
-		url,
-		userId,
-		notes
-	};
-
-	async.waterfall([(callback)=> {
-		appendPageDetails(userId, [article], callback);
-	}, (articles, callback)=> {
-		articleController.add(_.first(articles), callback);
-	}], (err, items) => {
-		if (err) {
-			if (err.code === 11000) {
-				return res.status(200).send({
-					msg: err.msg,
-					data: {
-						countIncremented: false
-					}
-				});
-			}
-			return res.status(500).send({
-				msg: err
-			});
-		}
-		res.status(200).send({
-			msg: 'Success',
-			data: {
-				articles: items,
-				countIncremented: true
-			}
+	pageController.fetchPage(url).then((article)=> {
+		article.userId = userId;
+		article.notes = notes;
+		return articleController.add(article);
+	}).then(()=> {
+		return res.status(200).send({
+			msg: 'Success'
+		});
+	}).catch((err) => {
+		return res.status(500).send({
+			msg: err
 		});
 	});
+
 }
 
 function getArticles(req, res) {
@@ -113,32 +87,8 @@ function getArticles(req, res) {
 }
 
 function importFromPocket(req, res) {
-	let userId = req.uid;
-	let articles = [];
 
-	articleController.addArticles(articles).then(()=> {
-		return res.status(200).send({
-			msg: 'all good!',
-			data: items
-		});
-	}).catch((err) => {
-		return res.status(500).send({
-			msg: err
-		});
-	});
 
-	async.waterfall([(callback)=> {
-		uploadToDir(userId, req, res, callback);
-	}, (articles, callback)=> {
-		appendPageDetails(userId, articles, callback);
-	}, (articles, callback)=> {
-		addArticles(articles, callback);
-	}], (err, items)=> {
-		if (err) {
-
-		}
-
-	});
 }
 
 function deleteArticle(req, res) {
@@ -154,7 +104,7 @@ function deleteArticle(req, res) {
 	});
 }
 
-function deleteAllArticles(req, res) {
+function deleteAll(req, res) {
 	let userId = req.uid;
 	articleController.deleteAll(userId).then(()=> {
 		res.status(200).send({
@@ -165,25 +115,6 @@ function deleteAllArticles(req, res) {
 			msg: err
 		});
 	});
-}
-
-function importFromTwitter(req, res) {
-	let userId = req.uid;
-	async.waterfall([(callback)=> {
-		twitterUtil.importFavourties(userId, callback);
-	}, (articles, callback)=> {
-		addArticles(articles, callback);
-	}], (err, items) => {
-		if (err) {
-			return res.status(500).send({
-				msg: err
-			});
-		}
-		res.status(200).send({
-			data: items
-		});
-	});
-
 }
 
 function updateArticle(req, res) {
@@ -226,10 +157,9 @@ app.post('/', addArticle)
 	.get('/', getArticles);
 
 app.put('/:articleId', updateArticle);
-app.post('/import-twitter', importFromTwitter);
 app.post('/import-pocket', importFromPocket);
 
 app.delete('/:articleId', deleteArticle);
-app.delete('/', deleteAllArticles);
+app.delete('/', deleteAll);
 
 module.exports = app;

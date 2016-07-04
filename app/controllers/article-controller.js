@@ -14,22 +14,19 @@ function add(article) {
 		userId: article.userId,
 		title: article.title,
 		description: article.description,
-		tags: article.tag,
-		is_video: article.isVideo,
 		host: article.host,
 		notes: article.notes
 	});
 	return item.save().catch((err) => {
 		if (err.code === 11000) {
-			return Promise.reject({
-				msg: 'Article already saved',
-				code: 11000
+			return Promise.resolve({
+				msg: 'Article already saved'
 			});
 		}
 	});
 }
 
-function addArticles(articles, cb) {
+function addArticles(articles) {
 	let bulkTransaction = Article.collection.initializeUnorderedBulkOp();
 
 	_.each(articles, (article) => {

@@ -4,7 +4,6 @@
 
 'use strict';
 
-const _ = require('lodash');
 const async = require('async');
 const bcrypt = require('bcrypt-as-promised');
 const express = require('express');
@@ -17,39 +16,23 @@ let articleController = require('../controllers/article-controller');
 let userController = require('../controllers/user-controller');
 let security = require('../middleware/auth-filter');
 
-let pageUtil = require('../utils/page-utils');
-
-function getArticleCount(userId, callback) {
-	articleController.getActiveCount({
-		userId
-	}, (err, count) => {
-		callback(err, count);
-	});
-}
-
-function geUserInfo(userId, callback) {
-	userController.getUserByUserId(userId, (err, items)=> {
-		callback(err, _.first(items));
-	});
-}
-
 function login(req, res) {
 	let body = qs.parse(req.body);
-	let emailId = body.emailId;
+	let email = body.email;
 	let password = body.password;
 
-	if (!emailId || !password) {
+	if (!email|| !password) {
 		return res.status(400).send({
 			msg: 'Please enter proper values!'
 		});
 	}
-	if (!isValidEmail(emailId)) {
+	if (!isValidEmail(email)) {
 		return res.status(400).send({
 			msg: 'Please valid emailId'
 		});
 	}
 
-	userController.getUserByCredentials(emailId).then((user)=> {
+	userController.getUserByCredentials(email).then((user)=> {
 		let saltedPwd = user.password;
 		return bcrypt.compare(password, saltedPwd).then(()=> {
 			return Promise.resolve({
@@ -76,22 +59,22 @@ function login(req, res) {
 
 function signUp(req, res) {
 	let body = qs.parse(req.body);
-	let emailId = body.emailId;
+	let email = body.email;
 	let password = body.password;
 
-	if (!emailId || !password) {
+	if (!email || !password) {
 		return res.status(400).send({
 			msg: 'Please enter proper values!'
 		});
 	}
-	if (!isValidEmail(emailId)) {
+	if (!isValidEmail(email)) {
 		return res.status(400).send({
 			msg: 'Please valid emailId'
 		});
 	}
 
 	userController.add({
-		emailId: emailId,
+		email: email,
 		password: bcrypt.hashSync(password)
 	}, (err, user) => {
 		if (err) {
@@ -112,72 +95,55 @@ function signUp(req, res) {
 function getMe(req, res) {
 	let userId = req.uid;
 
-	async.parallel([
-		(callback)=> {
-			getArticleCount(userId, callback);
-		},
-		(callback)=> {
-			geUserInfo(userId, callback);
-		}
-	], (err, items) => {
-		if (err) {
-			return res.status(500).send({
-				msg: err
-			});
-		}
-
-		let user = items[1];
-
-		if (_.isEmpty(user)) {
-			return res.status(401).send({
-				msg: 'user doesnt exist'
-			});
-		}
-
+	Promise.all([
+		articleController.getActiveCount(userId),
+		userController.getById(userId)
+	]).then((results)=> {
+		let user = results[1];
 		res.status(200).send({
 			data: {
-				articlesCount: _.size(_.first(items)),
-				tags: pageUtil.getTags(),
-				profile_url: user.profile_url,
-				username: user.username,
-				emailId: user.emailId
+				me: user
 			}
 		});
+	}).catch((err) => {
+		res.status(500).send({
+			err: err.stack
+		});
 	});
+
 }
 
 function updateMe(req, res) {
 	let body = qs.parse(req.body);
 
-	let userObj = {
+	let user = {
 		userId: req.uid,
-		username: body.username
+		user_name: body.user_name
 	};
 
 	let newPassword = body.newPassword;
 	let reloadReq = false;
 	if (newPassword && newPassword.trim()) {
-		userObj.password = bcrypt.hashSync(newPassword);
+		user.password = bcrypt.hashSync(newPassword);
 		reloadReq = true;
 	}
 
-	if (!userObj.username) {
+	if (!user.username) {
 		return res.status(400).send({
 			msg: 'invalid username'
 		});
 	}
 
-	userController.updateByUserId(userObj, (err, items) => {
-		if (err) {
-			return res.status(500).send({
-				msg: err
-			});
-		}
+	userController.updateByUserId(user).then(()=> {
 		res.status(200).send({
 			data: {
 				items: items,
 				reloadReq: reloadReq
 			}
+		});
+	}).catch((err) => {
+		return res.status(500).send({
+			msg: err
 		});
 	});
 

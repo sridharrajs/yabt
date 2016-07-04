@@ -8,12 +8,12 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let schema = new Schema({
-	username: {
+	user_name: {
 		type: String,
 		index: true,
 		unique: true
 	},
-	emailId: {
+	email: {
 		type: String,
 		required: true,
 		index: true,
@@ -30,9 +30,6 @@ let schema = new Schema({
 	profile_url: {
 		type: String
 	},
-	twitter_handle: {
-		type: String
-	},
 	last_seen: {
 		type: Date,
 		default: Date.now
@@ -42,10 +39,10 @@ let schema = new Schema({
 const ATTRIBUTES = [
 	'_id',
 	'password',
-	'username',
+	'user_name',
 	'profile_url',
 	'doj',
-	'emailId',
+	'email',
 	'twitter_handle'
 ];
 
