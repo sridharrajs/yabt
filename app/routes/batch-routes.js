@@ -10,8 +10,8 @@ let app = express.Router();
 let batchController = require('../controllers/batch-controller');
 
 function addAll(req, res) {
-	let urls = req.urls;
-	batchController.addAll(urls).then(()=> {
+	let articles = req.articles;
+	batchController.addAll(articles).then(()=> {
 		return res.status(200).send({
 			msg: 'Success'
 		});
@@ -22,6 +22,8 @@ function addAll(req, res) {
 	});
 }
 
-app.post('/', addAll);
+let uploadHandler = require('../middleware/uploader');
+let pocketParser = require('../middleware/pocket-parser');
+app.post('/pocket', [uploadHandler, pocketParser], addAll);
 
 module.exports = app;

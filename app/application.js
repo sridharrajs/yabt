@@ -38,4 +38,7 @@ app.use('/api/users', [lastLogin], userRoutes);
 let articleRoutes = require('./routes/article-routes');
 app.use('/api/articles', articleRoutes);
 
+let batchRoutes = require('./routes/batch-routes');
+app.use('/api/import', batchRoutes);
+
 module.exports = app;

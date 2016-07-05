@@ -11,6 +11,12 @@ let schema = new Schema({
 	url: {
 		type: String
 	},
+	userId: {
+		type: String
+	},
+	time_added: {
+		type: Date
+	},
 	created_at: {
 		type: Date,
 		default: Date.now
@@ -21,4 +27,4 @@ let schema = new Schema({
 	}
 });
 
-mongoose.model('pocketed', schema);
+mongoose.model('batch', schema);

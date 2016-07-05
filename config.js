@@ -37,12 +37,14 @@ class Config {
 	}
 
 	static init(HOST_ENVIRONMENT) {
+		this.secret = process.env.MY_SECRET;
+
 		this.port = CONFIGURATIONS.port;
 
 		let settings = CONFIGURATIONS[HOST_ENVIRONMENT];
 		this.secure = settings.secure;
 		this.mongdbUrl = settings.mongodb_url;
-		this.secret = process.env.MY_SECRET;
+		this.freq = settings.crawlerFreq;
 		return Promise.resolve('Success');
 	}
 

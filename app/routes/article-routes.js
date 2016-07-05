@@ -86,11 +86,6 @@ function getArticles(req, res) {
 
 }
 
-function importFromPocket(req, res) {
-
-
-}
-
 function deleteArticle(req, res) {
 	let articleId = req.params.articleId;
 	articleController.deleteArticle(articleId).then(()=> {
@@ -157,7 +152,6 @@ app.post('/', addArticle)
 	.get('/', getArticles);
 
 app.put('/:articleId', updateArticle);
-app.post('/import-pocket', importFromPocket);
 
 app.delete('/:articleId', deleteArticle);
 app.delete('/', deleteAll);
