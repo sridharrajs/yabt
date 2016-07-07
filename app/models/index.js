@@ -9,9 +9,9 @@ let requireDir = require('require-dir');
 function init() {
 	try {
 		requireDir('./');
-		return Promise.resolve();
+		return Promise.resolve('Success');
 	} catch (ex) {
-		return Promise.reject();
+		return Promise.reject('Failed');
 	}
 }
 

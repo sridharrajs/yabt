@@ -8,7 +8,7 @@ Why myReader
 * It is simple, fast, and never reloads your page for anything
 
 ## Requirements
-1. `NodeJS v4.0` or later
+1. `NodeJS v4.4.5` or later
 2. `Mongodb 2.4.10` or later
 
 ## Installation guide
@@ -16,9 +16,11 @@ Why myReader
 ```npm & bower install```
 2. Build the client package  
 ```gulp install```
-3. Start the server  
+3. Update admin user email & password in `bin/install.js`  
+```node bin/install.js```
+4. Start the server  
 ```npm start```
-
+ 
 ## Developer Installation  
 Running a local instances involves two phase.
 

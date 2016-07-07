@@ -2,6 +2,8 @@
  * Created by sridharrajs on 6/30/16.
  */
 
+'use strict';
+
 let multer = require('multer');
 
 const storage = multer.diskStorage({

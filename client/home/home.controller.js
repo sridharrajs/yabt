@@ -66,35 +66,6 @@ function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl, usSpinnerService
 		lazySetFocus();
 	};
 
-	angular.element(document).on('paste', (e) => {
-		if (e.target.id === 'articleId' || e.target.id === 'Search-box') {
-			return;
-		}
-		let state = $state.current.url;
-
-		let urlStates = [
-			'dashboard',
-			'favourites',
-			'archive',
-			'videos',
-			'add'
-		];
-
-		if (!_.includes(urlStates, state)) {
-			return;
-		}
-
-		let clipBoard = e.originalEvent.clipboardData.getData('text/plain');
-		$state.go('home.add').then(()=> {
-			self.activeTab = 'add';
-			self.newUrl = clipBoard;
-			angular.element('#articleId').focus().val(clipBoard);
-			e.preventDefault();
-		});
-
-	});
-
-
 	function resetForm() {
 		self.newUrl = '';
 		self.notes = '';

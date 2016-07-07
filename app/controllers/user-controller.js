@@ -14,7 +14,7 @@ function add(user) {
 		email: user.email,
 		password: user.password,
 		profile_url: gravatar.imageUrl(user.email),
-		username: user.emailId
+		user_name: user.email
 	});
 	return item.save().catch((err) => {
 		if (err.code === 11000) {
@@ -35,13 +35,18 @@ function updateToken(userId, token) {
 
 function getUserByCredentials(email) {
 	return User.findOne({
-		email
+		email: email
 	}).exec();
 }
 
 function getById(userId) {
 	return User.findOne({
 		_id: userId
+	}).select({
+		_id: 0,
+		email: 1,
+		profile_url: 1,
+		user_name: 1
 	}).exec();
 }
 
@@ -58,10 +63,6 @@ function updateByUserId(user) {
 	}, update, {
 		upsert: false,
 		'new': true
-	}).select({
-		user_name: 1,
-		email: 1,
-		profile_url: 1
 	}).exec();
 }
 
@@ -69,15 +70,31 @@ function updateLastSeen(userId) {
 	return User.findOneAndUpdate({
 		_id: userId
 	}, {
-		last_seen: Date.now()
+		updated_at: Date.now()
 	}, {
 		upsert: false,
 		'new': true
 	}).exec();
 }
 
+function createAdmin(user) {
+	let item = new User({
+		email: user.email,
+		password: user.password,
+		profile_url: gravatar.imageUrl(user.email),
+		user_name: user.email,
+		is_admin: true
+	});
+	return item.save().catch((err) => {
+		if (err.code === 11000) {
+			return Promise.reject('EmailId is already taken');
+		}
+	});
+}
+
 module.exports = {
 	add,
+	createAdmin,
 	getUserByCredentials,
 	updateToken,
 	getById,

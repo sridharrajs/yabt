@@ -3,9 +3,9 @@
 		<form name="loginForm" class="main form-horizontal" ng-submit="authCtrl.login(loginForm.$valid)">
 			<div class="alert {{authCtrl.alertClass}}">{{authCtrl.alertMsg}}</div>
 				<div class="form-group">
-				<label class="col-xs-3 control-label" for="emailId">Email</label>
+				<label class="col-xs-3 control-label" for="email">Email</label>
 				<div class="col-xs-9">
-					<input class="form-control" type="email" placeholder="john@example.org" id="emailId" ng-model="authCtrl.user.emailId" name="email"
+					<input class="form-control" type="email" placeholder="john@example.org" id="email" ng-model="authCtrl.user.email" name="email"
 						   autofocus required/>
 				</div>
 			</div>

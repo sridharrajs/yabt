@@ -12,7 +12,7 @@ function AuthCtrl(Auth, $log, $state) {
 	self.alertMsg = '';
 	self.alertClass = '';
 	self.user = {
-		emailId: '',
+		email: '',
 		password: ''
 	};
 
@@ -24,14 +24,14 @@ function AuthCtrl(Auth, $log, $state) {
 			return;
 		}
 		self.loading = true;
-		Auth.login(self.user).then((data) => {
+		Auth.login(self.user).then(() => {
 			self.alertMsg = 'Logging in!';
 			self.alertClass = 'show alert-success';
 			$state.go('home');
-			self.loading = false;
 		}).catch((response) => {
 			self.alertMsg = response.data.msg;
-			self.alertClass = 'show alert-danger';
+			self.alertClass = 'show alert-danger'
+		}).finally(() => {
 			self.loading = false;
 		});
 	}
@@ -40,7 +40,7 @@ function AuthCtrl(Auth, $log, $state) {
 		if (!isValid) {
 			return;
 		}
-		Auth.signup(self.user).then((data) => {
+		Auth.signup(self.user).then(() => {
 			$log.info('registeration Successful');
 			$state.go('home');
 		}).catch((error) => {
@@ -48,6 +48,6 @@ function AuthCtrl(Auth, $log, $state) {
 		});
 	}
 
-	$('#emailId').focus();
+	$('#email').focus();
 
 }

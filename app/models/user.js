@@ -23,14 +23,18 @@ let schema = new Schema({
 		type: String,
 		required: true
 	},
-	doj: {
-		type: Date,
-		default: Date.now
-	},
 	profile_url: {
 		type: String
 	},
-	last_seen: {
+	is_admin: {
+		type: Boolean,
+		default: false
+	},
+	created_at: {
+		type: Date,
+		default: Date.now
+	},
+	updated_at: {
 		type: Date,
 		default: Date.now
 	}

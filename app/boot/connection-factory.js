@@ -9,6 +9,7 @@ let mongoose = require('mongoose');
 let db = mongoose;
 
 class ConnectionFactory {
+
 	static connect(config) {
 		db.connect(config.mongdbUrl);
 		return new Promise((resolve, reject)=> {
@@ -20,6 +21,7 @@ class ConnectionFactory {
 		});
 
 	}
+
 }
 
 module.exports = ConnectionFactory;

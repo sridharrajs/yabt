@@ -4,7 +4,11 @@ angular
 	.module('myReader')
 	.factory('Auth', Auth);
 
-Auth.$inject = ['SERVER_URL', '$http', '$window'];
+Auth.$inject = [
+	'SERVER_URL',
+	'$http',
+	'$window'
+];
 
 function Auth(SERVER_URL, $http, $window) {
 	let AUTH_TOKEN_KEY = 'authToken';
@@ -14,12 +18,6 @@ function Auth(SERVER_URL, $http, $window) {
 			return $http({
 				method: 'POST',
 				url: `${SERVER_URL}users/login`,
-				data: data
-			});
-		},
-		signup: (data) => {
-			return $http({
-				url: `SERVER_URL${users}`,
 				data: data
 			});
 		},
@@ -36,15 +34,6 @@ function Auth(SERVER_URL, $http, $window) {
 			let base64Url = token.split('.')[1];
 			let base64 = base64Url.replace('-', '+').replace('_', '/');
 			return JSON.parse($window.atob(base64));
-		},
-		isAuthed: () => {
-			let token = this.getToken();
-			if (token) {
-				let params = this.parseJwt(token);
-				return Math.round(new Date().getTime() / 1000) <= params.exp;
-			} else {
-				return false;
-			}
 		}
 	};
 }
