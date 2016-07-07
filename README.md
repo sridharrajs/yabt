@@ -4,7 +4,7 @@ MyReader is an free open source alternative to read it later services like [Pock
 
 Why myReader   
 * It is self hosted  
-* It respects your *privacy* and never shows ads ever  
+* It respects your *[privacy](./PRIVACY.md)* and never shows ads ever  
 * It is simple, fast, and never reloads your page for anything
 
 ## Requirements
