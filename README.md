@@ -1,15 +1,15 @@
 # MyReader
 -------------------------------------------------
-MyReader is an free open source alternative to read it later services like [Pocket](https://getpocket.com/) that gives you, control over your data. 
+MyReader is an free open source alternative to read it later services like [Pocket](https://getpocket.com/)
 
-Why myReader   
-* It is self hosted  
-* It respects your *[privacy](./PRIVACY.md)* and never shows ads ever  
-* It is simple, fast, and never reloads your page for anything
+**Why**      
+* It is a *free*, *open source* and *self hosted* app. It gives you complete control over your data.     
+* Read what you want, without compromising on your *[privacy](./PRIVACY.md)*  
+* No Ads ever. Read what you've saved. No pestering of sponsored content, Best Of, Recommended.      
 
 ## Requirements
-1. `NodeJS v4.4.5` or later
-2. `Mongodb 2.4.10` or later
+1. `NodeJS v4.4.5`
+2. `Mongodb 2.4.10`
 
 ## Installation guide
 1. Install the required dependencies    
