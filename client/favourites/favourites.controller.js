@@ -11,6 +11,6 @@ function controller(init) {
 	let self = this;
 
 	self.pageNo = init.pageNo;
-	self.articles = _.union(self.articles, init.articles);
+	self.articles = _.union([], init.articles);
 
 }

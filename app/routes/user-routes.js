@@ -33,6 +33,11 @@ function login(req, res) {
 	}
 
 	userController.getUserByCredentials(email).then((user)=> {
+		if (!user) {
+			return Promise.reject({
+				msg: 'Invalid user email/password'
+			});
+		}
 		let saltedPwd = user.password;
 		return bcrypt.compare(password, saltedPwd).then(()=> {
 			return Promise.resolve({
@@ -52,7 +57,7 @@ function login(req, res) {
 			});
 		}
 		return res.status(401).send({
-			msg: err.message
+			msg: err.msg
 		});
 	});
 
