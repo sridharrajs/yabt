@@ -1,6 +1,6 @@
-# MyReader
+# YNBT
 -------------------------------------------------
-MyReader is an free open source alternative to read it later services like [Pocket](https://getpocket.com/)
+Ynbt(Yet another bookmarking tool) is an free open source alternative to read it later services like [Pocket](https://getpocket.com/)
 
 **Why**      
 * It is a *free*, *open source* and *self hosted* app. It gives you complete control over your data.     
