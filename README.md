@@ -13,7 +13,7 @@ Ynbt(Yet another bookmarking tool) is an free open source alternative to read it
 
 ## Installation guide
 1. Install all the required dependencies  
-	```npm  install```
+	```npm  install```  
 	```bower install```
 2. Create an admin user, by editing the default email & password in `bin/install.js` and run  
     ```node bin/install.js```
