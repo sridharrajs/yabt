@@ -3,7 +3,7 @@
  */
 
 angular
-	.module('myReader')
+	.module('ynbt')
 	.controller('FavouritesCtrl', controller);
 
 function controller(init) {

@@ -9,31 +9,32 @@ let jwt = require('jwt-simple');
 
 let config = require('../../config');
 
-function decodeForUid(token) {
-	if (_.isEmpty(token)) {
-		return null;
-	}
-	try {
-		return jwt.decode(token, config.secret).userId;
-	} catch (err) {
-		return null;
-	}
-}
-
 function expiresIn(numDays) {
 	let dateObj = new Date();
 	return dateObj.setDate(dateObj.getDate() + numDays);
 }
 
-function generateToken(userId) {
-	let expires = expiresIn(7);
-	return jwt.encode({
-		exp: expires,
-		userId: userId
-	}, config.secret);
+class JWTController {
+
+	static decodeForUid(token) {
+		if (_.isEmpty(token)) {
+			return null;
+		}
+		try {
+			return jwt.decode(token, config.secret).userId;
+		} catch (err) {
+			return null;
+		}
+	}
+
+	static generateToken(userId) {
+		let expires = expiresIn(7);
+		return jwt.encode({
+			exp: expires,
+			userId: userId
+		}, config.secret);
+	}
+
 }
 
-module.exports = {
-	decodeForUid,
-	generateToken
-};
+module.exports = JWTController;

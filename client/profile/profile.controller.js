@@ -3,7 +3,7 @@
  */
 
 angular
-	.module('myReader')
+	.module('ynbt')
 	.controller('ProfileCtrl', ProfileCtrl);
 
 function ProfileCtrl(Me, User, $timeout, $rootScope) {

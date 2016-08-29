@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('myReader')
+	.module('ynbt')
 	.factory('Article', Article);
 
 function Article(SERVER_URL, $http) {

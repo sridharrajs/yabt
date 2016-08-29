@@ -1,12 +1,12 @@
 {
 	"port": 9999,
 	"production": {
-		"mongodb_url": "mongodb://localhost:27017/myreader_v1",
+		"mongodb_url": "mongodb://127.0.0.1:27017/myreader_v1",
 		"secure": false,
 		"crawlerFreq": "*/15 * * * * *"
 	},
 	"local": {
-		"mongodb_url": "mongodb://localhost:27017/myreader_v1",
+		"mongodb_url": "mongodb://127.0.0.1:27017/myreader_v1",
 		"secure": false,
 		"crawlerFreq": "*/15 * * * * *"
 	}

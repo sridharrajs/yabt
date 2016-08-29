@@ -1,10 +1,8 @@
 'use strict';
 
-angular
-	.module('myReader')
-	.controller('HomeCtrl', HomeCtrl);
+angular.module('ynbt').controller('HomeCtrl', HomeCtrl);
 
-function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl, usSpinnerService) {
+function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl) {
 	let self = this;
 
 	self.articles = [];
@@ -21,8 +19,6 @@ function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl, usSpinnerService
 	self.addUrl = addUrl;
 	self.logout = logout;
 	self.resetForm = resetForm;
-
-	usSpinnerService.stop('spinner-1');
 
 	function logout() {
 		Auth.removeToken();

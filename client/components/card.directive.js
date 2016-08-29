@@ -3,7 +3,7 @@
  */
 
 angular
-	.module('myReader')
+	.module('ynbt')
 	.directive('card', directive);
 
 function directive() {

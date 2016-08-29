@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('myReader')
+	.module('ynbt')
 	.controller('AuthCtrl', AuthCtrl);
 
 AuthCtrl.$inject = ['Auth', '$log', '$state'];

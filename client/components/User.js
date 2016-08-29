@@ -5,7 +5,7 @@
 'use strict';
 
 angular
-	.module('myReader')
+	.module('ynbt')
 	.factory('User', User);
 
 function User(SERVER_URL, $http) {

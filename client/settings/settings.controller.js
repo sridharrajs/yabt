@@ -5,7 +5,7 @@
 'use strict';
 
 angular
-	.module('myReader')
+	.module('ynbt')
 	.controller('SettingsCtrl', SettingsCtrl);
 
 function SettingsCtrl(SERVER_URL, $timeout, Upload, Article) {

@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('myReader')
+	.module('ynbt')
 	.service('APIInterceptor', APIInterceptor);
 
 APIInterceptor.$inject = ['$injector', 'SERVER_URL', '$log'];
@@ -14,7 +14,6 @@ function APIInterceptor($injector, SERVER_URL, $log) {
 		let access_token = Auth.getToken();
 		if (access_token) {
 			config.headers.authorization = access_token;
-			config.headers.abc = access_token;
 		}
 		return config;
 	};

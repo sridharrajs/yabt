@@ -10,22 +10,22 @@
 	let selectedEnv = envirorment['local'];
 	let selectedServerURL = selectedEnv.serverURL;
 
-	angular.module('myReader', [
-			'ngFileUpload',
-			'ngMessages',
-			'ui.router',
-			'angular-ladda',
-			'oitozero.ngSweetAlert',
-			'angular-growl',
-			'angularSpinner'
-		], (growlProvider) => {
-			growlProvider.globalTimeToLive({
-				success: 3000,
-				error: 3000,
-				warning: 3000,
-				info: 3000
-			});
-		})
+	angular.module('ynbt', [
+		'ngFileUpload',
+		'ngMessages',
+		'ui.router',
+		'angular-ladda',
+		'oitozero.ngSweetAlert',
+		'angular-growl',
+		'angularSpinner'
+	], (growlProvider) => {
+		growlProvider.globalTimeToLive({
+			success: 3000,
+			error: 3000,
+			warning: 3000,
+			info: 3000
+		});
+	})
 		.config(configuration)
 		.constant({
 			SERVER_URL: selectedServerURL
@@ -48,17 +48,11 @@
 		}).state('home', {
 			url: '/',
 			controller: 'HomeCtrl as homeCtrl',
-			redirectTo: 'home.unreads',
+			//redirectTo: 'home.unreads',
 			templateUrl: HOME_FDLR + 'home.html',
-			resolve: {
-				Me: getMyDetails,
-				add: (usSpinnerService)=> {
-					return new Promise((resolve, reject)=> {
-						usSpinnerService.spin('spinner-1');
-						resolve();
-					});
-				}
-			}
+			// resolve: {
+			// 	Me: getMyDetails
+			// }
 		}).state('home.unreads', {
 			url: 'unreads',
 			controller: 'DashboardCtrl as dashboardCtrl',
@@ -115,9 +109,9 @@
 
 	function getMyDetails(User, Auth) {
 		return User.getMe().then((response)=> {
+			console.log(response.data.data);
 			return response.data.data;
 		}).catch(()=> {
-			console.log('something');
 			Auth.removeToken();
 		});
 	}
@@ -127,7 +121,10 @@
 			let initData = {};
 			initData.pageNo = response.data.data.pageNo;
 			initData.articles = response.data.data.articles;
+			console.log('initData', initData);
 			return initData;
+		}).catch((err)=> {
+			console.log('error', err.stack);
 		});
 	}
 
@@ -173,9 +170,8 @@
 		return Auth.getToken();
 	}
 
-	function initApp($rootScope, Auth, $state, usSpinnerService) {
+	function initApp($rootScope, Auth, $state) {
 		$rootScope.$on('$stateChangeStart', (event, toState) => {
-			//	usSpinnerService.spin('spinner-1');
 			if (toState.name !== 'login') {
 				if (!isAuthenticated(Auth)) {
 					event.preventDefault();

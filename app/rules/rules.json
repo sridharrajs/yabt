@@ -2,6 +2,7 @@
 	"domain": {
 		"twitter.com": "twitter",
 		"joelonsoftware.com": "craftmanship",
+		"codinghorror.com": "craftmanship",
 		"medium.com": "medium",
 		"moz.com": "SEO",
 		"ted.com":"ted",
@@ -14,7 +15,6 @@
 		"slashdot.org": "slashdot",
 		"stackoverflow.com": "stackoverflow",
 		"mashable.com": "mashable",
-		"codinghorror.com": "craftmanship",
 		"ycombinator.com": "HackerNews"
 	}
 }

@@ -5,36 +5,10 @@
 'use strict';
 
 let fs = require('fs');
-let _ = require('lodash');
-
-const ENVS = [
-	'production',
-	'local'
-];
 
 const CONFIGURATIONS = JSON.parse(fs.readFileSync('./configuration.json', 'utf-8'));
 
 class Config {
-
-	static isValidEnv(HOST_ENV) {
-		return new Promise((resolve, reject)=> {
-			if (_.includes(ENVS, HOST_ENV)) {
-				resolve('Success');
-			} else {
-				reject('Failed');
-			}
-		});
-	}
-
-	static isSecretSet(MY_SECRET) {
-		return new Promise((resolve, reject)=> {
-			if (MY_SECRET) {
-				resolve('Success');
-			} else {
-				reject('Failed');
-			}
-		});
-	}
 
 	static init(HOST_ENVIRONMENT) {
 		this.secret = process.env.MY_SECRET;

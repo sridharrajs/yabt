@@ -7,6 +7,7 @@
 let chalk = require('chalk');
 
 let config = require('../config');
+let bootUtils = require('../app/utils/boot-utils');
 let models = require('../app/models');
 
 const HOST_ENVIRONMENT = process.env.NODE_ENV;
@@ -15,9 +16,9 @@ const MY_SECRET = process.env.MY_SECRET;
 class Sequence {
 
 	static load() {
-		return config.isValidEnv(HOST_ENVIRONMENT).then((info)=> {
+		return bootUtils.isValidEnv(HOST_ENVIRONMENT).then((info)=> {
 			console.log('Checking Environment ', chalk.blue(info));
-			return config.isSecretSet(MY_SECRET);
+			return bootUtils.isSecretSet(MY_SECRET);
 		}).then((info)=> {
 			console.log('Checking tokens ', chalk.blue(info));
 			return config.init(HOST_ENVIRONMENT);

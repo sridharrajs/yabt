@@ -4,21 +4,21 @@
 
 'use strict';
 
-let async = require('async');
-
 let pageUtil = require('../utils/page-utils');
 let networkUtils = require('../utils/network-utils');
 
-function fetchPage(rawURL) {
-	return networkUtils.makeGET(rawURL).then((body)=> {
-		return pageUtil.parse(body);
-	}).then((article)=> {
-		return Promise.resolve(article);
-	}).catch((err) => {
-		return Promise.reject(err);
-	});
+class PageController {
+
+	static fetchPage(rawURL) {
+		return networkUtils.makeGET(rawURL).then((body)=> {
+			return pageUtil.parse(body);
+		}).then((article)=> {
+			return Promise.resolve(article);
+		}).catch((err) => {
+			return Promise.reject(err);
+		});
+	}
+
 }
 
-module.exports = {
-	fetchPage
-};
+module.exports = PageController;

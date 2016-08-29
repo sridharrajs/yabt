@@ -19,7 +19,6 @@ class ConnectionFactory {
 				reject(err);
 			});
 		});
-
 	}
 
 }

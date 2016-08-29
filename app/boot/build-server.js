@@ -9,6 +9,7 @@ let http = require('http');
 let app = require('../application');
 
 class Server {
+
 	static start(config) {
 		let server = http.createServer(app);
 		return new Promise((resolve, reject)=> {
@@ -19,6 +20,7 @@ class Server {
 			});
 		});
 	}
+
 }
 
 module.exports = Server;

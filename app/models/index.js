@@ -6,15 +6,17 @@
 
 let requireDir = require('require-dir');
 
-function init() {
-	try {
-		requireDir('./');
-		return Promise.resolve('Success');
-	} catch (ex) {
-		return Promise.reject('Failed');
+class Models {
+
+	static init() {
+		try {
+			requireDir('./');
+			return Promise.resolve('Success');
+		} catch (ex) {
+			return Promise.reject('Failed');
+		}
 	}
+
 }
 
-module.exports = {
-	init
-};
+module.exports = Models;
