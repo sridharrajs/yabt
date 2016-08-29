@@ -12,14 +12,15 @@ Ynbt(Yet another bookmarking tool) is an free open source alternative to read it
 2. `Mongodb 2.4.10`
 
 ## Installation guide
-1. Install the required dependencies    
-```npm & bower install```
-2. Build the client package  
-```gulp install```
-3. Update admin user email & password in `bin/install.js`  
-```node bin/install.js```
+1. Install all the required dependencies  
+	```npm  install```
+	```bower install```
+2. Create an admin user, by editing the default email & password in `bin/install.js` and run  
+    ```node bin/install.js```
+3. Build the html-css-js client package for the browser consumption  
+	```gulp install```
 4. Start the server  
-```npm start```
+	```npm start```
  
 ## Developer Installation  
 Running a local instances involves two phase.
@@ -31,7 +32,7 @@ This will watch the `client/` folder for changes and will transpile them into `d
 
 2. **Starting the API server**  
 Start the stateless API server  
-```npm start```
+```npm run dev```
 
 
 ## License

@@ -1,14 +1,15 @@
 {
-	"name": "myReader",
+	"name": "ynbt",
 	"version": "1.0.0",
-	"description": "MyReader is an free open source alternative to read it later services like Pocket that gives you, complete control over your data. ",
+	"description": "ynbt is an free open source alternative to read it later services like Pocket that gives you, complete control over your data. ",
 	"main": "server.js",
 	"scripts": {
-		"start": "node-inspector & nodemon --debug server.js"
+		"start": "pm2 start server.js",
+		"dev": "node-inspector & nodemon --debug server.js"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/sridharrajs/myReader.git"
+		"url": "git+https://github.com/sridharrajs/ynbt.git"
 	},
 	"engines": {
 		"npm": ">3.0",
@@ -17,9 +18,9 @@
 	"author": "sridhar <me@sridhar.co>",
 	"license": "GPL-2.0",
 	"bugs": {
-		"url": "https://github.com/sridharrajs/nodejs-web-boilerplate/issues"
+		"url": "https://github.com/sridharrajs/ynbt/issues"
 	},
-	"homepage": "https://github.com/sridharrajs/nodejs-web-boilerplate#readme",
+	"homepage": "https://github.com/sridharrajs/ynbt#readme",
 	"devDependencies": {
 		"babel-cli": "^6.5.1",
 		"babel-preset-es2015": "^6.5.0",
@@ -34,6 +35,8 @@
 		"install": "^0.4.2",
 		"jshint": "^2.9.1",
 		"mocha": "^2.3.4",
+		"node-inspector": "^0.12.8",
+		"nodemon": "^1.10.2",
 		"npm": "^3.7.1",
 		"run-sequence": "^1.1.5",
 		"should": "^8.0.2"
@@ -57,11 +60,13 @@
 		"jwt-simple": "^0.4.0",
 		"lodash": "^3.10.1",
 		"long-url": "^1.0.2",
+		"minimatch": "^3.0.3",
 		"moment": "^2.11.0",
 		"mongoose": "^4.3.4",
 		"multer": "^1.1.0",
 		"nodejs-gravatar": "^1.0.2",
 		"path": "^0.12.7",
+		"pm2": "^1.1.3",
 		"qs": "^6.0.1",
 		"realurl": "^0.1.3",
 		"request": "^2.69.0",
