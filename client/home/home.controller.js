@@ -3,6 +3,7 @@
 angular.module('ynbt').controller('HomeCtrl', HomeCtrl);
 
 function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl) {
+	console.log(6)
 	let self = this;
 
 	self.articles = [];

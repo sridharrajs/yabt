@@ -48,11 +48,11 @@
 		}).state('home', {
 			url: '/',
 			controller: 'HomeCtrl as homeCtrl',
-			//redirectTo: 'home.unreads',
+			redirectTo: 'home.unreads',
 			templateUrl: HOME_FDLR + 'home.html',
-			// resolve: {
-			// 	Me: getMyDetails
-			// }
+			resolve: {
+				Me: getMyDetails
+			}
 		}).state('home.unreads', {
 			url: 'unreads',
 			controller: 'DashboardCtrl as dashboardCtrl',
