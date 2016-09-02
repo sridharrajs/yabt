@@ -1,0 +1,11 @@
+{
+	"apps": [
+		{
+			"name": "ynbt-app",
+			"script": "./server.js",
+			"watch": false,
+			"max_restarts": 10,
+			"max_memory_restart": "300M"
+		}
+	]
+}

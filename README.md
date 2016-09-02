@@ -1,6 +1,6 @@
 # YNBT
 -------------------------------------------------
-Ynbt(Yet another bookmarking tool) is an free open source alternative to read it later services like [Pocket](https://getpocket.com/)
+YNBT(Yet another bookmarking tool) is an free open source alternative to read it later services like [Pocket](https://getpocket.com/)
 
 **Why**      
 * It is a *free*, *open source* and *self hosted* app. It gives you complete control over your data.     
@@ -18,6 +18,9 @@ Ynbt(Yet another bookmarking tool) is an free open source alternative to read it
 	```bower install```
 3. Create an admin user, by editing the default email & password in `bin/install.js` and run  
     ```node bin/install.js```
+    Once it runs, you will see `Admin created` in green text  
+    
+    ![success message](https://github.com/sridharrajs/ynbt/blob/master/imgs/installation-complete.png)
 4. Build the html-css-js client package for the browser consumption  
 	```gulp install```
 5. Start the server  
