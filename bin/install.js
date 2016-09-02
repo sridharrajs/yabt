@@ -21,7 +21,7 @@ bootSequence.load().then(()=> {
 		password: hashedPassword
 	});
 }).then(()=> {
-	console.log(chalk.blue('Admin created'));
+	console.log(chalk.green('Admin created'));
 	process.exit(0);
 }).catch((err) => {
 	console.log('Installation failed', chalk.red(err));

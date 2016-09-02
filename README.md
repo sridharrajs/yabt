@@ -23,7 +23,7 @@ Ynbt(Yet another bookmarking tool) is an free open source alternative to read it
 5. Start the server  
 	```npm start```
 	
-If you're developer check [installation wiki](https://github.com/sridharrajs/ynbt/wiki/How-to-set-your-local-environment-for-development) for the details on how to set your local environment for development
+If you're a developer, check the [installation wiki](https://github.com/sridharrajs/ynbt/wiki/How-to-set-your-local-environment-for-development) for the details on how to set your local environment for the development
 
 ## License
 
