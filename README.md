@@ -12,29 +12,19 @@ Ynbt(Yet another bookmarking tool) is an free open source alternative to read it
 2. `Mongodb 2.4.10`
 
 ## Installation guide
-1. Install all the required dependencies  
+1. Set the environment variables using [this guide](https://github.com/sridharrajs/ynbt/wiki/How-to-setup-environment-variables)
+2. Install all the required dependencies  
 	```npm  install```  
 	```bower install```
-2. Create an admin user, by editing the default email & password in `bin/install.js` and run  
+3. Create an admin user, by editing the default email & password in `bin/install.js` and run  
     ```node bin/install.js```
-3. Build the html-css-js client package for the browser consumption  
+4. Build the html-css-js client package for the browser consumption  
 	```gulp install```
-4. Start the server  
+5. Start the server  
 	```npm start```
- 
-## Developer Installation  
-Running a local instances involves two phase.
-
-1. **Building the client**  
-The entire client side is written using ES6, we need to transcompile it to ES5 for the browsers that don't support ES6 yet.  
-``` gulp stream```  
-This will watch the `client/` folder for changes and will transpile them into `dist/` as it happens.
-
-2. **Starting the API server**  
-Start the stateless API server  
-```npm run dev```
-
+	
+If you're developer check [installation wiki](https://github.com/sridharrajs/ynbt/wiki/How-to-set-your-local-environment-for-development) for the details on how to set your local environment for development
 
 ## License
 
-ynbt is a free software released under [GPL V2](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+YNBT is a free software released under [GPL V2](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
