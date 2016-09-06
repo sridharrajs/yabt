@@ -4,31 +4,17 @@
 
 'use strict';
 
-let _ = require('lodash');
-let url = require('url');
-let realurl = require('realurl');
+let responseUtils = require('./response-utils');
 
 let request = require('request').defaults({
 	maxRedirects: 20
 });
 
-const QUERY_URLS = [
-	'youtube.com',
-	'news.ycombinator.com'
-];
-
 const USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64; rv:46.0) Gecko/20100101 Firefox/46.0';
-
-const SUCCESS_CODES = [
-	200,
-	201,
-	301,
-	302
-];
 
 function makeGET(rawURL) {
 	let options = {
-		url: santizeURL(rawURL),
+		url: rawURL,
 		rejectUnauthorized: false,
 		headers: {
 			'User-Agent': USER_AGENT
@@ -36,14 +22,14 @@ function makeGET(rawURL) {
 		followAllRedirects: true
 	};
 
-	return new Promise((resolve, reject) => {
+	return new Promise((resolve, reject)=> {
 		request(options, (err, response, body)=> {
 			if (err) {
 				return reject(err.stack);
 			}
 
-			if (!_.contains(SUCCESS_CODES, response.statusCode)) {
-				return reject(response.statusCode);
+			if (responseUtils.isFailure(response)) {
+				return reject(err.stack);
 			}
 			return resolve(body);
 		});
@@ -51,30 +37,7 @@ function makeGET(rawURL) {
 
 }
 
-//https://www.youtube.com/watch?v=yVpbFMhOAwE
-//https://news.ycombinator.com/item?id=11467176
-function santizeURL(rawURL) {
-	_.each(QUERY_URLS, (queryURL) => {
-		if (_.includes(rawURL, queryURL)) {
-			return Promise.resolve(rawURL);
-		}
-	});
-
-	return new Promise((resolve, reject) => {
-		realurl.get(rawURL, (error, result) => {
-			if (err) {
-				return reject(error);
-			}
-			resolve(_.first(result.split('?')));
-		});
-	});
-}
-
-function getHostName(rawURL) {
-	return url.parse(rawURL).hostname;
-}
 
 module.exports = {
-	makeGET,
-	getHostName
+	makeGET
 };

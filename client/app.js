@@ -11,21 +11,21 @@
 	let selectedServerURL = selectedEnv.serverURL;
 
 	angular.module('ynbt', [
-		'ngFileUpload',
-		'ngMessages',
-		'ui.router',
-		'angular-ladda',
-		'oitozero.ngSweetAlert',
-		'angular-growl',
-		'angularSpinner'
-	], (growlProvider) => {
-		growlProvider.globalTimeToLive({
-			success: 3000,
-			error: 3000,
-			warning: 3000,
-			info: 3000
-		});
-	})
+			'ngFileUpload',
+			'ngMessages',
+			'ui.router',
+			'angular-ladda',
+			'oitozero.ngSweetAlert',
+			'angular-growl',
+			'angularSpinner'
+		], (growlProvider) => {
+			growlProvider.globalTimeToLive({
+				success: 3000,
+				error: 3000,
+				warning: 3000,
+				info: 3000
+			});
+		})
 		.config(configuration)
 		.constant({
 			SERVER_URL: selectedServerURL
@@ -110,7 +110,7 @@
 	function getMyDetails(User, Auth) {
 		return User.getMe().then((response)=> {
 			console.log(response.data.data);
-			return response.data.data;
+			return response.data.data.me;
 		}).catch(()=> {
 			Auth.removeToken();
 		});

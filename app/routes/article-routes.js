@@ -18,7 +18,11 @@ function addArticle(req, res) {
 	let userId = req.uid;
 	let body = qs.parse(req.body);
 	let url = body.url;
-	let notes = body.notes;
+	let notes = '';
+
+	if (!body.notes) {
+		notes = body.notes;
+	}
 
 	if (!url) {
 		return res.status(400).send({

@@ -4,15 +4,22 @@
 
 'use strict';
 
+let urlUtils = require('../utils/url-utils');
 let pageUtil = require('../utils/page-utils');
 let networkUtils = require('../utils/network-utils');
 
 class PageController {
 
 	static fetchPage(rawURL) {
-		return networkUtils.makeGET(rawURL).then((body)=> {
-			return pageUtil.parse(body);
+		let url = '';
+		return urlUtils.sanitizeWithPromise(rawURL).then((readableURL)=> {
+			url = readableURL;
+			return networkUtils.makeGET(readableURL);
+		}).then((html)=> {
+			return pageUtil.parse(html);
 		}).then((article)=> {
+			article.url = url;
+			article.host = urlUtils.getHostName(url);
 			return Promise.resolve(article);
 		}).catch((err) => {
 			return Promise.reject(err);

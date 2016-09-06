@@ -24,18 +24,13 @@ function getTitle($) {
 
 function getDescription($) {
 	let description = '';
-	let meta = $('meta[name=\'description\']');
+	let meta = $('meta[name=\'description\']') || $('meta[name=\'Description\']');
 	if (!_.isEmpty(meta)) {
 		meta = meta[0];
-		description = meta.attribs.content;
-	}
-	if (!description) {
-		meta = $('meta[name=\'Description\']');
-		if (!_.isEmpty(meta)) {
-			meta = meta[0];
+		if (!_.isEmpty(meta.attribs)) {
+			description = meta.attribs.content;
 		}
 	}
-	description = meta.attribs.content;
 	return description;
 }
 
