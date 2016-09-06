@@ -2,7 +2,7 @@
 
 angular.module('ynbt').controller('HomeCtrl', HomeCtrl);
 
-function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl) {
+function HomeCtrl(Auth, $state, userInfo, $rootScope, Article, growl) {
 	let self = this;
 
 	self.articles = [];
@@ -11,10 +11,10 @@ function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl) {
 	self.searchKeyword = '';
 	self.isUnreadTab = false;
 
-	self.articlesCount = Me.articlesCount;
-	self.emailId = Me.emailId;
-	self.profile_url = Me.profile_url;
-	self.username = Me.username;
+	self.articlesCount = userInfo.articlesCount;
+	self.emailId = userInfo.me.email;
+	self.profile_url = userInfo.me.profile_url;
+	self.username = userInfo.me.user_name;
 
 	self.addUrl = addUrl;
 	self.logout = logout;
@@ -79,9 +79,7 @@ function HomeCtrl(Auth, $state, Me, $rootScope, Article, growl) {
 			growl.success(response.data.msg);
 			resetForm();
 			self.loading = false;
-			if (response.data.data.countIncremented) {
-				$rootScope.$broadcast('addArticle');
-			}
+			$rootScope.$broadcast('addArticle');
 		}).catch((response) => {
 			self.alertMsg = response.data.msg;
 			growl.error(`Failed! - ${self.alertMsg}`);

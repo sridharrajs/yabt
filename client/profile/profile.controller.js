@@ -6,7 +6,7 @@ angular
 	.module('ynbt')
 	.controller('ProfileCtrl', ProfileCtrl);
 
-function ProfileCtrl(Me, User, $timeout, $rootScope) {
+function ProfileCtrl(userInfo, User, $timeout, $rootScope) {
 
 	let self = this;
 
@@ -14,20 +14,20 @@ function ProfileCtrl(Me, User, $timeout, $rootScope) {
 	self.alertClass = '';
 	self.newPassword = '';
 
-	self.username = Me.username;
+	self.username = userInfo.me.user_name;
 
 	self.reset = reset;
 	self.update = update;
 
 	function reset() {
-		self.username = Me.username;
+		self.username = userInfo.me.user_name;
 		self.newPassword = '';
 	}
 
 	function update() {
 		self.loading = true;
 		let user = {
-			username: self.username,
+			username: self.user_name,
 			newPassword: self.newPassword
 		};
 

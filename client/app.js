@@ -51,7 +51,7 @@
 			redirectTo: 'home.unreads',
 			templateUrl: HOME_FDLR + 'home.html',
 			resolve: {
-				Me: getMyDetails
+				userInfo: getMyDetails
 			}
 		}).state('home.unreads', {
 			url: 'unreads',
@@ -65,7 +65,7 @@
 			controller: 'ProfileCtrl as profileCtrl',
 			templateUrl: PROFILE_FDLR + 'profile.html',
 			resolve: {
-				Me: getMyDetails,
+				userInfo: getMyDetails,
 				User: User
 			}
 		}).state('home.settings', {
@@ -110,7 +110,7 @@
 	function getMyDetails(User, Auth) {
 		return User.getMe().then((response)=> {
 			console.log(response.data.data);
-			return response.data.data.me;
+			return response.data.data;
 		}).catch(()=> {
 			Auth.removeToken();
 		});

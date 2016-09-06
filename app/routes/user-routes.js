@@ -106,7 +106,8 @@ function getMe(req, res) {
 		let user = results[1];
 		res.status(200).send({
 			data: {
-				me: user
+				me: user,
+				articlesCount: results[0]
 			}
 		});
 	}).catch((err) => {

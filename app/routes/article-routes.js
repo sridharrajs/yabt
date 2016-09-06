@@ -55,12 +55,8 @@ function getArticles(req, res) {
 		active: true
 	};
 
-	let archive = req.query.archive;
-	if (!_.isUndefined(archive) && archive === 'true') {
-		item.is_archived = true;
-	} else {
-		item.is_archived = false;
-	}
+	let archive = req.query.fetchArchive;
+	item.is_archived = !_.isUndefined(archive) && archive === 'true';
 
 	let type = req.query.type;
 	if (!_.isUndefined(type)) {
@@ -69,7 +65,7 @@ function getArticles(req, res) {
 		}
 	}
 
-	let isFavourited = req.query.favourites;
+	let isFavourited = req.query.fetchFavourites;
 	if (!_.isUndefined(isFavourited) && isFavourited === 'true') {
 		item.is_fav = true;
 		delete item.is_archived;
@@ -135,12 +131,7 @@ function updateArticle(req, res) {
 		article.attributes.is_archived = archive;
 	}
 
-	articleController.updateAttributes(article, (err, items) => {
-		if (err) {
-			return res.status(500).send({
-				msg: err
-			});
-		}
+	articleController.updateAttributes(article).then((items)=> {
 		let msg = 'Success!';
 		if (_.isEmpty(items)) {
 			msg = 'Nothing was changed';
@@ -148,8 +139,12 @@ function updateArticle(req, res) {
 		res.status(200).send({
 			msg: msg
 		});
+	}).catch((err) => {
+		console.log('err', err.stack);
+		return res.status(500).send({
+			msg: err
+		});
 	});
-
 }
 
 app.post('/', addArticle)

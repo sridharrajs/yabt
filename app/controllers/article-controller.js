@@ -17,7 +17,8 @@ class ArticleController {
 			title: article.title,
 			description: article.description,
 			host: article.host,
-			notes: article.notes
+			notes: article.notes,
+			is_video: article.isVideo
 		});
 		return item.save().catch((err) => {
 			if (err.code === 11000) {
@@ -55,9 +56,9 @@ class ArticleController {
 		}).exec();
 	}
 
-	static getActiveCount(item) {
-		return Article.find({
-			userId: item.userId,
+	static getActiveCount(userId) {
+		return Article.count({
+			userId: userId,
 			active: true,
 			is_archived: false
 		}).exec();

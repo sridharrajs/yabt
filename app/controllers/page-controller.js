@@ -19,7 +19,9 @@ class PageController {
 			return pageUtil.parse(html);
 		}).then((article)=> {
 			article.url = url;
-			article.host = urlUtils.getHostName(url);
+			let host = urlUtils.getHostName(url);
+			article.host = host;
+			article.isVideo = urlUtils.isVideo(host);
 			return Promise.resolve(article);
 		}).catch((err) => {
 			return Promise.reject(err);

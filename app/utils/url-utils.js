@@ -8,21 +8,25 @@ let _ = require('lodash');
 let url = require('url');
 let realurl = require('realurl');
 
-const QUERY_URLS = [
+const QUERY_URL_DOMAINS = [
 	'youtube.com',
 	'news.ycombinator.com'
 ];
 
+const VIDEO_DOMAINS = [
+	'youtube.com',
+	'www.youtube.com',
+	'ted.com'
+];
+
 class UrlUtils {
 
-	//https://www.youtube.com/watch?v=yVpbFMhOAwE
-	//https://news.ycombinator.com/item?id=11467176
 	static sanitizeWithPromise(rawURL) {
-		_.each(QUERY_URLS, (queryURL) => {
-			if (_.includes(rawURL, queryURL)) {
+		for (let domains of QUERY_URL_DOMAINS) {
+			if (_.includes(rawURL, domains)) {
 				return Promise.resolve(rawURL);
 			}
-		});
+		}
 
 		return new Promise((resolve, reject) => {
 			realurl.get(rawURL, (error, result) => {
@@ -38,6 +42,9 @@ class UrlUtils {
 		return url.parse(rawURL).hostname;
 	}
 
+	static isVideo(host) {
+		return _.includes(VIDEO_DOMAINS, host);
+	}
 
 }
 
