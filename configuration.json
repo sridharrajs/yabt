@@ -1,5 +1,5 @@
 {
-	"port": 9999,
+	"port": 7000,
 	"production": {
 		"mongodb_url": "mongodb://127.0.0.1:27017/ynbt_v1",
 		"secure": false,

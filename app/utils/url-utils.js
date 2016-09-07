@@ -16,7 +16,9 @@ const QUERY_URL_DOMAINS = [
 const VIDEO_DOMAINS = [
 	'youtube.com',
 	'www.youtube.com',
-	'ted.com'
+        'ted.com',
+    'vimeo.com',
+    'www.vimeo.com'
 ];
 
 class UrlUtils {

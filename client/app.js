@@ -3,7 +3,7 @@
 
 	let envirorment = {
 		'local': {
-			serverURL: 'http://localhost:9999/api/'
+			serverURL: 'http://localhost:7000/api/'
 		}
 	};
 
@@ -109,7 +109,6 @@
 
 	function getMyDetails(User, Auth) {
 		return User.getMe().then((response)=> {
-			console.log(response.data.data);
 			return response.data.data;
 		}).catch(()=> {
 			Auth.removeToken();
