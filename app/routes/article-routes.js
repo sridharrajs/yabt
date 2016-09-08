@@ -26,7 +26,7 @@ function addArticle(req, res) {
 
 	if (!url) {
 		return res.status(400).send({
-			msg: 'Invalid url'
+		    msg: 'Invalid url'
 		});
 	}
 
@@ -36,12 +36,19 @@ function addArticle(req, res) {
 		return articleController.add(article);
 	}).then(()=> {
 		return res.status(200).send({
-			msg: 'Success'
+		    msg: 'Success',
+		    isNew:true
 		});
 	}).catch((err) => {
-		return res.status(500).send({
-			msg: err
+	    if (err.code === 11000) {
+		return res.status(200).send({
+		    msg: 'Success',
+		    isNew:false
 		});
+	    }
+	    return res.status(500).send({
+		msg: err
+	    });
 	});
 
 }

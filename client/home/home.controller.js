@@ -76,10 +76,12 @@ function HomeCtrl(Auth, $state, userInfo, $rootScope, Article, growl) {
 			url: self.newUrl,
 			notes: self.notes
 		}).then((response) => {
-			growl.success(response.data.msg);
-			resetForm();
-			self.loading = false;
+		    growl.success(response.data.msg);
+		    resetForm();
+		    self.loading = false;
+		    if(response.data.isNew){
 			$rootScope.$broadcast('addArticle');
+		    }
 		}).catch((response) => {
 			self.alertMsg = response.data.msg;
 			growl.error(`Failed! - ${self.alertMsg}`);

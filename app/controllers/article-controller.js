@@ -20,13 +20,7 @@ class ArticleController {
 			notes: article.notes,
 			is_video: article.isVideo
 		});
-		return item.save().catch((err) => {
-			if (err.code === 11000) {
-				return Promise.resolve({
-					msg: 'Article already saved'
-				});
-			}
-		});
+	    return item.save();
 	}
 
 	static addArticles(articles) {

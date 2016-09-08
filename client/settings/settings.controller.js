@@ -11,7 +11,7 @@ angular
 function SettingsCtrl(SERVER_URL, $timeout, Upload, Article) {
 	let self = this;
 
-	self.pocketFile = SERVER_URL + 'articles/import-pocket';
+	self.pocketFile = SERVER_URL + 'import/pocket';
 	self.alertMsg = '';
 	self.alertClass = '';
 
@@ -23,7 +23,6 @@ function SettingsCtrl(SERVER_URL, $timeout, Upload, Article) {
 
 	self.clearArticles = ()=> {
 		Article.deleteAll().then(()=> {
-
 		});
 	};
 
@@ -46,7 +45,7 @@ function SettingsCtrl(SERVER_URL, $timeout, Upload, Article) {
 				data: {
 					file: file,
 					filename: file.name, // this is needed for Flash polyfill IE8-9,
-					"Content-Type": file.type != '' ? file.type : 'application/octet-stream', // content type of the file (NotEmpty)
+					"Content-Type": file.type != '' ? file.type : 'application/octet-stream' // content type of the file (NotEmpty)
 				}
 			});
 

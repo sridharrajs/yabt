@@ -10,15 +10,16 @@ let realurl = require('realurl');
 
 const QUERY_URL_DOMAINS = [
 	'youtube.com',
-	'news.ycombinator.com'
+	'news.ycombinator.com',
+	'folklore.org'
 ];
 
 const VIDEO_DOMAINS = [
 	'youtube.com',
 	'www.youtube.com',
-        'ted.com',
-    'vimeo.com',
-    'www.vimeo.com'
+	'ted.com',
+	'vimeo.com',
+	'www.vimeo.com'
 ];
 
 class UrlUtils {
