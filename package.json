@@ -1,7 +1,7 @@
 {
-	"name": "ynbt",
+	"name": "yabt",
 	"version": "1.0.0",
-	"description": "ynbt is an free open source alternative to read it later services like Pocket that gives you, complete control over your data. ",
+	"description": "yabt is an free open source alternative to read it later services like Pocket that gives you, complete control over your data. ",
 	"main": "server.js",
 	"scripts": {
 		"start": "pm2 start pm2-config.json",
@@ -9,7 +9,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/sridharrajs/ynbt.git"
+		"url": "git+https://github.com/sridharrajs/yabt.git"
 	},
 	"engines": {
 		"npm": ">3.0",
@@ -18,9 +18,9 @@
 	"author": "sridhar <me@sridhar.co>",
 	"license": "GPL-2.0",
 	"bugs": {
-		"url": "https://github.com/sridharrajs/ynbt/issues"
+		"url": "https://github.com/sridharrajs/yabt/issues"
 	},
-	"homepage": "https://github.com/sridharrajs/ynbt#readme",
+	"homepage": "https://github.com/sridharrajs/yabt#readme",
 	"devDependencies": {
 		"mocha": "^2.3.4",
 		"node-inspector": "^0.12.8",

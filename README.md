@@ -1,6 +1,6 @@
-# YNBT
+# YABT
 -------------------------------------------------
-YNBT(Yet another bookmarking tool) is an free open source alternative to read it later services like [Pocket](https://getpocket.com/)
+YABT(Yet another bookmarking tool) is an free open source alternative to read it later services like [Pocket](https://getpocket.com/)
 
 **Why**      
 * It is a *free*, *open source* and *self hosted* app. It gives you complete control over your data.     
@@ -12,7 +12,7 @@ YNBT(Yet another bookmarking tool) is an free open source alternative to read it
 2. `Mongodb 2.4.10`
 
 ## Installation guide
-1. Set the environment variables using [this guide](https://github.com/sridharrajs/ynbt/wiki/How-to-setup-environment-variables)
+1. Set the environment variables using [this guide](https://github.com/sridharrajs/yabt/wiki/How-to-setup-environment-variables)
 2. Install all the required dependencies  
 	```npm  install```  
 	```bower install```
@@ -20,14 +20,14 @@ YNBT(Yet another bookmarking tool) is an free open source alternative to read it
     ```node bin/install.js```
     Once it runs, you will see `Admin created` in green text  
     
-    ![success message](https://github.com/sridharrajs/ynbt/blob/master/imgs/installation-complete.png)
+    ![success message](https://github.com/sridharrajs/yabt/blob/master/imgs/installation-complete.png)
 4. Build the html-css-js client package for the browser consumption  
 	```gulp install```
 5. Start the server  
 	```npm start```
 	
-If you're a developer, check the [installation wiki](https://github.com/sridharrajs/ynbt/wiki/How-to-set-your-local-environment-for-development) for the details on how to set your local environment for the development
+If you're a developer, check the [installation wiki](https://github.com/sridharrajs/yabt/wiki/How-to-set-your-local-environment-for-development) for the details on how to set your local environment for the development
 
 ## License
 
-YNBT is a free software released under [GPL V2](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+YABT is a free software released under [GPL V2](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)

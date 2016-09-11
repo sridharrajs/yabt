@@ -1,7 +1,7 @@
 {
 	"apps": [
 		{
-			"name": "ynbt-app",
+			"name": "yabt-app",
 			"script": "./server.js",
 			"watch": false,
 			"max_restarts": 10,
