@@ -3,7 +3,7 @@
  */
 
 angular
-	.module('ynbt')
+	.module('yabt')
 	.controller('FavouritesCtrl', controller);
 
 function controller(init) {

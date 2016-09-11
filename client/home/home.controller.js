@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ynbt').controller('HomeCtrl', HomeCtrl);
+angular.module('yabt').controller('HomeCtrl', HomeCtrl);
 
 function HomeCtrl(Auth, $state, userInfo, $rootScope, Article, growl) {
 	let self = this;

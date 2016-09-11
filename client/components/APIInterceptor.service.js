@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('ynbt')
+	.module('yabt')
 	.service('APIInterceptor', APIInterceptor);
 
 APIInterceptor.$inject = ['$injector', 'SERVER_URL', '$log'];

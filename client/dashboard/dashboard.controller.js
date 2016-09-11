@@ -3,7 +3,7 @@
  */
 
 angular
-	.module('ynbt')
+	.module('yabt')
 	.controller('DashboardCtrl', DashboardCtrl);
 
 function DashboardCtrl(init) {

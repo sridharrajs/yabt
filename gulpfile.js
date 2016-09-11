@@ -55,7 +55,7 @@ gulp.task('lints', (callback)=> {
 	runSequence('jshint', 'eslint', 'jscs', callback);
 });
 
-gulp.task('stream', ()=> {
+gulp.task('serve', ()=> {
 	gulp.watch(FILES.CLIENT_FILES, ['compile-js', 'copy-html-css']);
 });
 

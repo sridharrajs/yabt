@@ -10,7 +10,7 @@
 	let selectedEnv = envirorment['local'];
 	let selectedServerURL = selectedEnv.serverURL;
 
-	angular.module('ynbt', [
+	angular.module('yabt', [
 			'ngFileUpload',
 			'ngMessages',
 			'ui.router',

@@ -3,7 +3,7 @@
  */
 
 angular
-	.module('ynbt')
+	.module('yabt')
 	.directive('card', directive);
 
 function directive() {

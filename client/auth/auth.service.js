@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('ynbt')
+	.module('yabt')
 	.factory('Auth', Auth);
 
 Auth.$inject = [

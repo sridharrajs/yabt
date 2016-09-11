@@ -12,6 +12,8 @@ let bootSequence = require('./boot-sequence');
 const EMAIL = 'admin@admin.com';
 const PASSWORD = 'admin';
 
+let userId = '';
+
 bootSequence.load().then(()=> {
 	return bcrypt.hash(PASSWORD);
 }).then((hashedPassword)=> {
@@ -20,6 +22,15 @@ bootSequence.load().then(()=> {
 		email: EMAIL,
 		password: hashedPassword
 	});
+}).then((adminUser)=> {
+	userId = adminUser._id;
+	let config = require('../config');
+	let pageController = require('../app/controllers/page-controller');
+	return pageController.fetchPage(config.defaultArticle);
+}).then((article)=> {
+	let articleController = require('../app/controllers/article-controller');
+	article.userId = userId;
+	return articleController.add(article);
 }).then(()=> {
 	console.log(chalk.green('Admin created'));
 	process.exit(0);

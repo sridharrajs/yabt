@@ -5,7 +5,7 @@
 'use strict';
 
 angular
-	.module('ynbt')
+	.module('yabt')
 	.factory('User', User);
 
 function User(SERVER_URL, $http) {

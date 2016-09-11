@@ -12,10 +12,10 @@ class Config {
 
 	static init(HOST_ENVIRONMENT) {
 		this.secret = process.env.MY_SECRET;
-
-		this.port = CONFIGURATIONS.port;
+		this.defaultArticle = CONFIGURATIONS.default_url;
 
 		let settings = CONFIGURATIONS[HOST_ENVIRONMENT];
+		this.port = settings.port;
 		this.secure = settings.secure;
 		this.mongdbUrl = settings.mongodb_url;
 		this.freq = settings.crawlerFreq;

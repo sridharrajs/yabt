@@ -3,7 +3,7 @@
  */
 
 angular
-	.module('ynbt')
+	.module('yabt')
 	.controller('ProfileCtrl', ProfileCtrl);
 
 function ProfileCtrl(userInfo, User, $timeout, $rootScope) {
