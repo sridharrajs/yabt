@@ -29,7 +29,7 @@ function makeGET(rawURL) {
 			}
 
 			if (responseUtils.isFailure(response)) {
-				return reject(err.stack);
+				return reject(response);
 			}
 			return resolve(body);
 		});
