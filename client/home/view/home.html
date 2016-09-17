@@ -10,19 +10,27 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a href="#" class="navbar-brand">MyReader</a>
+					<a href="#" class="navbar-brand">Yabt</a>
 				</div>
 
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
 					 style="padding-right:2em">
 
-					<div class="navbar-form navbar-left" role="search">
-						<h4>
-							{{homeCtrl.activeTab}}
-						</h4>
-					</div>
-
 					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<form class="navbar-form navbar-left" id="urlForm" name="urlForm" ng-submit="homeCtrl.addUrl()">
+								<div class="form-group">
+									<input class="form-control" id="articleId" name="url" type="url"
+										   ng-model="homeCtrl.newUrl"
+										   required placeholder="Enter a valid URL" autofocus>
+								</div>
+								<button data-spinner-color="#000000" data-style="expand-right" ladda="homeCtrl.loading"
+										type="submit"
+										class="btn-primary add btn btn-default">Add
+								</button>
+
+							</form>
+						</li>
 						<li>
 							<img class="gravatar-img" id="x" src="{{homeCtrl.profile_url}}" alt="">
 						</li>
@@ -44,6 +52,7 @@
 							</ul>
 						</li>
 					</ul>
+
 				</div>
 			</div>
 		</nav>
@@ -54,11 +63,7 @@
 	<div growl limit-messages="1"></div>
 	<div class="col-sm-12 full-height">
 		<div class="col-sm-2 left-panel full-height">
-			<ul class="nav nav-sidebar list-group">
-				<li class="list-group-item" ng-class="{active:homeCtrl.isActiveTab('add')}" ui-sref="home.add"
-					ng-click="homeCtrl.selectTab('add')">
-					Add URL
-				</li>
+			<ul class="nav nav-sidebar list-group side-menu">
 				<li class="list-group-item" ng-class="{active:homeCtrl.isActiveTab('unreads')}"
 					ui-sref="home.unreads" ng-click="homeCtrl.selectTab('unreads')">
 					<span class="badge">{{homeCtrl.articlesCount}}</span>

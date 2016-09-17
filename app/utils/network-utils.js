@@ -29,7 +29,8 @@ function makeGET(rawURL) {
 			}
 
 			if (responseUtils.isFailure(response)) {
-				return reject(response);
+				let statusCode = responseUtils.extractStatusCode(response);
+				return reject(new Error(`Status of the request to the page resulted in ${statusCode}`));
 			}
 			return resolve(body);
 		});

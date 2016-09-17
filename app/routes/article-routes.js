@@ -47,7 +47,7 @@ function addArticle(req, res) {
 			});
 		}
 		return res.status(500).send({
-			msg: err
+			msg: err.message
 		});
 	});
 

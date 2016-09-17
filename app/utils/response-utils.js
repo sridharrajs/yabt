@@ -22,6 +22,13 @@ class ResponseUtils {
 		return !_.contains(SUCCESS_CODES, response.statusCode);
 	}
 
+	static extractStatusCode(response) {
+		if (_.isUndefined(response)) {
+			return 0;
+		}
+		return response.statusCode;
+	}
+
 }
 
 module.exports = ResponseUtils;

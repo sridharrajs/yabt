@@ -1,9 +1,9 @@
 <li id="{{cardCtrl.id}}" class="full-height article list-group-item col-sm-12">
-	<div class="card-title article-text">
+	<div class="card-title">
 		<span>
-				<a target="_blank" rel="noreferrer" href="{{cardCtrl.url}}">
-					<strong>{{cardCtrl.title}}</strong>
-				</a>
+			<a class="col-sm-12 article-title" target="_blank" rel="noreferrer" href="{{cardCtrl.url}}">
+				<strong>{{cardCtrl.title}}</strong>
+			</a>
 		</span>
 	</div>
 	<div class="card-body">
@@ -19,26 +19,25 @@
 	</div>
 
 	<div class="card-footer row">
-		<div class="col-sm-5">
+		<div class="col-sm-12">
 			<a target="_blank" rel="noreferrer" href="{{cardCtrl.url}}">
 				{{cardCtrl.host}}
 			</a>
 		</div>
 
-		<div class="col-sm-7 text-right">
-			<button ng-show="cardCtrl.isUnreadsTab" class="btn default btn-sm" ng-click="cardCtrl.archive()"
-					data-toggle="tooltip" data-placement="bottom" title="Archive">
-				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-			</button>
-			<button class="btn default btn-sm" ng-click="cardCtrl.favourite($index)" data-toggle="tooltip"
-					data-placement="bottom" title="Favourite">
+		<div class="col-sm-12 text-right action-bar">
+			<span class="glyphicon glyphicon-ok" aria-hidden="true" ng-show="cardCtrl.isUnreadsTab"
+				  class="btn default btn-sm" ng-click="cardCtrl.archive()"
+				  data-toggle="tooltip" data-placement="bottom" title="Archive"></span>
+
 			<span class="glyphicon glyphicon-heart {{cardCtrl.favourited}}"
+				  class="btn default btn-sm" ng-click="cardCtrl.favourite($index)" data-toggle="tooltip"
+				  data-placement="bottom" title="Favourite"
 				  aria-hidden="true"></span>
-			</button>
-			<button class="btn btn-danger btn-sm" ng-click="cardCtrl.deleteArticle()" data-toggle="tooltip"
-					data-placement="bottom" title="Delete">
-				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-			</button>
+
+			<span class="glyphicon glyphicon-trash" aria-hidden="true" class="btn btn-danger btn-sm"
+				  ng-click="cardCtrl.deleteArticle()" data-toggle="tooltip"
+				  data-placement="bottom" title="Delete"></span>
 		</div>
 
 	</div>

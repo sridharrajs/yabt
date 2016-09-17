@@ -2,23 +2,22 @@
 	<div class="col-md-12  app-container">
 		<form name="loginForm" class="main form-horizontal" ng-submit="authCtrl.login(loginForm.$valid)">
 			<div class="alert {{authCtrl.alertClass}}">{{authCtrl.alertMsg}}</div>
-				<div class="form-group">
-				<label class="col-xs-3 control-label" for="email">Email</label>
-				<div class="col-xs-9">
-					<input class="form-control" type="email" placeholder="john@example.org" id="email" ng-model="authCtrl.user.email" name="email"
+			<div class="form-group">
+				<div class="col-xs-12">
+					<input class="form-control" type="email" placeholder="john@example.org" id="email"
+						   ng-model="authCtrl.user.email" name="email"
 						   autofocus required/>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-3 control-label" for="password">Password</label>
-				<div class="col-xs-9">
-					<input class="form-control" placeholder="6+ characters password with at least 1 number" ng-model="authCtrl.user.password" name="password" type="password"
+				<div class="col-xs-12">
+					<input class="form-control" placeholder="6+ characters password" ng-model="authCtrl.user.password"
+						   name="password" type="password"
 						   required id="password">
 				</div>
-
 			</div>
 			<div class="form-group">
-				<div class="col-xs-offset-3 col-xs-9">
+				<div class="col-xs-12">
 					<button type="submit"
 							ladda="authCtrl.loading" data-spinner-color="#000000" data-style="expand-right"
 							class="btn btn-primary">Login

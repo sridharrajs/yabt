@@ -120,7 +120,6 @@
 			let initData = {};
 			initData.pageNo = response.data.data.pageNo;
 			initData.articles = response.data.data.articles;
-			console.log('initData', initData);
 			return initData;
 		}).catch((err)=> {
 			console.log('error', err.stack);
