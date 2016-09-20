@@ -117,6 +117,10 @@ a.article-title > strong {
 	cursor: pointer;
 }
 
+.action-bar > span {
+	cursor: pointer;
+}
+
 .form-group label.required:after {
 	content: "*";
 	color: red;
