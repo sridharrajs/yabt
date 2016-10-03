@@ -1,6 +1,6 @@
 # YABT
 -------------------------------------------------
-YABT(Yet another bookmarking tool) is an free open source alternative to read it later services like [Pocket](https://getpocket.com/)
+YABT(Yet another bookmarking tool) is an free open source bookmarking app. Unlike [Pocket](https://getpocket.com/), It won't store page's content.
 
 **Why**      
 * It is a *free*, *open source* and *self hosted* app. It gives you complete control over your data.     

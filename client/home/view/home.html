@@ -63,7 +63,7 @@
 <div class="row full-height">
 	<div growl limit-messages="1"></div>
 	<div class="col-sm-12 full-height">
-		<div class="col-sm-2 left-panel full-height">
+		<div class="col-md-2 hidden-xs left-panel full-height">
 			<ul class="nav nav-sidebar list-group side-menu">
 				<li class="list-group-item" ng-class="{active:homeCtrl.isActiveTab('unreads')}"
 					ui-sref="home.unreads" ng-click="homeCtrl.selectTab('unreads')">
@@ -84,7 +84,7 @@
 				</li>
 			</ul>
 		</div>
-		<div ui-view class="col-sm-10 right-panel">
+		<div ui-view class="col-md-10 col-xs-12 right-panel">
 		</div>
 	</div>
 </div>
