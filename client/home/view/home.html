@@ -18,7 +18,8 @@
 
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<form class="navbar-form navbar-left" id="urlForm" name="urlForm" ng-submit="homeCtrl.addUrl()">
+							<form class="navbar-form navbar-left" id="urlForm" name="urlForm"
+								  ng-submit="homeCtrl.addUrl()">
 								<div class="form-group">
 									<input class="form-control" id="articleId" name="url" type="url"
 										   ng-model="homeCtrl.newUrl"
@@ -80,10 +81,6 @@
 				<li class="list-group-item" ng-class="{active:homeCtrl.isActiveTab('videos')}" ui-sref="home.videos"
 					ng-click="homeCtrl.selectTab('videos')">
 					Videos
-				</li>
-				<li class="list-group-item" ng-class="{active:homeCtrl.isActiveTab('bundle')}" ui-sref="home.bundle"
-					ng-click="homeCtrl.selectTab('bundle')">
-					Bundle
 				</li>
 			</ul>
 		</div>

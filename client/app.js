@@ -36,7 +36,6 @@
 		let AUTH_FDLR = 'auth/view/';
 		let HOME_FDLR = 'home/view/';
 		let ADD_FDLR = 'add/view/';
-		let BUNDLE_FDLR = 'bundle/view/';
 		let SETTINGS_FDLR = 'settings/view/';
 		let DASHBOARD_FDLR = 'dashboard/view/';
 		let PROFILE_FDLR = 'profile/view/';
@@ -98,9 +97,6 @@
 				Me: getMyDetails,
 				init: getVideos
 			}
-		}).state('home.bundle', {
-			url: 'bundle',
-			templateUrl: BUNDLE_FDLR + 'bundle.html'
 		});
 
 		$urlRouterProvider.otherwise('/');
