@@ -29,7 +29,7 @@ function HomeCtrl(Auth, $state, userInfo, $rootScope, Article, growl) {
 		self.username = body.username;
 	});
 
-	$rootScope.$on('logout', (event)=> {
+	$rootScope.$on('logout', ()=> {
 		logout();
 	});
 
@@ -76,12 +76,14 @@ function HomeCtrl(Auth, $state, userInfo, $rootScope, Article, growl) {
 			url: self.newUrl,
 			notes: self.notes
 		}).then((response) => {
-		    growl.success(response.data.msg);
-		    resetForm();
-		    self.loading = false;
-		    if(response.data.isNew){
-			$rootScope.$broadcast('addArticle');
-		    }
+			growl.success(response.data.msg);
+			resetForm();
+			self.loading = false;
+			console.log('response', response.data);
+			if (response.data.isNew) {
+				$rootScope.$broadcast('addArticle');
+				$rootScope.$broadcast('append-new-article', response.data.article);
+			}
 		}).catch((response) => {
 			self.alertMsg = response.data.msg;
 			growl.error(`Failed! - ${self.alertMsg}`);

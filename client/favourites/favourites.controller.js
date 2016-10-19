@@ -2,8 +2,7 @@
  * Created by sridharrajs.
  */
 
-angular
-	.module('yabt')
+angular.module('yabt')
 	.controller('FavouritesCtrl', controller);
 
 function controller(init) {

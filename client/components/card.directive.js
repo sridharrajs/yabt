@@ -95,8 +95,6 @@ function CardController(Article, SweetAlert, growl, $rootScope, $state) {
 		}).then(()=> {
 			self.is_fav = newStatus;
 			self.favourited = getFavourites(newStatus);
-		}).catch((response)=> {
-
 		});
 	}
 

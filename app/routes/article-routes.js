@@ -34,10 +34,11 @@ function addArticle(req, res) {
 		article.userId = userId;
 		article.notes = notes;
 		return articleController.add(article);
-	}).then(()=> {
+	}).then((newArticle)=> {
 		return res.status(200).send({
 			msg: 'Success',
-			isNew: true
+			isNew: true,
+			article: newArticle
 		});
 	}).catch((err) => {
 		if (err.code === 11000) {
