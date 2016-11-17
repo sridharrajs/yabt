@@ -13,14 +13,6 @@ let batchController = require('../controllers/batch-controller');
 let pageController = require('../controllers/page-controller');
 let articleController = require('../controllers/article-controller');
 
-function run() {
-	batchController.getRawArticles().then((batches)=> {
-		processSites(batches);
-	}).catch((err) => {
-		console.log('Bulk processing failed', err.stack);
-	});
-}
-
 function processSites(batches) {
 	async.mapLimit(batches, 5, (batch, callback) => {
 		pageController.fetchPage(batch.url).then((article)=> {
@@ -36,6 +28,15 @@ function processSites(batches) {
 		articleController.addArticles(articles);
 	});
 }
+
+function run() {
+	batchController.getRawArticles().then((batches)=> {
+		processSites(batches);
+	}).catch((err) => {
+		console.log('Bulk processing failed', err.stack);
+	});
+}
+
 
 try {
 	new CronJob(config.freq, () => {

@@ -5,9 +5,7 @@
 'use strict';
 
 let _ = require('lodash');
-let jwt = require('jwt-simple');
 
-let config = require('../../config');
 let jwtController = require('../controllers/jwt-controller');
 
 const NON_AUTH_URLS = [
@@ -21,10 +19,6 @@ function isNonAuthEndPointAccessURL(url) {
 }
 
 function authenticate(req, res, next) {
-	if (req.method === 'OPTIONS') {
-		return res.status(200);
-	}
-
 	let token = req.headers.authorization;
 	let isNonAuthURL = isNonAuthEndPointAccessURL(req.url);
 

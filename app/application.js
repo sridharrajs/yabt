@@ -26,7 +26,8 @@ app.use(express.static('./dist'));
 app.set('view engine', 'ejs');
 
 let authFilter = require('./middleware/auth-filter');
-app.all('/api/*', [authFilter]);
+let allowOptions = require('allow-options');
+app.all('/api/*', [allowOptions, authFilter]);
 
 let indexRoutes = require('./routes/index-routes');
 app.use('/api', indexRoutes);

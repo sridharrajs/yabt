@@ -4,8 +4,9 @@ bower_components/
 
 npm-debug.log
 
-# WebStorm meta folder
+# meta folder
 .idea/
+.tern-port
 
 #distribution
 dist/
