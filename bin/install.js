@@ -15,26 +15,26 @@ const PASSWORD = 'admin';
 let userId = '';
 
 bootSequence.load().then(()=> {
-	return bcrypt.hash(PASSWORD);
+    return bcrypt.hash(PASSWORD);
 }).then((hashedPassword)=> {
-	let userController = require('../app/controllers/user-controller');
-	return userController.createAdmin({
-		email: EMAIL,
-		password: hashedPassword
-	});
+    let userController = require('../app/controllers/user-controller');
+    return userController.createAdmin({
+	email: EMAIL,
+	password: hashedPassword
+    });
 }).then((adminUser)=> {
-	userId = adminUser._id;
-	let config = require('../config');
-	let pageController = require('../app/controllers/page-controller');
-	return pageController.fetchPage(config.defaultArticle);
+    userId = adminUser._id;
+    let config = require('../config');
+    let pageController = require('../app/controllers/page-controller');
+    return pageController.fetchPage(config.defaultArticle);
 }).then((article)=> {
-	let articleController = require('../app/controllers/article-controller');
-	article.userId = userId;
-	return articleController.add(article);
+    let articleController = require('../app/controllers/article-controller');
+    article.userId = userId;
+    return articleController.add(article);
 }).then(()=> {
-	console.log(chalk.green('Admin created'));
-	process.exit(0);
+    console.log(chalk.green('Admin created'));
+    process.exit(0);
 }).catch((err) => {
-	console.log('Installation failed', chalk.red(err));
-	process.exit(0);
+    console.log('Installation failed', chalk.red(err));
+    process.exit(0);
 });

@@ -156,7 +156,12 @@ let lastLoginUpdater = require('../middleware/last-login');
 app.put('/me', [lastLoginUpdater], updateMe)
     .get('/me', [lastLoginUpdater], getMe);
 
+const allowOptions =  require('allow-options');
+
 app.post('/invite', invite);
 app.post('/login', login);
 
-module.exports = app;
+
+module.exports = (indexRoute)=>{
+    indexRoute.use('/api/users', [allowOptions], app);
+};

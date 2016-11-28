@@ -50,7 +50,6 @@ function addArticle(req, res) {
 	    msg: err.message
 	});
     });
-
 }
 
 function getArticles(req, res) {
@@ -162,4 +161,20 @@ app.put('/:articleId', updateArticle);
 app.delete('/:articleId', deleteArticle);
 app.delete('/', deleteAll);
 
-module.exports = app;
+const allowOptions = require('allow-options');
+const authFilter =  require('../middleware/auth-filter');
+
+module.exports = (indexRoute)=>{
+    indexRoute.use('/api/articles', [allowOptions, authFilter], app);  
+};
+
+
+
+
+
+
+
+
+
+
+

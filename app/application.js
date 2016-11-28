@@ -25,21 +25,16 @@ app.use(reqHeaderFilter);
 app.use(express.static('./dist'));
 app.set('view engine', 'ejs');
 
-let authFilter = require('./middleware/auth-filter');
-let allowOptions = require('allow-options');
-app.all('/api/*', [allowOptions, authFilter]);
-
 let indexRoutes = require('./routes/index-routes');
 app.use('/api', indexRoutes);
 
-let lastLogin = require('./middleware/last-login');
 let userRoutes = require('./routes/user-routes');
-app.use('/api/users', [lastLogin], userRoutes);
+userRoutes(app);
 
 let articleRoutes = require('./routes/article-routes');
-app.use('/api/articles', articleRoutes);
+articleRoutes(app);
 
 let batchRoutes = require('./routes/batch-routes');
-app.use('/api/import', batchRoutes);
+batchRoutes(app);
 
 module.exports = app;
