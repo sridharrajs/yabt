@@ -14,6 +14,12 @@ const QUERY_URL_DOMAINS = [
 	'folklore.org'
 ];
 
+const URL_SHORTERNS = [
+	'bit.ly',
+	'buff.ly',
+	't.co'
+];
+
 const VIDEO_DOMAINS = [
 	'youtube.com',
 	'www.youtube.com',
@@ -24,20 +30,35 @@ const VIDEO_DOMAINS = [
 
 class UrlUtils {
 
+	static trimQueryParameter(rawURL) {
+		let hostName = this.getHostName(rawURL);
+		let isQueryDomain = _.includes(QUERY_URL_DOMAINS, hostName);
+		if (isQueryDomain) {
+			return rawURL;
+		}
+		if (_.includes(rawURL, 'medium.com/m/global-identity?redirectUrl=')) {
+			return rawURL.split('medium.com/m/global-identity?redirectUrl=')[1];
+		}
+		return _.first(rawURL.split('?'));
+	}
+
 	static sanitizeWithPromise(rawURL) {
-		for (let domains of QUERY_URL_DOMAINS) {
-			if (_.includes(rawURL, domains)) {
-				return Promise.resolve(rawURL);
-			}
+		let hostName = this.getHostName(rawURL);
+
+		let isShortLink = _.includes(URL_SHORTERNS, hostName);
+		if (!isShortLink) {
+			return Promise.resolve(this.trimQueryParameter(rawURL));
 		}
 
 		return new Promise((resolve, reject) => {
-			realurl.get(rawURL, (error, result) => {
+			realurl.get(rawURL, (error, longUrl) => {
 				if (error) {
 					return reject(error);
 				}
-				resolve(_.first(result.split('?')));
+				resolve(longUrl);
 			});
+		}).then((longUrl)=> {
+			return Promise.resolve(this.trimQueryParameter(longUrl));
 		});
 	}
 

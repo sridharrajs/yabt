@@ -15,11 +15,9 @@ function SettingsCtrl(SERVER_URL, $timeout, Upload, Article) {
 	self.alertMsg = '';
 	self.alertClass = '';
 
-	self.importFromTwitter = importFromTwitter;
+	self.importFromTwitter = function importFromTwitter() {
 
-	function importFromTwitter() {
-
-	}
+	};
 
 	self.clearArticles = ()=> {
 		Article.deleteAll().then(()=> {

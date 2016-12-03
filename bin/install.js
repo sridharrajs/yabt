@@ -9,8 +9,8 @@ let chalk = require('chalk');
 
 let bootSequence = require('./boot-sequence');
 
-const EMAIL = 'admin@admin.com';
-const PASSWORD = 'admin';
+const EMAIL = '9@9.com';
+const PASSWORD = '9';
 
 let userId = '';
 

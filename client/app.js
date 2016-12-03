@@ -105,7 +105,7 @@
 
 	function getMyDetails(User, Auth) {
 		return User.getMe().then((response)=> {
-			return response.data.data;
+			return response.data;
 		}).catch(()=> {
 			Auth.removeToken();
 		});
@@ -191,5 +191,7 @@
 		});
 
 	}
+
+
 
 }());
