@@ -25,5 +25,5 @@ function APIInterceptor($injector, SERVER_URL, $log) {
         }
         return res;
     }
-
+    
 }

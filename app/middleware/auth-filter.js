@@ -7,17 +7,17 @@
 let jwtController = require('../controllers/jwt-controller');
 
 function authenticate(req, res, next) {
-	let token = req.headers.authorization;
+    let token = req.headers.authorization;
 
-	let userId = jwtController.decodeForUid(token);
-	if (!userId) {
-		return res.status(401).send({
-			err: 'please login'
-		});
-	}
+    let userId = jwtController.decodeForUid(token);
+    if (!userId) {
+        return res.status(401).send({
+            err: 'please login'
+        });
+    }
 
-	req.uid = userId;
-	next();
+    req.uid = userId;
+    next();
 }
 
 module.exports = authenticate;

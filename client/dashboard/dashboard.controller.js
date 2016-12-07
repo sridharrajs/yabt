@@ -3,16 +3,16 @@
  */
 
 angular
-	.module('yabt')
-	.controller('DashboardCtrl', DashboardCtrl);
+    .module('yabt')
+    .controller('DashboardCtrl', DashboardCtrl);
 
 function DashboardCtrl(init, $rootScope) {
-	let self = this;
+    let self = this;
 
-	({pageNo: self.pageNo} = init);
-	self.articles = _.union([], init.articles);
+    ({pageNo: self.pageNo} = init);
+    self.articles = _.union([], init.articles);
 
-	$rootScope.$on('append-new-article', (event, article)=> {
-		self.articles.unshift(article);
-	});
+    $rootScope.$on('append-new-article', (event, article)=> {
+        self.articles.unshift(article);
+    });
 }

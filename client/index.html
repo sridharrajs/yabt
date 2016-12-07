@@ -1,81 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<title>Yabt</title>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="description" content="">
-	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
-	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
-	<link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="./bower_components/sweetalert/dist/sweetalert.css">
-	<link rel="stylesheet" href="./bower_components/ladda/dist/ladda-themeless.min.css">
+    <head>
+        <title>Yabt</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+        <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="./bower_components/sweetalert/dist/sweetalert.css">
+        <link rel="stylesheet" href="./bower_components/ladda/dist/ladda-themeless.min.css">
 
-	<link rel="stylesheet" href="./bower_components/angular-growl-v2/build/angular-growl.min.css">
+        <link rel="stylesheet" href="./bower_components/angular-growl-v2/build/angular-growl.min.css">
 
-	<link rel="stylesheet" href="assets/app.css"/>
-	<style type="text/css">
-		[ng\:cloak],
-		[ng-cloak],
-		[data-ng-cloak],
-		[x-ng-cloak]
-	</style>
-</head>
-<body ng-app="yabt" ng-cloak>
+        <link rel="stylesheet" href="assets/app.css"/>
+        <style type="text/css">
+            [ng\:cloak],
+            [ng-cloak],
+            [data-ng-cloak],
+            [x-ng-cloak]
+        </style>
+    </head>
+    <body ng-app="yabt" ng-cloak>
 
-<div class="container-fluid full-height" ui-view>
-	<span us-spinner spinner-key="spinner-1"></span>
-</div>
+        <div class="container-fluid full-height" ui-view>
+            <span us-spinner spinner-key="spinner-1"></span>
+        </div>
 
 
-<script src="./bower_components/jquery/dist/jquery.min.js"></script>
-<script src="./bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="./bower_components/jquery/dist/jquery.min.js"></script>
 
-<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="./bower_components/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="./bower_components/sweetalert/dist/sweetalert.min.js"></script>
 
-<script src="./bower_components/lodash/dist/lodash.min.js"></script>
+        <script src="./bower_components/lodash/dist/lodash.min.js"></script>
 
-<script src="./bower_components/angular/angular.js"></script>
-<script src="./bower_components/angular-animate/angular-animate.js"></script>
-<script src="./bower_components/angular-aria/angular-aria.js"></script>
-<script src="./bower_components/angular-messages/angular-messages.js"></script>
-<script src="./bower_components/angular-cookies/angular-cookies.js"></script>
-<script src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-<script src="./bower_components/ngSweetAlert/SweetAlert.min.js"></script>
+        <script src="./bower_components/angular/angular.js"></script>
+        <script src="./bower_components/angular-animate/angular-animate.js"></script>
+        <script src="./bower_components/angular-aria/angular-aria.js"></script>
+        <script src="./bower_components/angular-messages/angular-messages.js"></script>
+        <script src="./bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="./bower_components/ngSweetAlert/SweetAlert.min.js"></script>
 
-<script src="./bower_components/ladda/js/spin.js"></script>
-<script src="./bower_components/ladda/js/ladda.js"></script>
-<script src="./bower_components/angular-ladda/dist/angular-ladda.min.js"></script>
+        <script src="./bower_components/ladda/js/spin.js"></script>
+        <script src="./bower_components/ladda/js/ladda.js"></script>
+        <script src="./bower_components/angular-ladda/dist/angular-ladda.min.js"></script>
 
-<script src="./bower_components/angular-growl-v2/build/angular-growl.min.js"></script>
+        <script src="./bower_components/angular-growl-v2/build/angular-growl.min.js"></script>
 
-<script src="./bower_components/spin.js/spin.js"></script>
-<script src="./bower_components/angular-spinner/angular-spinner.js"></script>
+        <script src="./bower_components/spin.js/spin.js"></script>
+        <script src="./bower_components/angular-spinner/angular-spinner.js"></script>
 
-<script src="./bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
-<script src="./bower_components/ng-file-upload/ng-file-upload.min.js"></script>
-<script src="./bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
+        <script src="./bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+        <script src="./bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+        <script src="./bower_components/ng-file-upload/ng-file-upload-all.min.js"></script>
 
-<script src="env.js"></script>
-<script src="./app.js"></script>
+        <script src="env.js"></script>
+        <script src="./app.js"></script>
 
-<script src="./auth/auth.controller.js"></script>
-<script src="./auth/auth.service.js"></script>
+        <script src="./auth/auth.controller.js"></script>
+        <script src="./auth/auth.service.js"></script>
 
-<script src="./components/APIInterceptor.service.js"></script>
-<script src="./components/User.js"></script>
-<script src="./components/card.directive.js"></script>
+        <script src="./components/APIInterceptor.service.js"></script>
+        <script src="./components/User.js"></script>
+        <script src="./components/card.directive.js"></script>
 
-<script src="./home/home.controller.js"></script>
-<script src="./dashboard/dashboard.controller.js"></script>
-<script src="./settings/settings.controller.js"></script>
-<script src="./profile/profile.controller.js"></script>
-<script src="./favourites/favourites.controller.js"></script>
-<script src="./home/article.service.js"></script>
+        <script src="./home/home.controller.js"></script>
+        <script src="./dashboard/dashboard.controller.js"></script>
+        <script src="./settings/settings.controller.js"></script>
+        <script src="./profile/profile.controller.js"></script>
+        <script src="./favourites/favourites.controller.js"></script>
+        <script src="./home/article.service.js"></script>
 
-<script src="./add/add.controller.js"></script>
-</body>
+        <script src="./add/add.controller.js"></script>
+    </body>
 
 </html>
