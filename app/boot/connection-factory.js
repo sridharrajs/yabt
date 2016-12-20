@@ -10,17 +10,17 @@ let db = mongoose;
 
 class ConnectionFactory {
 
-    static connect(config) {
-        db.Promise = global.Promise;
-        db.connect(config.mongdbUrl);
-        return new Promise((resolve, reject)=> {
-            db.connection.on('open', () => {
-                resolve('Success');
-            }).on('error', (err) => {
-                reject(err);
-            });
-        });
-    }
+  static connect(config) {
+    db.Promise = global.Promise;
+    db.connect(config.mongdbUrl);
+    return new Promise((resolve, reject)=> {
+      db.connection.on('open', () => {
+        resolve('Success');
+      }).on('error', (err) => {
+        reject(err);
+      });
+    });
+  }
 
 }
 

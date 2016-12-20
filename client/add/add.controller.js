@@ -3,8 +3,8 @@
  */
 
 angular
-    .module('yabt')
-    .controller('AddCtrl', controller);
+  .module('yabt')
+  .controller('AddCtrl', controller);
 
 function controller() {
 

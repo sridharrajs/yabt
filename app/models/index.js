@@ -8,14 +8,14 @@ let requireDir = require('require-dir');
 
 class Models {
 
-    static init() {
-        try {
-            requireDir('./');
-            return Promise.resolve('Success');
-        } catch (ex) {
-            return Promise.reject('Failed');
-        }
+  static init() {
+    try {
+      requireDir('./');
+      return Promise.resolve('Success');
+    } catch (ex) {
+      return Promise.reject('Failed');
     }
+  }
 
 }
 

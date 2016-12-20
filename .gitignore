@@ -12,3 +12,7 @@ npm-debug.log
 dist/
 uploads/
 app/tests/
+
+# emacs
+*~
+*#

@@ -16,7 +16,7 @@ app.use(helmet());
 app.use(compression());
 app.use(bp.json());
 app.use(bp.urlencoded({
-    extended: false
+  extended: false
 }));
 
 let reqHeaderFilter = require('./middleware/request-header');

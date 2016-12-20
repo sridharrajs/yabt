@@ -9,26 +9,26 @@ var read = require('read-art');
 
 class CrawlController {
 
-    static fetchPage(rawURL) {
-        return urlUtils.sanitizeWithPromise(rawURL).then((url)=> {
-            return new Promise((resolve, reject)=> {
-                read(url, (err, art) => {
-                    if (err) {
-                        return reject(err);
-                    }
-                    let host = urlUtils.getHostName(url);
-                    return resolve({
-                        title: art.title,
-                        url: url,
-                        content: art.content,
-                        description: 'description',
-                        host: host,
-                        isVideo: urlUtils.isVideo(host)
-                    });
-                });
-            });
+  static fetchPage(rawURL) {
+    return urlUtils.sanitizeWithPromise(rawURL).then((url)=> {
+      return new Promise((resolve, reject)=> {
+        read(url, (err, art) => {
+          if (err) {
+            return reject(err);
+          }
+          let host = urlUtils.getHostName(url);
+          return resolve({
+            title: art.title,
+            url: url,
+            content: art.content,
+            description: 'description',
+            host: host,
+            isVideo: urlUtils.isVideo(host)
+          });
         });
-    }
+      });
+    });
+  }
 
 }
 

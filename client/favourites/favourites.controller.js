@@ -3,13 +3,13 @@
  */
 
 angular.module('yabt')
-    .controller('FavouritesCtrl', controller);
+  .controller('FavouritesCtrl', controller);
 
 function controller(init) {
 
-    let self = this;
+  let self = this;
 
-    self.pageNo = init.pageNo;
-    self.articles = _.union([], init.articles);
+  self.pageNo = init.pageNo;
+  self.articles = _.union([], init.articles);
 
 }
