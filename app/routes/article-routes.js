@@ -17,12 +17,6 @@ function addArticle(req, res) {
   let userId = req.uid;
   let body = qs.parse(req.body);
   let url = body.url;
-  let notes = '';
-
-  if (!body.notes) {
-    notes = body.notes;
-  }
-
   if (!url) {
     return res.status(400).send({
       msg: 'Invalid url'
@@ -31,7 +25,6 @@ function addArticle(req, res) {
 
   crawlController.fetchPage(url).then((article)=> {
     article.userId = userId;
-    article.notes = notes;
     return articleController.add(article);
   }).then((newArticle)=> {
     return res.status(200).send({

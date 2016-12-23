@@ -17,7 +17,6 @@ class ArticleController {
       title: article.title,
       description: article.description,
       host: article.host,
-      notes: article.notes,
       is_video: article.isVideo,
       content:article.content
     });

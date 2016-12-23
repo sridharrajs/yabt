@@ -16,7 +16,7 @@ let schema = new Schema({
     type: Boolean,
     default: true
   },
-  userId: {
+  user_id: {
     type: String,
     required: true
   },
@@ -25,10 +25,6 @@ let schema = new Schema({
     required: false
   },
   host: {
-    type: String,
-    required: false
-  },
-  notes: {
     type: String,
     required: false
   },
@@ -48,25 +44,19 @@ let schema = new Schema({
     type: Boolean,
     default: false
   },
-  time_added: {
+  created_at: {
     type: Date,
     default: Date.now
   },
-  channel: {
-    type: String,
-    required: false,
-    default: 'web'
-  },
-  content: {
-    type: String,
-    required: false
-  },
-  tags: [String]
+  updated_at: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 //Adding composite index
 schema.index({
-  userId: 1,
+  user_id: 1,
   url: 1
 }, {
   unique: true
@@ -107,9 +97,7 @@ function getPublicAttributes() {
     time_added: 1,
     is_video: 1,
     active: 1,
-    host: 1,
-    notes: 1,
-    channel: 1
+    host: 1
   };
 }
 
