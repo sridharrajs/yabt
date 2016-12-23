@@ -26,8 +26,10 @@ YABT(Yet another bookmarking tool) is a free, minimalistic, open sourced bookmar
 5. Start the server  
 	```npm start```
 	
-If you're a developer, check the [installation wiki](https://github.com/sridharrajs/yabt/wiki/How-to-set-your-local-environment-for-development) for the details on how to set your local environment for the development
-
+If you're a developer, check the [installation wiki](https://github.com/sridharrajs/yabt/wiki/How-to-set-your-local-environment-for-development) for the details on how to set your local environment for the development.
+	
+If you want to try the stable branch, head over to [tags](https://github.com/sridharrajs/yabt/tags)  
+	
 ## License
 
 YABT is a free software released under [GPL V2](http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
