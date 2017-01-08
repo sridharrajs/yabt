@@ -1,0 +1,7 @@
+{
+  "default_url": "https://en.wikipedia.org",
+  "port": 7000,
+  "mongodb_url": "mongodb://127.0.0.1:27017/yabt_v1",
+  "secure": false,
+  "crawlerFreq": "*/15 * * * * *"
+}
