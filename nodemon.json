@@ -1,7 +1,10 @@
 {
-	"verbose": false,
-	"ignore": [
-		"dist/*",
-		"client/*"
-	]
+  "verbose": true,
+  "ignore": [
+    "public/*",
+    "client/*",
+    "dist/*"
+  ],
+  "delay": "3000",
+  "ext": "js json"
 }
