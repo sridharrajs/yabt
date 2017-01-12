@@ -34,7 +34,7 @@ gulp.task('eslint', () => {
 });
 
 gulp.task('lints', (callback)=> {
-  runSequence('jshint', 'eslint', 'jscs', callback);
+  runSequence('jshint', 'eslint', callback);
 });
 
 gulp.task('serve', ()=> {

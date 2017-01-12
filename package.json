@@ -22,11 +22,8 @@
   },
   "homepage": "https://github.com/sridharrajs/yabt#readme",
   "devDependencies": {
-    "mocha": "^2.3.4",
     "node-inspector": "^0.12.8",
-    "nodemon": "^1.10.2",
-    "npm": "^3.7.1",
-    "should": "^8.0.2"
+    "nodemon": "^1.10.2"
   },
   "dependencies": {
     "allow-options": "0.0.3",
@@ -45,7 +42,7 @@
     "connect": "^3.4.0",
     "cors": "^2.7.1",
     "cron": "^1.1.0",
-    "eslint": "^3.13.0",
+    "eslint": "^3.13.1",
     "express": "^4.13.3",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
