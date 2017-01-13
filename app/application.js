@@ -34,7 +34,4 @@ userRoutes(app);
 let articleRoutes = require('./routes/article-routes');
 articleRoutes(app);
 
-let batchRoutes = require('./routes/batch-routes');
-batchRoutes(app);
-
 module.exports = app;
