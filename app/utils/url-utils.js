@@ -14,7 +14,7 @@ const QUERY_URL_DOMAINS = [
   'folklore.org'
 ];
 
-const URL_SHORTERNS = [
+const SHORT_URL_SERVICES = [
   'bit.ly',
   'buff.ly',
   't.co'
@@ -45,7 +45,7 @@ class UrlUtils {
   static sanitizeWithPromise(rawURL) {
     let hostName = this.getHostName(rawURL);
 
-    let isShortLink = _.includes(URL_SHORTERNS, hostName);
+    let isShortLink = _.includes(SHORT_URL_SERVICES, hostName);
     if (!isShortLink) {
       return Promise.resolve(this.trimQueryParameter(rawURL));
     }

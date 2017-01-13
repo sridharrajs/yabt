@@ -1,13 +1,13 @@
 (function () {
   'use strict';
 
-  let envirorment = {
+  let environment = {
     'local': {
       serverURL: 'http://localhost:7000/api/'
     }
   };
 
-  let selectedEnv = envirorment['local'];
+  let selectedEnv = environment['local'];
   let selectedServerURL = selectedEnv.serverURL;
 
   angular.module('yabt', [
@@ -25,12 +25,9 @@
       warning: 3000,
       info: 3000
     });
-  })
-    .config(configuration)
-    .constant({
-      SERVER_URL: selectedServerURL
-    })
-    .run(initApp);
+  }).config(configuration).constant({
+    SERVER_URL: selectedServerURL
+  }).run(initApp);
 
   function configuration($stateProvider, $urlRouterProvider, $httpProvider) {
     let AUTH_FDLR = 'auth/view/';
@@ -113,10 +110,10 @@
 
   function init(Article) {
     return Article.getArticles().then((response) => {
-      let initData = {};
-      initData.pageNo = response.data.data.pageNo;
-      initData.articles = response.data.data.articles;
-      return initData;
+      return {
+        pageNo: response.data.data.pageNo,
+        articles: response.data.data.articles
+      };
     }).catch((err)=> {
       console.log('error', err.stack);
     });
@@ -126,10 +123,10 @@
     return Article.getArticles({
       fetchArchive: true
     }).then((response) => {
-      let initData = {};
-      initData.pageNo = response.data.data.pageNo;
-      initData.articles = response.data.data.articles;
-      return initData;
+      return {
+        pageNo: response.data.data.pageNo,
+        articles: response.data.data.articles
+      };
     });
   }
 
@@ -191,7 +188,5 @@
     });
 
   }
-
-
 
 }());
