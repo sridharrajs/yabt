@@ -43,5 +43,4 @@ try {
   }, null, true, 'UTC');
 } catch (err) {
   console.log('err', err.stack);
-
 }

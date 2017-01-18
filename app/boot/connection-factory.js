@@ -8,10 +8,11 @@ let mongoose = require('mongoose');
 
 let db = mongoose;
 
+db.Promise = global.Promise;
+
 class ConnectionFactory {
 
   static connect(config) {
-    db.Promise = global.Promise;
     db.connect(config.mongdbUrl);
     return new Promise((resolve, reject)=> {
       db.connection.on('open', () => {

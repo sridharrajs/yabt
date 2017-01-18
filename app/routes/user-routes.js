@@ -31,7 +31,7 @@ function login(req, res) {
     });
   }
 
-  userController.getUserByCredentials(email).then((user)=> {
+  userController.getUserByEmail(email).then((user)=> {
     if (!user) {
       return Promise.reject({
         msg: 'Invalid user email/password'

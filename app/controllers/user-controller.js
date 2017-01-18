@@ -25,17 +25,7 @@ class UserController {
     });
   }
 
-  static updateToken(userId, token) {
-    return User.findOneAndUpdate({
-      _id: userId
-    }, {
-      token
-    }, {
-      upsert: false
-    }).exec();
-  }
-
-  static getUserByCredentials(email) {
+  static getUserByEmail(email) {
     return User.findOne({
       email: email
     }).exec();
@@ -56,6 +46,7 @@ class UserController {
     let update = {
       user_name: user.user_name
     };
+
     if (user.password) {
       update.password = user.password;
     }
@@ -64,7 +55,7 @@ class UserController {
       _id: user.userId
     }, update, {
       upsert: false,
-      'new': true
+      new: true
     }).exec();
   }
 
@@ -75,7 +66,7 @@ class UserController {
       updated_at: Date.now()
     }, {
       upsert: false,
-      'new': true
+      new: true
     }).exec();
   }
 
