@@ -70,11 +70,17 @@ function getArticles(req, res) {
     delete item.is_archived;
   }
 
-  articleController.getArticles(item).then((articles)=> {
+  Promise.all([
+    articleController.getArticles(item),
+    articleController.getActiveCount(userId)
+  ]).then((results)=> {
+    let count = results[0];
+    let articles = results[1];
     return res.status(200).send({
       data: {
         articles: articles,
-        pageNo: ++pageNo
+        pageNo: ++pageNo,
+        count: count
       }
     });
   }).catch((err) => {

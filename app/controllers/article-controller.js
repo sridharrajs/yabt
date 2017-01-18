@@ -13,7 +13,7 @@ class ArticleController {
   static add(article) {
     let item = new Article({
       url: article.url,
-      userId: article.userId,
+      user_id: article.userId,
       title: article.title,
       description: article.description,
       host: article.host,
@@ -52,8 +52,8 @@ class ArticleController {
 
   static getActiveCount(userId) {
     return Article.count({
-      userId: userId,
-      active: true,
+      user_id: userId,
+      is_active: true,
       is_archived: false
     }).exec();
   }
@@ -84,7 +84,7 @@ class ArticleController {
 
   static deleteAll(userId) {
     return Article.update({
-      userId: userId
+      user_id: userId
     }, {
       is_fav: false
     }, {

@@ -12,7 +12,7 @@ let schema = new Schema({
     type: String,
     required: true
   },
-  active: {
+  is_active: {
     type: Boolean,
     default: true
   },
