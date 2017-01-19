@@ -1,45 +1,10 @@
 <div class="row">
-	<div class="alert msg {{settingsCtrl.alertClass}}">
-		<strong>
-			{{settingsCtrl.alertMsg}}
-		</strong>
-	</div>
-	<form class="form-horizontal">
-		<div class="form-group">
-			<label for="upload" class="col-sm-4">
-				import *.html from pocket
-			</label>
-			<div class="col-sm-8">
-				<button id="upload" type="file" ngf-select="settingsCtrl.uploadFiles($file, $invalidFiles)"
-						ngf-max-height="1000" ngf-max-size="1MB" name="file"
-						ladda="settingsCtrl.loading"
-						data-spinner-color="#000000"
-						class="btn btn-default add"
-						data-style="expand-right">
-					Select File
-				</button>
-			</div>
-		</div>
-	</form>
-
-	Note: Please note that this operation may take few minutes to complete.
-	<!--<button ng-click="settingsCtrl.clearArticles()">-->
-	<!--Clear All-->
-	<!--</button>-->
-
-
-	<form class="form-horizontal" style="visibility: hidden">
-		<div class="form-group">
-			<label for="twitterId" class="control-label col-sm-2">Twitter Handle</label>
-			<div class="col-sm-10" id="twitterId">
-				<input type="text" class="form-control">
-			</div>
-		</div>
-		<div class="col-sm-12">
-			<div class="col-sm-2">
-				<button class="col-sm-offset-2 col-sm-10 btn btn-default btn-primary">Import now</button>
-			</div>
-		</div>
-	</form>
-
+  <div class="row">
+    <div class="col-sm-2">Delete all articles</div>
+    <div class="col-sm-10">
+      <button class="btn btn-danger" ng-click="settingsCtrl.clearArticles()">
+        Clear All
+      </button>
+    </div>
+  </div>
 </div>
