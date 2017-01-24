@@ -117,7 +117,7 @@ function updateMe(req, res) {
 }
 
 let lastLoginUpdater = require('../middleware/last-login');
-let authFilter = require('../middleware/auth-filter');
+let authFilter = require('../middleware/validators/authenticator');
 app.put('/me', [authFilter, lastLoginUpdater], updateMe)
   .get('/me', [authFilter, lastLoginUpdater], getMe);
 

@@ -4,16 +4,21 @@
 
 'use strict';
 
+let _ = require('lodash');
+
+let jwtController = require('../../controllers/jwt-controller');
+
 function authenticate(req, res, next) {
   let token = req.headers.authorization;
 
-  if (!token) {
+  let userId = jwtController.decodeForUid(token);
+  if (_.isUndefined(userId)) {
     return res.status(401).send({
       err: 'please login'
     });
   }
 
-  req.uid = token;
+  req.uid = userId;
   next();
 }
 

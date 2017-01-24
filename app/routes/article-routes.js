@@ -161,7 +161,7 @@ app.delete('/:articleId', deleteArticle);
 app.delete('/', deleteAll);
 
 const allowOptions = require('allow-options');
-const authFilter = require('../middleware/auth-filter');
+const authFilter = require('../middleware/validators/authenticator');
 
 module.exports = (indexRoute)=> {
   indexRoute.use('/api/articles', [allowOptions, authFilter], app);

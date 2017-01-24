@@ -6,19 +6,16 @@
 
 let _ = require('lodash');
 
-let jwtController = require('../controllers/jwt-controller');
-
 function authenticate(req, res, next) {
   let token = req.headers.authorization;
 
-  let userId = jwtController.decodeForUid(token);
-  if (_.isUndefined(userId)) {
+  if (_.isEmpty(token)) {
     return res.status(401).send({
       err: 'please login'
     });
   }
 
-  req.uid = userId;
+  req.uid = token;
   next();
 }
 
