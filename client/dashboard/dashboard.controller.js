@@ -2,9 +2,7 @@
  * Created by sridharrajs on 2/16/16.
  */
 
-angular
-  .module('yabt')
-  .controller('DashboardCtrl', DashboardCtrl);
+angular.module('yabt').controller('DashboardCtrl', DashboardCtrl);
 
 function DashboardCtrl(init, $rootScope) {
   let self = this;
@@ -12,7 +10,7 @@ function DashboardCtrl(init, $rootScope) {
   ({pageNo: self.pageNo} = init);
   self.articles = _.union([], init.articles);
 
-  $rootScope.$on('append-new-article', (event, article)=> {
+  $rootScope.$on('append-new-article', (event, article) => {
     self.articles.unshift(article);
   });
 }

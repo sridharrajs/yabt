@@ -1,8 +1,6 @@
 'use strict';
 
-angular
-  .module('yabt')
-  .factory('Article', Article);
+angular.module('yabt').factory('Article', Article);
 
 function Article(SERVER_URL, $http) {
 
@@ -21,7 +19,7 @@ function Article(SERVER_URL, $http) {
         data: data
       });
     },
-    archive: (articleId)=> {
+    archive: (articleId) => {
       return $http({
         method: 'PUT',
         url: `${SERVER_URL}articles/${articleId}`,
@@ -32,19 +30,19 @@ function Article(SERVER_URL, $http) {
         }
       });
     },
-    deleteArticle: (articleId)=> {
+    deleteArticle: (articleId) => {
       return $http({
         method: 'DELETE',
         url: `${SERVER_URL}articles/${articleId}`
       });
     },
-    deleteAll: ()=> {
+    deleteAll: () => {
       return $http({
         method: 'DELETE',
         url: `${SERVER_URL}articles/`
       });
     },
-    favourite: (item)=> {
+    favourite: (item) => {
       return $http({
         method: 'PUT',
         url: `${SERVER_URL}articles/${item.articleId}`,

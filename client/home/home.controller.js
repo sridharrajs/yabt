@@ -25,19 +25,19 @@ function HomeCtrl(Auth, $state, userInfo, $rootScope, Article, growl) {
     $state.go('login');
   }
 
-  $rootScope.$on('fetch-user', (event, body)=> {
+  $rootScope.$on('fetch-user', (event, body) => {
     self.username = body.username;
   });
 
-  $rootScope.$on('logout', ()=> {
+  $rootScope.$on('logout', () => {
     logout();
   });
 
-  $rootScope.$on('addArticle', ()=> {
+  $rootScope.$on('addArticle', () => {
     self.articlesCount++;
   });
 
-  $rootScope.$on('lessArticle', ()=> {
+  $rootScope.$on('lessArticle', () => {
     if (self.activeTab === 'archive') {
       return;
     }

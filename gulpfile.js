@@ -33,8 +33,22 @@ gulp.task('eslint', () => {
     .pipe(eslint.failOnError());
 });
 
+gulp.task('jshint-client', ()=> {
+  return gulp.src(FILES.CLIENT_JS_FILES).pipe(jshint()).pipe(jshint.reporter('default'));
+});
+
+gulp.task('eslint-client', () => {
+  return gulp.src(FILES.CLIENT_JS_FILES).pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError());
+});
+
 gulp.task('lints', (callback)=> {
   runSequence('jshint', 'eslint', callback);
+});
+
+gulp.task('lints-c', (callback) => {
+  runSequence('jshint-client', 'eslint-client', callback);
 });
 
 gulp.task('serve', ()=> {

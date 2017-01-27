@@ -2,12 +2,12 @@
   'use strict';
 
   let environment = {
-    'local': {
+    local: {
       serverURL: 'http://localhost:7000/api/'
     }
   };
 
-  let selectedEnv = environment['local'];
+  let selectedEnv = environment.local;
   let selectedServerURL = selectedEnv.serverURL;
 
   angular.module('yabt', [
@@ -101,7 +101,7 @@
   }
 
   function getMyDetails(User, Auth) {
-    return User.getMe().then((response)=> {
+    return User.getMe().then((response) => {
       return response.data;
     }).catch(()=> {
       Auth.removeToken();

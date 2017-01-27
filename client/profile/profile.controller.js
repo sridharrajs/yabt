@@ -37,7 +37,7 @@ function ProfileCtrl(userInfo, User, $timeout, $rootScope) {
       self.alertClass = 'show alert-success';
       clearMsg();
       let reloadReq = response.data.data.reloadReq;
-      $timeout(()=> {
+      $timeout(() => {
         if (reloadReq) {
           $rootScope.$broadcast('logout');
         }
@@ -45,7 +45,7 @@ function ProfileCtrl(userInfo, User, $timeout, $rootScope) {
           username: self.username
         });
       }, 2000);
-    }).catch((response)=> {
+    }).catch((response) => {
       self.loading = false;
       console.log('response', response.data.msg);
       self.alertMsg = 'Failed :(';
@@ -55,7 +55,7 @@ function ProfileCtrl(userInfo, User, $timeout, $rootScope) {
   }
 
   function clearMsg() {
-    $timeout(()=> {
+    $timeout(() => {
       self.alertClass = '';
     }, 1000);
   }

@@ -1,8 +1,6 @@
 'use strict';
 
-angular
-  .module('yabt')
-  .controller('AuthCtrl', AuthCtrl);
+angular.module('yabt').controller('AuthCtrl', AuthCtrl);
 
 AuthCtrl.$inject = ['Auth', '$log', '$state'];
 
@@ -30,7 +28,7 @@ function AuthCtrl(Auth, $log, $state) {
       $state.go('home');
     }).catch((response) => {
       self.alertMsg = response.data.msg;
-      self.alertClass = 'show alert-danger'
+      self.alertClass = 'show alert-danger';
     }).finally(() => {
       self.loading = false;
     });
