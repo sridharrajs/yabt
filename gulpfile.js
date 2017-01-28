@@ -23,18 +23,18 @@ gulp.task('compile-js', () => {
   })).pipe(gulp.dest(DIST));
 });
 
-gulp.task('jshint', ()=> {
+gulp.task('jshint-server', ()=> {
   return gulp.src(FILES.SERVER_JS_FILES).pipe(jshint()).pipe(jshint.reporter('default'));
 });
 
-gulp.task('eslint', () => {
+gulp.task('jshint-client', () => {
+  return gulp.src(FILES.CLIENT_JS_FILES).pipe(jshint()).pipe(jshint.reporter('default'));
+});
+
+gulp.task('eslint-server', () => {
   return gulp.src(FILES.SERVER_JS_FILES).pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.failOnError());
-});
-
-gulp.task('jshint-client', ()=> {
-  return gulp.src(FILES.CLIENT_JS_FILES).pipe(jshint()).pipe(jshint.reporter('default'));
 });
 
 gulp.task('eslint-client', () => {
@@ -43,26 +43,30 @@ gulp.task('eslint-client', () => {
     .pipe(eslint.failOnError());
 });
 
-gulp.task('lints', (callback)=> {
-  runSequence('jshint', 'eslint', callback);
+gulp.task('lints-server', (callback) => {
+  runSequence('jshint-server', 'eslint-server', callback);
 });
 
-gulp.task('lints-c', (callback) => {
+gulp.task('lints-client', (callback) => {
   runSequence('jshint-client', 'eslint-client', callback);
 });
 
-gulp.task('serve', ()=> {
+gulp.task('serve', () => {
   gulp.watch(FILES.CLIENT_FILES, ['compile-js', 'copy-html-css']);
 });
 
-gulp.task('copy-html-css', ()=> {
+gulp.task('copy-html-css', () => {
   return gulp.src(FILES.CLIENT_NON_JS_FILES).pipe(gulp.dest(DIST));
 });
 
-gulp.task('install', (callback)=> {
+gulp.task('install', (callback) => {
   runSequence('compile-js', 'copy-html-css', callback);
 });
 
-gulp.task('default', (callback)=> {
+gulp.task('default', (callback) => {
   runSequence('compile-js', 'copy-html-css', callback);
+});
+
+gulp.task('lints', (callback) => {
+    runSequence('lints-client', 'lints-server', callback);
 });

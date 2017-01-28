@@ -1,8 +1,6 @@
 'use strict';
 
-angular
-  .module('yabt')
-  .factory('Auth', Auth);
+angular.module('yabt').factory('Auth', Auth);
 
 Auth.$inject = [
   'SERVER_URL',
