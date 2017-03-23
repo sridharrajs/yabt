@@ -47,7 +47,7 @@ class ArticleController {
   static getArticles(item) {
     return Article.find(item).sort({
       time_added: -1
-    }).exec();
+    }).limit(100).exec();
   }
 
   static getActiveCount(userId) {
