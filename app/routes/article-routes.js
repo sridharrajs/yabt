@@ -14,146 +14,146 @@ let articleController = require('../controllers/article-controller');
 let crawlController = require('../controllers/crawl-controller');
 
 function addArticle(req, res) {
-  let userId = req.uid;
-  let body = qs.parse(req.body);
-  let url = body.url;
-  if (!url) {
-    return res.status(400).send({
-      msg: 'Invalid url'
-    });
-  }
-
-  crawlController.fetchPage(url).then((article)=> {
-    article.userId = userId;
-    return articleController.add(article);
-  }).then((newArticle)=> {
-    return res.status(200).send({
-      msg: 'Success',
-      isNew: true,
-      article: newArticle
-    });
-  }).catch((err) => {
-    if (err.code === 11000) {
-      return res.status(200).send({
-        msg: 'Success',
-        isNew: false
-      });
+    let userId = req.uid;
+    let body = qs.parse(req.body);
+    let url = body.url;
+    if (!url) {
+        return res.status(400).send({
+            msg: 'Invalid url'
+        });
     }
-    return res.status(500).send({
-      msg: err.message
+
+    crawlController.fetchPage(url).then((article)=> {
+        article.userId = userId;
+        return articleController.add(article);
+    }).then((newArticle)=> {
+        return res.status(200).send({
+            msg: 'Success',
+            isNew: true,
+            article: newArticle
+        });
+    }).catch((err) => {
+        if (err.code === 11000) {
+            return res.status(200).send({
+                msg: 'Success',
+                isNew: false
+            });
+        }
+        return res.status(500).send({
+            msg: err.message
+        });
     });
-  });
 }
 
 function getArticles(req, res) {
-  let userId = req.uid;
-  let pageNo = req.query.page;
+    let userId = req.uid;
+    let pageNo = req.query.page;
 
-  let item = { //db columns
-    userId,
-    active: true
-  };
+    let item = { //db columns
+        userId: userId,
+        is_active: true
+    };
 
-  let archive = req.query.fetchArchive;
-  item.is_archived = !_.isUndefined(archive) && archive === 'true';
+    let archive = req.query.fetchArchive;
+    item.is_archived = !_.isUndefined(archive) && archive === 'true';
 
-  let type = req.query.type;
-  if (!_.isUndefined(type)) {
-    if (_.includes(type, 'video')) {
-      item.is_video = true;
+    let type = req.query.type;
+    if (!_.isUndefined(type)) {
+        if (_.includes(type, 'video')) {
+            item.is_video = true;
+        }
     }
-  }
 
-  let isFavourited = req.query.fetchFavourites;
-  if (!_.isUndefined(isFavourited) && isFavourited === 'true') {
-    item.is_fav = true;
-    delete item.is_archived;
-  }
+    let isFavourited = req.query.fetchFavourites;
+    if (!_.isUndefined(isFavourited) && isFavourited === 'true') {
+        item.is_fav = true;
+        delete item.is_archived;
+    }
 
-  Promise.all([
-    articleController.getArticles(item),
-    articleController.getActiveCount(userId)
-  ]).then((results)=> {
-    let count = results[0];
-    let articles = results[1];
-    return res.status(200).send({
-      data: {
-        articles: articles,
-        pageNo: ++pageNo,
-        count: count
-      }
+    Promise.all([
+        articleController.getArticles(item),
+        articleController.getActiveCount(userId)
+    ]).then((results)=> {
+        let articles = results[0];
+        let count = results[1];
+        return res.status(200).send({
+            data: {
+                articles: articles,
+                pageNo: ++pageNo,
+                count: count
+            }
+        });
+    }).catch((err) => {
+        return res.status(500).send({
+            msg: err
+        });
     });
-  }).catch((err) => {
-    return res.status(500).send({
-      msg: err
-    });
-  });
 
 }
 
 function deleteArticle(req, res) {
-  let articleId = req.params.articleId;
-  articleController.deleteArticle(articleId).then(()=> {
-    return res.status(200).send({
-      data: 'Article was deleted'
+    let articleId = req.params.articleId;
+    articleController.deleteArticle(articleId).then(()=> {
+        return res.status(200).send({
+            data: 'Article was deleted'
+        });
+    }).catch((err) => {
+        return res.status(500).send({
+            msg: err
+        });
     });
-  }).catch((err) => {
-    return res.status(500).send({
-      msg: err
-    });
-  });
 }
 
 function deleteAll(req, res) {
-  let userId = req.uid;
-  articleController.deleteAll(userId).then(()=> {
-    res.status(200).send({
-      data: 'success'
+    let userId = req.uid;
+    articleController.deleteAll(userId).then(()=> {
+        res.status(200).send({
+            data: 'success'
+        });
+    }).catch((err) => {
+        return res.status(500).send({
+            msg: err
+        });
     });
-  }).catch((err) => {
-    return res.status(500).send({
-      msg: err
-    });
-  });
 }
 
 function updateArticle(req, res) {
-  let body = qs.parse(req.body);
+    let body = qs.parse(req.body);
 
-  let favourite = body.actions.favourite;
-  let archive = body.actions.archive;
+    let favourite = body.actions.favourite;
+    let archive = body.actions.archive;
 
-  let article = {
-    _id: req.params.articleId,
-    attributes: {}
-  };
+    let article = {
+        _id: req.params.articleId,
+        attributes: {}
+    };
 
-  if (!_.isUndefined(favourite)) {
-    article.attributes.is_fav = favourite;
-  }
-
-  if (!_.isUndefined(archive)) {
-    article.attributes.is_archived = archive;
-  }
-
-  articleController.updateAttributes(article).then((items)=> {
-    let msg = 'Success!';
-    if (_.isEmpty(items)) {
-      msg = 'Nothing was changed';
+    if (!_.isUndefined(favourite)) {
+        article.attributes.is_fav = favourite;
     }
-    res.status(200).send({
-      msg: msg
+
+    if (!_.isUndefined(archive)) {
+        article.attributes.is_archived = archive;
+    }
+
+    articleController.updateAttributes(article).then((items)=> {
+        let msg = 'Success!';
+        if (_.isEmpty(items)) {
+            msg = 'Nothing was changed';
+        }
+        res.status(200).send({
+            msg: msg
+        });
+    }).catch((err) => {
+        console.log('err', err.stack);
+        return res.status(500).send({
+            msg: err
+        });
     });
-  }).catch((err) => {
-    console.log('err', err.stack);
-    return res.status(500).send({
-      msg: err
-    });
-  });
 }
 
 app.post('/', addArticle)
-  .get('/', getArticles);
+    .get('/', getArticles);
 
 app.put('/:articleId', updateArticle);
 
@@ -164,6 +164,6 @@ const allowOptions = require('allow-options');
 const authFilter = require('../middleware/validators/authenticator');
 
 module.exports = (indexRoute)=> {
-  indexRoute.use('/api/articles', [allowOptions, authFilter], app);
+    indexRoute.use('/api/articles', [allowOptions, authFilter], app);
 };
 

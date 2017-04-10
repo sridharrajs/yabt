@@ -28,10 +28,6 @@ let schema = new Schema({
     type: String,
     required: false
   },
-  description: {
-    type: String,
-    required: false
-  },
   is_fav: {
     type: Boolean,
     default: false
