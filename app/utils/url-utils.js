@@ -57,7 +57,7 @@ class UrlUtils {
         }
         resolve(longUrl);
       });
-    }).then((longUrl)=> {
+    }).then((longUrl) => {
       return Promise.resolve(this.trimQueryParameter(longUrl));
     });
   }

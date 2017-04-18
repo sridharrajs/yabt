@@ -22,8 +22,8 @@ function makeGET(rawURL) {
     followAllRedirects: true
   };
 
-  return new Promise((resolve, reject)=> {
-    request(options, (err, response, body)=> {
+  return new Promise((resolve, reject) => {
+    request(options, (err, response, body) => {
       if (err) {
         return reject(err.stack);
       }

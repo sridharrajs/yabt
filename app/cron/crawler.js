@@ -15,7 +15,7 @@ let articleController = require('../controllers/article-controller');
 
 function processSites(batches) {
   async.mapLimit(batches, 5, (batch, callback) => {
-    pageController.fetchPage(batch.url).then((article)=> {
+    pageController.fetchPage(batch.url).then((article) => {
       article.userId = batch.userId;
       callback(null, article);
     }).catch((err) => {
@@ -30,7 +30,7 @@ function processSites(batches) {
 }
 
 function run() {
-  batchController.getRawArticles().then((batches)=> {
+  batchController.getRawArticles().then((batches) => {
     processSites(batches);
   }).catch((err) => {
     console.log('Bulk processing failed', err.stack);

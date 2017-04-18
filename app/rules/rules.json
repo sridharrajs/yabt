@@ -1,20 +1,20 @@
 {
-	"domain": {
-		"twitter.com": "twitter",
-		"joelonsoftware.com": "craftmanship",
-		"codinghorror.com": "craftmanship",
-		"medium.com": "medium",
-		"moz.com": "SEO",
-		"ted.com":"ted",
-		"soundcloud.com": "audio",
-		"youtube.com": "youtube",
-		"paulgraham.com": "startup",
-		"reddit.com": "reddit",
-		"github.com": "github",
-		"codereadability.com": "code",
-		"slashdot.org": "slashdot",
-		"stackoverflow.com": "stackoverflow",
-		"mashable.com": "mashable",
-		"ycombinator.com": "HackerNews"
-	}
+  "domain": {
+    "twitter.com": "twitter",
+    "joelonsoftware.com": "craftmanship",
+    "codinghorror.com": "craftmanship",
+    "medium.com": "medium",
+    "moz.com": "SEO",
+    "ted.com": "ted",
+    "soundcloud.com": "audio",
+    "youtube.com": "youtube",
+    "paulgraham.com": "startup",
+    "reddit.com": "reddit",
+    "github.com": "github",
+    "codereadability.com": "code",
+    "slashdot.org": "slashdot",
+    "stackoverflow.com": "stackoverflow",
+    "mashable.com": "mashable",
+    "ycombinator.com": "HackerNews"
+  }
 }

@@ -14,7 +14,7 @@ class ConnectionFactory {
 
   static connect(config) {
     db.connect(config.mongdbUrl);
-    return new Promise((resolve, reject)=> {
+    return new Promise((resolve, reject) => {
       db.connection.on('open', () => {
         resolve('Success');
       }).on('error', (err) => {

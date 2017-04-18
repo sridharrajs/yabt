@@ -12,12 +12,12 @@ class PageController {
 
   static fetchPage(rawURL) {
     let url = '';
-    return urlUtils.sanitizeWithPromise(rawURL).then((readableURL)=> {
+    return urlUtils.sanitizeWithPromise(rawURL).then((readableURL) => {
       url = readableURL;
       return networkUtils.makeGET(readableURL);
-    }).then((html)=> {
+    }).then((html) => {
       return pageUtil.parse(html);
-    }).then((article)=> {
+    }).then((article) => {
       article.url = url;
       let host = urlUtils.getHostName(url);
       article.host = host;

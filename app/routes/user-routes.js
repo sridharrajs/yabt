@@ -31,20 +31,20 @@ function login(req, res) {
     });
   }
 
-  userController.getUserByEmail(email).then((user)=> {
+  userController.getUserByEmail(email).then((user) => {
     if (!user) {
       return Promise.reject({
         msg: 'Invalid user email/password'
       });
     }
     let saltedPwd = user.password;
-    return bcrypt.compare(password, saltedPwd).then(()=> {
+    return bcrypt.compare(password, saltedPwd).then(() => {
       return Promise.resolve({
         id: user._id,
         profile_url: user.profile_url
       });
     });
-  }).then((user)=> {
+  }).then((user) => {
     res.status(200).send({
       token: jwtController.generateToken(user.id),
       profile_url: user.profile_url
@@ -68,7 +68,7 @@ function getMe(req, res) {
   Promise.all([
     articleController.getActiveCount(userId),
     userController.getById(userId)
-  ]).then((results)=> {
+  ]).then((results) => {
     let user = results[1];
     res.status(200).send({
       me: user,
@@ -103,7 +103,7 @@ function updateMe(req, res) {
     });
   }
 
-  userController.updateByUserId(user).then(()=> {
+  userController.updateByUserId(user).then(() => {
     res.status(200).send({
       data: {
         reloadReq: reloadReq
@@ -125,6 +125,6 @@ app.post('/login', login);
 
 const allowOptions = require('allow-options');
 
-module.exports = (indexRoute)=> {
+module.exports = (indexRoute) => {
   indexRoute.use('/api/users', [allowOptions], app);
 };

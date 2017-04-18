@@ -8,7 +8,7 @@ let userController = require('../controllers/user-controller');
 
 function update(req, res, next) {
   let userId = req.uid;
-  userController.updateLastSeen(userId).then(()=> {
+  userController.updateLastSeen(userId).then(() => {
     next();
   });
 }
