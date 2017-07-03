@@ -29,6 +29,15 @@ YABT(Yet another bookmarking tool) is a free, minimalistic, open sourced bookmar
 If you're a developer, check the [installation wiki](https://github.com/sridharrajs/yabt/wiki/How-to-set-your-local-environment-for-development) for the details on how to set your local environment for the development.
 	
 If you want to try the stable branch, head over to [tags](https://github.com/sridharrajs/yabt/tags)  
+
+## Clients
+
+There are few clients build for adding links to the application.
+
+* An alpha version of iPhone app is available at [yabt-iphone-app](https://github.com/sridharrajs/yabt-iphone-app) repo. 
+* An alpha version of Firefox add on is avaiable at [yabt-firefox-ext](https://github.com/sridharrajs/yabt-firefox-ext) repo.
+
+Contributions are welcome.
 	
 ## License
 
